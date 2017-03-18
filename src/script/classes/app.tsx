@@ -19,7 +19,29 @@ export class App{
 
 
         ReactDOM.render(
-            <p>TodoTableApp</p>,
+            <div>
+
+                <h1>TodoTableApp</h1>
+
+
+                <ul>
+                    <li>Todo1</li>
+                    <li>Todo2</li>
+                    <li>Todo3</li>
+                    <li>Todo4</li>
+                </ul>
+
+
+                <div>
+                    <input type="text" />
+                    <button>Create</button>
+                </div>
+
+
+
+
+
+            </div>,
             this._container
         );
 
