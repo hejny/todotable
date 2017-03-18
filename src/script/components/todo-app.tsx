@@ -7,7 +7,7 @@ import {TodoCreate} from "./todo-create";
 export function TodoApp(props:{state:{todos:string[]}}){
 
 
-    const {todos} = props.state;
+    const {state,dispatch} = props;
 
 
     return(
@@ -15,8 +15,8 @@ export function TodoApp(props:{state:{todos:string[]}}){
 
             <h1>TodoTableApp</h1>
 
-            <TodosList todos={todos}/>
-            <TodoCreate/>
+            <TodosList todos={state.todos}/>
+            <TodoCreate dispatch={dispatch}/>
 
         </div>
     );

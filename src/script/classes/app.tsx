@@ -33,9 +33,9 @@ export class App{
 
 
 
-        setInterval(()=>{
+        /*setInterval(()=>{
             this._store.dispatch({type:'ADD_TODO',todo:'Do not procrastinate!'});
-        },1000);
+        },1000);*/
 
 
         this.render();
@@ -50,7 +50,7 @@ export class App{
 
 
         ReactDOM.render(
-            <TodoApp state={state}/>,
+            <TodoApp state={state} dispatch={this._store.dispatch.bind(this._store)}/>,
             this._container
         );
 
