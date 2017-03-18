@@ -57,7 +57,7 @@ gulp.task('browser-sync-build-js', ['build-js'], function (done) {
 gulp.task('build-css', function() {
     return gulp.src("./src/style/index.scss")
         .pipe(sass())
-        .pipe(rename("./todoapp.css"))
+        .pipe(rename("./todotable.css"))
         .pipe(gulp.dest("./dist"))
         .pipe(browserSync.stream());
 });

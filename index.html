@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Todo App</title>
+
+
+    <link rel="stylesheet" href="dist/todotable.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
 </head>
 <body>
 
 
 
-<!-- Dependencies -->
-<script src="./node_modules/react/dist/react.js"></script>
-<script src="./node_modules/react-dom/dist/react-dom.js"></script>
+    <!-- Dependencies -->
+    <script src="./node_modules/react/dist/react.js"></script>
+    <script src="./node_modules/react-dom/dist/react-dom.js"></script>
 
 
 
-<!-- Main -->
-<script src="./dist/todotable.js"></script>
+    <!-- Main -->
+    <script src="./dist/todotable.js"></script>
 
 
 
-<!-- Create app -->
-<div id="app"></div>
-<script>
+    <!-- Create app -->
+    <div id="app"></div>
+    <script>
 
+            var app = new TodoTable.App(document.getElementById('app'));
 
-        var app = new TodoTable.App(document.getElementById('app'));
-
-
-</script>
-
-
-
+    </script>
 
 
 
