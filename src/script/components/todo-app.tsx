@@ -4,7 +4,10 @@ import {TodoCreate} from "./todo-create";
 
 
 
-export function TodoApp(){
+export function TodoApp(props:{state:{todos:string[]}}){
+
+
+    const {todos} = props.state;
 
 
     return(
@@ -12,7 +15,7 @@ export function TodoApp(){
 
             <h1>TodoTableApp</h1>
 
-            <TodosList todos={['Todo1','Todo2','Todo3','Todo4','Todo5']}/>
+            <TodosList todos={todos}/>
             <TodoCreate/>
 
         </div>
