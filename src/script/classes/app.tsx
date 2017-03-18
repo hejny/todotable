@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {App} from "../components/app";
+import {TodoApp} from "../components/todo-app";
 
 
 
@@ -19,14 +19,12 @@ export class App{
 
 
         ReactDOM.render(
-            <App/>,
+            <TodoApp/>,
             this._container
         );
 
 
     }
-
-
 
 
 }

@@ -4,7 +4,7 @@ import {TodoCreate} from "./todo-create";
 
 
 
-export function App(){
+export function TodoApp(){
 
 
     return(
@@ -12,7 +12,7 @@ export function App(){
 
             <h1>TodoTableApp</h1>
 
-            <TodosList/>
+            <TodosList todos={['Todo1','Todo2','Todo3','Todo4','Todo5']}/>
             <TodoCreate/>
 
         </div>

@@ -3,17 +3,13 @@ import {TodoItem} from "./todo-item";
 
 
 
-export function TodosList(){
+export function TodosList(props){
 
+    const {todos} = props;
 
     return(
         <ul>
-            <TodoItem name="Todo1"/>
-            <TodoItem name="Todo2"/>
-            <TodoItem name="Todo3"/>
-            <TodoItem name="Todo4"/>
-
-
+            {todos.map((todo,index)=><TodoItem key={index} name={todo}/>)}
         </ul>
     );
 

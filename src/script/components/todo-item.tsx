@@ -4,7 +4,7 @@ import * as React from "react";
 
 export function TodoItem(props){
 
-    let {name} = props;
+    const {name} = props;
 
     return(
         <li>{name}</li>
