@@ -33,7 +33,8 @@ gulp.task('browser-sync', function() {
 
 
 
-    gulp.watch("./src/script/**/*.ts?", ['browser-sync-build-js']);
+    gulp.watch("./src/script/**/*.ts", ['browser-sync-build-js']);
+    gulp.watch("./src/script/**/*.tsx", ['browser-sync-build-js']);
     gulp.watch("./src/style/**/*.scss", ['build-css']);
 
     gulp.watch("./*.html").on('change', browserSync.reload);
