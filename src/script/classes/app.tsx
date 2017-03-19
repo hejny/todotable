@@ -12,6 +12,7 @@ import {todoAppReducer} from "../reducers/todo-app-reducer";
 
 import * as _ from "lodash";
 import { loadState,saveState } from '../functions/local-storage'
+import { createHistoryReducer } from '../functions/create-history-reducer'
 
 
 
@@ -40,10 +41,9 @@ export class App{
 
 
         this._store = createStore(
-            todoAppReducer
+            createHistoryReducer(todoAppReducer)
             ,Immutable.fromJS(persistedState)
         );
-
 
 
 
@@ -58,6 +58,12 @@ export class App{
             saveState(currentState);
 
         },200));
+
+
+        window.onpopstate = (event) => {
+            this._store.dispatch({type:'CHANGE_STATE',state: Immutable.fromJS(event.state)});
+        };
+
 
 
 

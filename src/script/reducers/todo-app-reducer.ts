@@ -9,6 +9,11 @@ export function todoAppReducer(state,action){
     switch (action.type) {
 
 
+        case 'CHANGE_STATE':
+
+            return action.state;
+
+
         case 'CHANGE_CURRENT_TODO_NAME':
 
             return state.setIn(['current_todo','name'], action.todo );
