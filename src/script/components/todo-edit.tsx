@@ -2,6 +2,15 @@ import * as React from "react";
 
 import {ColorPicker} from "./color-picker";
 
+import * as ReactMarkdown from "react-markdown";
+
+
+
+import brace from 'brace';
+import AceEditor from 'react-ace';
+import 'brace/mode/markdown';
+import 'brace/theme/chrome';
+
 
 
 export function TodoEdit(props) {
@@ -68,6 +77,31 @@ export function TodoEdit(props) {
                 value={state.todos[state.current_todo_id].color}
                 onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:value})}
             />
+
+
+            <AceEditor
+                mode="markdown"
+                theme="chrome"
+                value={'# This is a header\n\nAnd this is a paragraph'}
+                onChange={()=>{}}
+                name="UNIQUE_ID_OF_DIV"
+
+
+                showGutter={true}
+                wrapEnabled={true}
+                fontSize="1rem"
+                width="100%"
+
+
+            />
+
+
+
+
+           <ReactMarkdown
+               source={'# This is a header\n\nAnd this is a paragraph'}
+
+           />
 
 
 

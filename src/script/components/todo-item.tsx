@@ -3,8 +3,6 @@ import * as Draggable from "react-draggable";
 
 
 
-
-
 export function TodoItem(props) {
 
     const {todo, id, state , dispatch} = props;

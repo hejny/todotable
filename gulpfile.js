@@ -82,7 +82,7 @@ gulp.task('build-js', function() {
             devtool: "source-map",
 
             resolve: {
-                extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+                extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", '.json', 'index.json']
             },
 
             module: {
@@ -90,12 +90,13 @@ gulp.task('build-js', function() {
                     {
                         test: /\.ts(x?)$/,
                         loader: 'ts-loader'
-                    }
+                    },
+                    { test: /\.json$/, loader: "json-loader" }
                 ],
 
 
                 preLoaders: [
-                    { test: /\.js$/, loader: "source-map-loader" }
+                    { test: /\.js$/, loader: "source-map-loader" },
                 ]
             },
 

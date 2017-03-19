@@ -8,14 +8,14 @@
     "hover.css": "^2.0.2",
     "immutable": "^3.8.1",
     "lodash": "^4.17.4",
-    "moment": "^2.16.0",
     "react": "^15.4.2",
+    "react-ace": "^4.1.6",
     "react-dom": "^15.4.2",
     "react-draggable": "^2.2.3",
     "react-fontawesome": "^1.5.0",
+    "react-markdown": "^2.4.6",
     "redux": "^3.6.0",
-    "ts-promise": "^0.3.4",
-    "uuid": "^3.0.1"
+    "ts-promise": "^0.3.4"
   },
   "devDependencies": {
     "@types/node": "^7.0.5",
@@ -27,6 +27,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-typescript": "^3.1.5",
     "gulp-webpack": "^1.5.0",
+    "json-loader": "^0.5.4",
     "redux-devtools": "^3.3.2",
     "source-map-loader": "^0.1.6",
     "ts-loader": "^2.0.0",

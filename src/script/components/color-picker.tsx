@@ -22,7 +22,8 @@ export function ColorPicker(props) {
                             border: value===color?'2px solid black':'none',
                         }}
 
-                        onClick={onChange.bind(this,color)}
+                            key={color}
+                            onClick={onChange.bind(this,color)}
                         >
 
                         </div>
