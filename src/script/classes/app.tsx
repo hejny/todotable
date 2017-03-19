@@ -23,7 +23,10 @@ export class App{
         const defaultState = Immutable.fromJS({
 
             current_todo: {name:'Do not procrastinate!',done:false},
-            todos: [{name:'todo',done:true}]
+            todos:
+            {
+                'uuid':{name:'todo',done:true}
+            }
 
         });
 

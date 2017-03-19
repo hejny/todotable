@@ -9,7 +9,7 @@ export function TodosList(props){
 
     return(
         <ul>
-            {state.todos.map((todo,index)=><TodoItem key={index} todo={todo}/>)}
+            {Object.keys(state.todos).map((todoKey)=><TodoItem key={todoKey} todo={state.todos[todoKey]}/>)}
         </ul>
     );
 

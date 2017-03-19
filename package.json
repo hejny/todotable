@@ -4,6 +4,7 @@
     "@types/lodash": "^4.14.54",
     "@types/react": "^15.0.11",
     "@types/react-dom": "^0.14.23",
+    "angular2-uuid": "^1.1.1",
     "hover.css": "^2.0.2",
     "immutable": "^3.8.1",
     "lodash": "^4.17.4",
@@ -13,7 +14,8 @@
     "react-draggable": "^2.2.3",
     "react-fontawesome": "^1.5.0",
     "redux": "^3.6.0",
-    "ts-promise": "^0.3.4"
+    "ts-promise": "^0.3.4",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "^7.0.5",
