@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import {ColorPicker} from "./color-picker";
+
 
 
 export function TodoEdit(props) {
@@ -61,15 +63,16 @@ export function TodoEdit(props) {
 
             />
 
+            <ColorPicker
 
-            <input
-                type="color"
                 value={state.todos[state.current_todo_id].color}
-                onChange={(event)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:event.target.value})}
-
-
-
+                onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:value})}
             />
+
+
+
+
+
             <button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}>Ok</button>
             <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}>Delete</button>
             <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}>Finished</button>
