@@ -17,7 +17,17 @@ export function todoAppReducer(state,action){
 
         case 'CREATE_NEW_TODO':
 
-            return state.setIn(['todos',UUID.UUID()], Immutable.fromJS(action.todo) );
+
+            const newTodoId = UUID.UUID();
+
+            const newState = todoAppReducer(
+
+                state.setIn(['todos',newTodoId], Immutable.fromJS(action.todo) ),
+                {type:'CHANGE_CURRENT_TODO',todo_id:newTodoId}
+
+            );
+
+            return newState;
 
 
         case 'CHANGE_CURRENT_TODO':

@@ -33,6 +33,8 @@ export function TodosList(props) {
                 event.stopPropagation();
                 event.preventDefault();
 
+
+
                 if(moved){
 
                     dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x,y:-object.y}});
