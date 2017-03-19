@@ -50,7 +50,13 @@ export function TodoEdit(props) {
 
             />
             <button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}>Ok</button>
+            <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}>Delete</button>
+            <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}>Finished</button>
+
+
+
         </div>
     );
+
 
 }

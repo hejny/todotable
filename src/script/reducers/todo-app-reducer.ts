@@ -30,6 +30,11 @@ export function todoAppReducer(state,action){
 
             return state.set('current_todo_id', null );
 
+        case 'DELETE_CURRENT_TODO':
+
+
+            const path = ['todos',state.get('current_todo_id')];
+            return state.deleteIn(path).set('current_todo_id', null );
 
 
         case 'CHANGE_CURRENT_TODO_NAME':
@@ -38,10 +43,10 @@ export function todoAppReducer(state,action){
             return state.setIn(path, action.todo_name );
 
 
-        case 'TOGGLE_TODO_DONE':
+        case 'TOGGLE_CURRENT_TODO_DONE':
 
-            const path = ['todos',action.id,'done'];
-            return state.setIn(path, !state.getIn(path));
+            const path = ['todos',state.get('current_todo_id'),'done'];
+            return state.setIn(path, !state.getIn(path) ).set('current_todo_id', null );
 
 
         case 'MOVE_TODO':
