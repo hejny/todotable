@@ -22,8 +22,8 @@ export class App{
 
         const defaultState = Immutable.fromJS({
 
-            current_todo: 'Do not procrastinate!',
-            todos: ['Todo1','Todo2','Todo3','Todo4','Todo5','TodoFromStore']
+            current_todo: {name:'Do not procrastinate!',done:false},
+            todos: [{name:'todo',done:true}]
 
         });
 
@@ -36,10 +36,6 @@ export class App{
 
 
 
-        /*setInterval(()=>{
-            this._store.dispatch({type:'ADD_TODO',todo:'Do not procrastinate!'});
-        },1000);*/
-
 
         this.render();
         this._store.subscribe(this.render.bind(this));
@@ -50,7 +46,7 @@ export class App{
 
 
         const state = this._store.getState().toJS();
-
+        console.log(state);
 
         ReactDOM.render(
             <TodoApp state={state} dispatch={this._store.dispatch.bind(this._store)}/>,

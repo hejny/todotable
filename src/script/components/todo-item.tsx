@@ -4,10 +4,12 @@ import * as React from "react";
 
 export function TodoItem(props){
 
-    const {name} = props;
+    const {todo} = props;
 
     return(
-        <li>{name}</li>
+        <li style={{
+            color: todo.done?'#ccc':'black'
+        }}>{todo.name}</li>
     );
 
 }

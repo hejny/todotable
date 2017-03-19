@@ -17,7 +17,7 @@ export function TodoCreate(props) {
 
     return (
         <div>
-            <input type="text" onChange={(event)=>dispatch({type:'CHANGE_CURRENT_TODO',todo:event.target.value})} value={state.current_todo} onKeyPress={handleKeyPress} />
+            <input type="text" onChange={(event)=>dispatch({type:'CHANGE_CURRENT_TODO_NAME',todo: event.target.value})} value={state.current_todo.name} onKeyPress={handleKeyPress} />
             <button onClick={dispatch.bind(this,{type:'COMMIT_CURRENT_TODO'})}>Create</button>
         </div>
     );
