@@ -5,11 +5,11 @@ import {TodoItem} from "./todo-item";
 
 export function TodosList(props){
 
-    const {state} = props;
+    const {state, dispatch} = props;
 
     return(
         <ul>
-            {Object.keys(state.todos).map((todoKey)=><TodoItem key={todoKey} todo={state.todos[todoKey]}/>)}
+            {Object.keys(state.todos).map((todoKey)=><TodoItem key={todoKey} id={todoKey} todo={state.todos[todoKey]} dispatch={dispatch}/>)}
         </ul>
     );
 

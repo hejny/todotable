@@ -19,9 +19,10 @@ export function todoAppReducer(state,action){
             return state.setIn(['todos',UUID.UUID()], state.get('current_todo') ).setIn(['current_todo','name'],'');
             //return state.update('todos', todos=>todos.push(state.get('current_todo')) ).setIn(['current_todo','name'],'');
 
-        case 'MAKE_TODO_DONE':
+        case 'TOGGLE_TODO_DONE':
 
-            return state.setIn(['todos',action.id,'done'], true);
+            const path = ['todos',action.id,'done'];
+            return state.setIn(path, !state.getIn(path));
 
 
 
