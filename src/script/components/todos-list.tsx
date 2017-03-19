@@ -22,6 +22,7 @@ export function TodosList(props) {
                 event.stopPropagation();
                 event.preventDefault();
                 moved = false;
+
             }}
             onDrag={(event)=>{
                 event.stopPropagation();
@@ -42,24 +43,26 @@ export function TodosList(props) {
 
                 }else{
 
-                    console.log(event);
+                    if(!state.current_todo_id){
+
+                        const position = {
+                            x: state.observer_position.x + event.offsetX - event.target.offsetWidth/2,
+                            y: state.observer_position.y + event.offsetY - event.target.offsetHeight/2,
+                        };
+
+                        const todo = {
+                            name:'Click!',
+                            color: '#ccc',
+                            done:false,
+                            position: position
+                        };
 
 
-                    const position = {
-                        x: state.observer_position.x + event.offsetX - event.target.offsetWidth/2,
-                        y: state.observer_position.y + event.offsetY - event.target.offsetHeight/2,
-                    };
+                        dispatch({type:'CREATE_NEW_TODO',todo: todo});
+                    }else{
+                        dispatch({type:'CLOSE_CURRENT_TODO'});
 
-                    const todo = {
-                        name:'Click!',
-                        done:false,
-                        position: position
-                    };
-
-
-                    dispatch({type:'CREATE_NEW_TODO',todo: todo});
-
-                    //dispatch({type:'TOGGLE_TODO_DONE',id:id});
+                    }
                 }
 
             }}
@@ -70,7 +73,7 @@ export function TodosList(props) {
 
             <ul style={{
 
-            border: '1px solid blue',
+            //border: '1px solid blue',
 
 
             position: 'absolute',
@@ -79,6 +82,9 @@ export function TodosList(props) {
             height: '100%',
             top:0,
             left:0,
+
+            filter: state.current_todo_id?'blur(5px) opacity(30%)':'',
+
 
         }}
 

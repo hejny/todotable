@@ -46,12 +46,33 @@ button, .button, input[type="submit"] {
 #app{
 
   position: relative;
-  top: 50px;
-  left: 50px;
+  //top: 50px;
+  //left: 50px;
 
-  width: 80vw;
-  height: 80vh;
-  border: 1px solid red;
+  width: 100vw;
+  height: 100vh;
+  //border: 1px solid red;
   overflow: hidden;
 
 }
+
+
+
+
+.popup-window{
+
+  position: fixed;
+
+  top:50px;
+  bottom:50px;
+  left:20vw;
+  right:20vw;
+
+  opacity: 0.9;
+  //background-color: green;//rgba(255,255,255,0.5);
+  border-radius: 5px;
+
+
+}
+
+

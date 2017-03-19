@@ -65,7 +65,7 @@ export function TodoItem(props) {
             listStyle: 'none',
             width: 100,
             height: 30,
-            backgroundColor: todo.done?'#0f0':'#00f',
+            backgroundColor: todo.color,
             border: '2px solid #ccc',
             borderRadius: 3,
             color: 'white',
@@ -73,7 +73,8 @@ export function TodoItem(props) {
 
 
         }}
-            >{todo.name}</li>
+            >{todo.done?'[FA-done]':''}{todo.name}</li>
+
         </Draggable>
     );
 

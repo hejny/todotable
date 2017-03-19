@@ -53,6 +53,13 @@ export function todoAppReducer(state,action){
             return state.setIn(path, action.todo_name );
 
 
+        case 'CHANGE_CURRENT_TODO_KEY':
+
+            const path = ['todos',state.get('current_todo_id'),action.key];
+            return state.setIn(path, action.value );
+
+
+
         case 'TOGGLE_CURRENT_TODO_DONE':
 
             const path = ['todos',state.get('current_todo_id'),'done'];

@@ -28,24 +28,45 @@ export function TodoEdit(props) {
     return (
         <div style={{
 
-            border: '1px solid green',
+
+            zIndex: 2,
+            backgroundColor: state.todos[state.current_todo_id].color,
+
+
+
+            /*border: '1px solid green',
 
 
             position: 'absolute',
-            zIndex: 2,
-            width: 100,
-            height: 100,
+
+            width: 200,
+            height: 400,
             top:'50%',
-            left:'50%',
+            left:'50%',*/
 
 
 
-        }}>
+        }}
+
+        className="popup-window"
+        >
+
+
             <input
                 type="text"
                 value={state.todos[state.current_todo_id].name}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
+
+
+            />
+
+
+            <input
+                type="color"
+                value={state.todos[state.current_todo_id].color}
+                onChange={(event)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:event.target.value})}
+
 
 
             />

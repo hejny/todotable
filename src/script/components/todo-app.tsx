@@ -15,7 +15,7 @@ export function TodoApp(props:{state:{todos:string[]}}){
             //overflow:'hidden'
         }}>
 
-            <h1>TodoTableApp</h1>
+            {/*<h1>TodoTableApp</h1>*/}
 
             <TodosList state={state} dispatch={dispatch}/>
             {state.current_todo_id?<TodoEdit state={state} dispatch={dispatch}/>:''}

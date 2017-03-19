@@ -33,7 +33,12 @@ export class App{
 
             todos:
             {
-                'uuid':{name:'todo',done:true,position:{x:0,y:0}}
+                'uuid':{
+                    name:'todo',
+                    color: '#f00',
+                    done:true,
+                    position:{x:0,y:0}
+                }
             }
 
         };
