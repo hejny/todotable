@@ -15,8 +15,8 @@ export function TodoApp(props:{state:{todos:string[]}}){
 
             <h1>TodoTableApp</h1>
 
-            <TodosList todos={state.todos}/>
-            <TodoCreate dispatch={dispatch}/>
+            <TodosList state={state}/>
+            <TodoCreate state={state} dispatch={dispatch}/>
 
         </div>
     );

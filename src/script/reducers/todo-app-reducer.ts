@@ -16,7 +16,7 @@ export function todoAppReducer(state,action){
 
         case 'COMMIT_CURRENT_TODO':
 
-            return state.update('todos', todos=>todos.push(state.get('current_todo')) );
+            return state.update('todos', todos=>todos.push(state.get('current_todo')) ).set('current_todo','');
 
         default:
             return state
