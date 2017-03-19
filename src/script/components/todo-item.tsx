@@ -58,7 +58,7 @@ export function TodoItem(props) {
             <li style={{
             position: 'absolute',
             top: '50%',
-            left: '50%',
+            left: 'calc( 50% - 50px )',
 
 
 
