@@ -45,9 +45,13 @@ button, .button, input[type="submit"] {
 
 #app{
 
+  position: relative;
+  top: 50px;
+  left: 50px;
+
   width: 80vw;
   height: 80vh;
   border: 1px solid red;
-
+  overflow: hidden;
 
 }

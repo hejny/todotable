@@ -5,46 +5,60 @@ import * as Draggable from "react-draggable";
 
 
 
-export function TodoItem(props){
+export function TodoItem(props) {
 
-    const {todo, id, dispatch} = props;
+    const {todo, id, state , dispatch} = props;
 
     let moved;
 
+    const position = {
+        x: todo.position.x + state.list_position.x,
+        y: todo.position.y + state.list_position.y
+    };
 
-    return(
-    <Draggable
 
-        position={todo.position}
+    return (
+        <Draggable
+
+            position={position}
 
 
-        onStart={()=>{
-                    moved = false;
-                }}
-        onDrag={()=>{
-                    moved = true;
-                }}
-        onStop={(event,object) => {
+            onStart={(event)=>{
 
-                        if(moved){
-                            event.preventDefault();
-                            dispatch({type:'MOVE_TODO',id:id,position:{x:object.x,y:object.y}});
-                            //onStop(event,object);
+                event.stopPropagation();
+                event.preventDefault();
+                moved = false;
+            }}
+            onDrag={(event)=>{
+                event.preventDefault();
+                moved = true;
+            }}
+            onStop={(event,object) => {
 
-                        }else{
+                event.stopPropagation();
+                event.preventDefault();
 
-                            dispatch({type:'TOGGLE_TODO_DONE',id:id});
-                        }
+                if(moved){
 
-                    }}
-        className=""
+                    dispatch({type:'MOVE_TODO',id:id,position:{x:object.x - state.list_position.x,y:object.y - state.list_position.y}});
+                    //onStop(event,object);
 
-    >
+                }else{
 
-        <li style={{
+                    dispatch({type:'TOGGLE_TODO_DONE',id:id});
+                }
+
+        }}
+
+
+            className=""
+
+        >
+
+            <li style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
+            top: '50%',
+            left: '50%',
 
 
 
@@ -59,8 +73,8 @@ export function TodoItem(props){
 
 
         }}
-        >{todo.name}</li>
-    </Draggable>
+            >{todo.name}</li>
+        </Draggable>
     );
 
 }

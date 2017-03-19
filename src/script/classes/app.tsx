@@ -27,6 +27,7 @@ export class App{
 
         const defaultState = {
 
+            list_position:{x:0,y:0},
             current_todo: {name:'Do not procrastinate!',done:false,position:{x:0,y:0}},
             todos:
             {

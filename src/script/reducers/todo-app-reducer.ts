@@ -1,3 +1,5 @@
+import * as Immutable from "immutable";
+
 import { UUID } from 'angular2-uuid';
 
 
@@ -33,7 +35,22 @@ export function todoAppReducer(state,action){
         case 'MOVE_TODO':
 
             const path = ['todos',action.id,'position'];
-            return state.setIn(path, action.position);
+            return state.setIn(path, Immutable.fromJS(action.position));
+
+        case 'MOVE_BY_LIST':
+
+
+            const oldPosition = state.get('list_position').toJS();
+            const newPosition = {
+                x: oldPosition.x + action.position.x,
+                y: oldPosition.y + action.position.y
+            };
+
+            //console.log(oldPosition);
+            //console.log(newPosition);
+
+
+            return state.set('list_position', Immutable.fromJS(newPosition));
 
 
 
