@@ -30,6 +30,12 @@ export function todoAppReducer(state,action){
             return state.setIn(path, !state.getIn(path));
 
 
+        case 'MOVE_TODO':
+
+            const path = ['todos',action.id,'position'];
+            return state.setIn(path, action.position);
+
+
 
         default:
             return state

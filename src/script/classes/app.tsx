@@ -27,10 +27,10 @@ export class App{
 
         const defaultState = {
 
-            current_todo: {name:'Do not procrastinate!',done:false},
+            current_todo: {name:'Do not procrastinate!',done:false,position:{x:0,y:0}},
             todos:
             {
-                'uuid':{name:'todo',done:true}
+                'uuid':{name:'todo',done:true,position:{x:0,y:0}}
             }
 
         };

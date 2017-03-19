@@ -1,4 +1,7 @@
 import * as React from "react";
+import * as Draggable from "react-draggable";
+
+
 
 
 
@@ -6,8 +9,45 @@ export function TodoItem(props){
 
     const {todo, id, dispatch} = props;
 
+    let moved;
+
+
     return(
+    <Draggable
+
+        position={todo.position}
+
+
+        onStart={()=>{
+                    moved = false;
+                }}
+        onDrag={()=>{
+                    moved = true;
+                }}
+        onStop={(event,object) => {
+
+                        if(moved){
+                            event.preventDefault();
+                            dispatch({type:'MOVE_TODO',id:id,position:{x:object.x,y:object.y}});
+                            //onStop(event,object);
+
+                        }else{
+
+                            dispatch({type:'TOGGLE_TODO_DONE',id:id});
+                        }
+
+                    }}
+        className=""
+
+    >
+
         <li style={{
+            //position: 'absolute',
+            //top: Math.random()*500,
+            //left: Math.random()*500,
+
+
+
             listStyle: 'none',
             width: 100,
             height: 30,
@@ -19,8 +59,8 @@ export function TodoItem(props){
 
 
         }}
-        onClick={dispatch.bind(dispatch,{type:'TOGGLE_TODO_DONE',id:id})}
         >{todo.name}</li>
+    </Draggable>
     );
 
 }
