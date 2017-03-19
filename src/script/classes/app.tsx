@@ -21,7 +21,10 @@ export class App{
 
 
         const defaultState = Immutable.fromJS({
-          todos: ['Todo1','Todo2','Todo3','Todo4','Todo5','TodoFromStore']
+
+            current_todo: 'Do not procrastinate!',
+            todos: ['Todo1','Todo2','Todo3','Todo4','Todo5','TodoFromStore']
+
         });
 
 

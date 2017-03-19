@@ -8,8 +8,8 @@ export function TodoCreate(props) {
 
     return (
         <div>
-            <input type="text" />
-            <button onClick={()=>dispatch({type:'ADD_TODO',todo:'text'})}>Create</button>
+            <input type="text" onChange={(event)=>dispatch({type:'CHANGE_CURRENT_TODO',todo:event.target.value})} />
+            <button onClick={dispatch.bind(this,{type:'COMMIT_CURRENT_TODO'})}>Create</button>
         </div>
     );
 
