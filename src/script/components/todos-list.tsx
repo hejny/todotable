@@ -35,10 +35,27 @@ export function TodosList(props) {
 
                 if(moved){
 
-                    dispatch({type:'MOVE_BY_LIST',position:{x:object.x,y:object.y}});
+                    dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x,y:-object.y}});
                     //onStop(event,object);
 
                 }else{
+
+                    console.log(event);
+
+
+                    const position = {
+                        x: state.observer_position.x + event.offsetX - event.target.offsetWidth/2,
+                        y: state.observer_position.y + event.offsetY - event.target.offsetHeight/2,
+                    };
+
+                    const todo = {
+                        name:'Click!',
+                        done:false,
+                        position: position
+                    };
+
+
+                    dispatch({type:'CREATE_NEW_TODO',todo: todo});
 
                     //dispatch({type:'TOGGLE_TODO_DONE',id:id});
                 }

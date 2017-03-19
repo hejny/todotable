@@ -19,7 +19,7 @@ export function TodoCreate(props) {
 
 
     const handleChange = (event) => {
-        dispatch({type:'CHANGE_CURRENT_TODO_NAME',todo: event.target.value})
+        dispatch({type:'CHANGE_CURRENT_TODO_NAME',todo_name: event.target.value})
     };
 
 

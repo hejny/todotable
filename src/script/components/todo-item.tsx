@@ -12,8 +12,8 @@ export function TodoItem(props) {
     let moved;
 
     const position = {
-        x: todo.position.x + state.list_position.x,
-        y: todo.position.y + state.list_position.y
+        x: todo.position.x - state.observer_position.x,
+        y: todo.position.y - state.observer_position.y
     };
 
 
@@ -40,7 +40,7 @@ export function TodoItem(props) {
 
                 if(moved){
 
-                    dispatch({type:'MOVE_TODO',id:id,position:{x:object.x - state.list_position.x,y:object.y - state.list_position.y}});
+                    dispatch({type:'MOVE_TODO',id:id,position:{x:object.x + state.observer_position.x,y:object.y + state.observer_position.y}});
                     //onStop(event,object);
 
                 }else{

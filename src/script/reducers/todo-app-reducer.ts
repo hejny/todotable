@@ -15,16 +15,19 @@ export function todoAppReducer(state,action){
 
             return action.state;
 
+        case 'CREATE_NEW_TODO':
+
+            return state.setIn(['todos',UUID.UUID()], Immutable.fromJS(action.todo) );
+
 
         case 'CHANGE_CURRENT_TODO_NAME':
 
-            return state.setIn(['current_todo','name'], action.todo );
+            return state.setIn(['current_todo','name'], action.todo_name );
 
 
         case 'COMMIT_CURRENT_TODO':
 
             return state.setIn(['todos',UUID.UUID()], state.get('current_todo') ).setIn(['current_todo','name'],'');
-            //return state.update('todos', todos=>todos.push(state.get('current_todo')) ).setIn(['current_todo','name'],'');
 
         case 'TOGGLE_TODO_DONE':
 
@@ -37,10 +40,10 @@ export function todoAppReducer(state,action){
             const path = ['todos',action.id,'position'];
             return state.setIn(path, Immutable.fromJS(action.position));
 
-        case 'MOVE_BY_LIST':
+        case 'OBSERVER_MOVE_BY':
 
 
-            const oldPosition = state.get('list_position').toJS();
+            const oldPosition = state.get('observer_position').toJS();
             const newPosition = {
                 x: oldPosition.x + action.position.x,
                 y: oldPosition.y + action.position.y
@@ -50,7 +53,7 @@ export function todoAppReducer(state,action){
             //console.log(newPosition);
 
 
-            return state.set('list_position', Immutable.fromJS(newPosition));
+            return state.set('observer_position', Immutable.fromJS(newPosition));
 
 
 
