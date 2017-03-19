@@ -28,7 +28,9 @@ export class App{
         const defaultState = {
 
             observer_position:{x:0,y:0},
-            current_todo: {name:'Do not procrastinate!',done:false,position:{x:0,y:0}},
+            current_todo_id: null,
+
+
             todos:
             {
                 'uuid':{name:'todo',done:true,position:{x:0,y:0}}

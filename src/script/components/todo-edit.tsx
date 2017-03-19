@@ -2,7 +2,7 @@ import * as React from "react";
 
 
 
-export function TodoCreate(props) {
+export function TodoEdit(props) {
 
 
     const {state, dispatch} = props;
@@ -12,7 +12,7 @@ export function TodoCreate(props) {
     const handleKeyPress = (event) => {
         if(event.key == 'Enter'){
 
-            dispatch({type:'COMMIT_CURRENT_TODO'});
+            dispatch({type:'CLOSE_CURRENT_TODO'});
 
         }
     };
@@ -26,16 +26,30 @@ export function TodoCreate(props) {
 
 
     return (
-        <div>
+        <div style={{
+
+            border: '1px solid green',
+
+
+            position: 'absolute',
+            zIndex: 2,
+            width: 100,
+            height: 100,
+            top:'50%',
+            left:'50%',
+
+
+
+        }}>
             <input
                 type="text"
-                value={state.current_todo.name}
+                value={state.todos[state.current_todo_id].name}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
 
 
             />
-            <button onClick={dispatch.bind(this,{type:'COMMIT_CURRENT_TODO'})}>Create</button>
+            <button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}>Ok</button>
         </div>
     );
 

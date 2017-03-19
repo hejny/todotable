@@ -45,7 +45,7 @@ export function TodoItem(props) {
 
                 }else{
 
-                    dispatch({type:'TOGGLE_TODO_DONE',id:id});
+                    dispatch({type:'CHANGE_CURRENT_TODO',todo_id:id});
                 }
 
         }}

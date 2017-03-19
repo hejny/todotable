@@ -72,6 +72,7 @@ export function TodosList(props) {
 
 
             position: 'absolute',
+            zIndex: 1,
             width: '100%',
             height: '100%',
             top:0,

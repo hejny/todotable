@@ -20,14 +20,23 @@ export function todoAppReducer(state,action){
             return state.setIn(['todos',UUID.UUID()], Immutable.fromJS(action.todo) );
 
 
+        case 'CHANGE_CURRENT_TODO':
+
+
+            return state.set('current_todo_id', action.todo_id );
+
+        case 'CLOSE_CURRENT_TODO':
+
+
+            return state.set('current_todo_id', null );
+
+
+
         case 'CHANGE_CURRENT_TODO_NAME':
 
-            return state.setIn(['current_todo','name'], action.todo_name );
+            const path = ['todos',state.get('current_todo_id'),'name'];
+            return state.setIn(path, action.todo_name );
 
-
-        case 'COMMIT_CURRENT_TODO':
-
-            return state.setIn(['todos',UUID.UUID()], state.get('current_todo') ).setIn(['current_todo','name'],'');
 
         case 'TOGGLE_TODO_DONE':
 
