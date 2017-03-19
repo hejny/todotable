@@ -11,7 +11,9 @@ export function TodoApp(props:{state:{todos:string[]}}){
 
 
     return(
-        <div>
+        <div style={{
+            overflow:'hidden'
+        }}>
 
             <h1>TodoTableApp</h1>
 

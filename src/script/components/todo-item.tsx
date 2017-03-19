@@ -42,9 +42,9 @@ export function TodoItem(props){
     >
 
         <li style={{
-            //position: 'absolute',
-            //top: Math.random()*500,
-            //left: Math.random()*500,
+            position: 'absolute',
+            top: 0,
+            left: 0,
 
 
 
