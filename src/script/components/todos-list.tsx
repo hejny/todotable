@@ -53,6 +53,7 @@ export function TodosList(props) {
 
                     const todo = {
                         name:'Click!',
+                        description: '## todo\n1) \n2) \n3) \n\n',
                         color: '#ccc',
                         done:false,
                         position: position
