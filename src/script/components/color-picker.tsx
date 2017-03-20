@@ -1,25 +1,49 @@
 import * as React from "react";
 
 
+const COLORS = [
+    '#EF2D56',
+    '#732C2C',
+    '#420C14',
+    '#ED7D3A',
+    '#8CD867',
+    '#2FBF71',
+    '#797270',
+    '#453F3C',
+    '#62929E',
+    '#4A6D7C',
+    '#54577C',
+    '#731DD8',
+];
+
+
 export function ColorPicker(props) {
 
     let {onChange, value} = props;
 
     return (
-        <div>
+        <div style={{
+            width:'100%',
+            //perspective: 500,
+            //perspectiveOrigin: 'center center',
+            //boxShadow: 'black 0px 0px 5px';
+
+
+        }}>
             {
-                ['#fff','#f00','#00f'].map(
+                COLORS.map(
                     (color)=>
 
                         <div style={{
 
                             display: 'inline-block',
-                            width: value===color?36:40,
-                            height: value===color?36:40,
+                            width: 100/COLORS.length+'%',
+                            height: 30,
 
-                            backgroundColor: color
+                            backgroundColor: color,
 
-                            border: value===color?'2px solid black':'none',
+                            boxShadow: value===color?'inset 0px 0px 5px black':'none',
+
                         }}
 
                             key={color}

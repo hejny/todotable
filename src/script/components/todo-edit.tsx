@@ -1,15 +1,14 @@
 import * as React from "react";
+import Style from 'style-it';
+
+
 
 import {ColorPicker} from "./color-picker";
-
-import * as ReactMarkdown from "react-markdown";
-
+import {MarkDownEditor} from "./markdown-editor";
 
 
-import brace from 'brace';
-import AceEditor from 'react-ace';
-import 'brace/mode/markdown';
-import 'brace/theme/chrome';
+import * as tinycolor from "tinycolor2";
+
 
 
 
@@ -19,101 +18,96 @@ export function TodoEdit(props) {
     const {state, dispatch} = props;
 
 
-
     const handleKeyPress = (event) => {
-        if(event.key == 'Enter'){
+        if (event.key == 'Enter') {
 
-            dispatch({type:'CLOSE_CURRENT_TODO'});
+            dispatch({type: 'CLOSE_CURRENT_TODO'});
 
         }
     };
 
 
     const handleChange = (event) => {
-        dispatch({type:'CHANGE_CURRENT_TODO_NAME',todo_name: event.target.value})
+        dispatch({type: 'CHANGE_CURRENT_TODO_NAME', todo_name: event.target.value})
     };
 
 
 
 
+    const todoColor = tinycolor(state.todos[state.current_todo_id].color);
+    const textColor = tinycolor((todoColor.getBrightness()>255/2)?'black':'white');
+
+
+
     return (
-        <div style={{
+        <Style>
+
+            {`
+              .popup-window {
+                z-index: 3;
+                background-color: ${todoColor.toHexString()};
+                color: ${textColor.toHexString()};
+
+                box-shadow: black 0px 0px 5px;
+                padding: 10px;
+
+              }
+              .popup-window input:focus {
+                outline: none;
+              }
+
+              .popup-window input::selection {
+                background-color: ${textColor.toHexString()};
+                color: ${todoColor.toHexString()};
+               }
 
 
-            zIndex: 2,
-            backgroundColor: state.todos[state.current_todo_id].color,
+            `}
 
 
+            <div
+                 className="popup-window"
+                 onKeyPress={handleKeyPress}
 
-            /*border: '1px solid green',
-
-
-            position: 'absolute',
-
-            width: 200,
-            height: 400,
-            top:'50%',
-            left:'50%',*/
+            >
 
 
-
-        }}
-
-        className="popup-window"
-        >
-
-
-            <input
-                type="text"
-                value={state.todos[state.current_todo_id].name}
-                onChange={handleChange}
-                onKeyPress={handleKeyPress}
-
-
-            />
-
-            <ColorPicker
-
-                value={state.todos[state.current_todo_id].color}
-                onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:value})}
-            />
+                <input
+                    type="text"
+                    value={state.todos[state.current_todo_id].name}
+                    onChange={handleChange}
+                    style={{
+                  width: '100%',
+                  fontSize: '2rem',
+                  textAlign: 'center',
+                  color: 'inherit',
+                  backgroundColor: 'inherit',
+                  border: 'none',
+                }}
+                />
 
 
-            <AceEditor
-                mode="markdown"
-                theme="chrome"
-                value={'# This is a header\n\nAnd this is a paragraph'}
-                onChange={()=>{}}
-                name="UNIQUE_ID_OF_DIV"
+                <ColorPicker
+
+                    value={state.todos[state.current_todo_id].color}
+                    onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:value})}
+                />
 
 
-                showGutter={true}
-                wrapEnabled={true}
-                fontSize="1rem"
-                width="100%"
+                <MarkDownEditor
+                    value={state.todos[state.current_todo_id].description}
+                    onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'description',value:value})}
+
+                />
 
 
-            />
+                <button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}>Ok</button>
+                <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}>Delete</button>
+                <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}>Finished</button>
 
 
-
-
-           <ReactMarkdown
-               source={'# This is a header\n\nAnd this is a paragraph'}
-
-           />
-
-
-
-
-
-            <button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}>Ok</button>
-            <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}>Delete</button>
-            <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}>Finished</button>
-
-
-
-        </div>
+            </div>
+        </Style>
     );
 
 

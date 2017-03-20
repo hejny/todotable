@@ -35,6 +35,7 @@ export class App{
             {
                 'uuid':{
                     name:'todo',
+                    description:'',
                     color: '#f00',
                     done:true,
                     position:{x:0,y:0}

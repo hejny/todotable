@@ -10,7 +10,7 @@ export const loadState = (initialState) => {
         }
 
 
-        return Object.assign({},initialState, JSON.parse(serializedState));
+        return (<any>Object).assign({},initialState, JSON.parse(serializedState));
 
 
     } catch (err) {

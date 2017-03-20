@@ -7,6 +7,7 @@ var ts = require('gulp-typescript');
 var webpack = require('gulp-webpack');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
+var runSequence = require('run-sequence');
 
 
 gulp.task('default',['build']);
@@ -19,10 +20,18 @@ gulp.task('build', ['build-js','build-css']);
 
 
 
-
-// Static server
 gulp.task('browser-sync', function() {
 
+    runSequence(
+        'browser-sync-init'
+        ,'build-css'
+        ,'browser-sync-build-js'
+        ,'browser-sync-watch');
+
+});
+
+
+gulp.task('browser-sync-init', function (done) {
 
     browserSync.init({
         server: {
@@ -30,19 +39,16 @@ gulp.task('browser-sync', function() {
         },
         open: false
     });
-
-
-
-    gulp.watch("./src/script/**/*.ts", ['browser-sync-build-js']);
-    gulp.watch("./src/script/**/*.tsx", ['browser-sync-build-js']);
-    gulp.watch("./src/style/**/*.scss", ['build-css']);
-
-    gulp.watch("./*.html").on('change', browserSync.reload);
+    done();
 
 });
-
-
-
+gulp.task('browser-sync-watch', function (done) {
+    gulp.watch("./src/script/**/*.ts",  ['browser-sync-build-js']);
+    gulp.watch("./src/script/**/*.tsx", ['browser-sync-build-js']);
+    gulp.watch("./src/style/**/*.scss", ['build-css']);
+    gulp.watch("./*.html").on('change', browserSync.reload);
+    done();
+});
 
 
 gulp.task('browser-sync-build-js', ['build-js'], function (done) {

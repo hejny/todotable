@@ -1,6 +1,9 @@
 import * as React from "react";
 import * as Draggable from "react-draggable";
 
+import * as tinycolor from "tinycolor2";
+
+
 
 
 export function TodoItem(props) {
@@ -63,10 +66,13 @@ export function TodoItem(props) {
             listStyle: 'none',
             width: 100,
             height: 30,
+            lineHeight: '30px',
+            textAlign: 'center',
+
             backgroundColor: todo.color,
-            border: '2px solid #ccc',
+            //border: '2px solid #ccc',
             borderRadius: 3,
-            color: 'white',
+            color: (tinycolor(todo.color).getBrightness()>255/2)?'black':'white',
             cursor: 'Pointer',
 
 
