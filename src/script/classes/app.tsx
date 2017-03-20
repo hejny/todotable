@@ -56,29 +56,30 @@ export class App{
             createHistoryReducer(todoAppReducer)
             ,Immutable.fromJS(persistedState)
         );
+        this._store.subscribe((currentState)=>console.log(currentState));
 
 
 
-        this.render();
-        this._store.subscribe(this.render.bind(this));
 
         this._store.subscribe(_.throttle(() => {
 
             const currentState = this._store.getState()
                 .toJS();
-
-
-            console.log(currentState);
-
             saveState(currentState);
 
         },200));
+
 
 
         window.onpopstate = (event) => {
             this._store.dispatch({type:'CHANGE_STATE',state: Immutable.fromJS(event.state)});
         };
 
+
+
+
+        this.render();
+        this._store.subscribe(this.render.bind(this));
 
 
 

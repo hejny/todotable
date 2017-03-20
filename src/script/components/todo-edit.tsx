@@ -28,7 +28,7 @@ export function TodoEdit(props) {
 
 
     const handleChange = (event) => {
-        dispatch({type: 'CHANGE_CURRENT_TODO_NAME', todo_name: event.target.value})
+        dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key:'name', value: event.target.value})
     };
 
 

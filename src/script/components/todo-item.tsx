@@ -49,16 +49,26 @@ export function TodoItem(props) {
                 event.stopPropagation();
                 event.preventDefault();
 
+
+                dispatch({type:'SELECT_CURRENT_TODO',todo_id:id});
+                dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'name',value:'aaa'});
+
+
+
                 if(moved){
 
 
                     dispatch({type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)});
+                    dispatch({type:'CLOSE_CURRENT_TODO'});
                     //onStop(event,object);
 
                 }else{
 
-                    dispatch({type:'CHANGE_CURRENT_TODO',todo_id:id});
+
                 }
+
+
+
 
         }}
 
@@ -105,12 +115,12 @@ export function TodoItem(props) {
 
                 if (event.key === 'Enter') {
 
-                    dispatch({type: 'CHANGE_CURRENT_TODO', todo_id: id});
+                    dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
 
                 }else
                 if (event.key === 'Delete') {
 
-                    dispatch({type: 'CHANGE_CURRENT_TODO', todo_id: id});
+                    dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
                     dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
 
                 }else{

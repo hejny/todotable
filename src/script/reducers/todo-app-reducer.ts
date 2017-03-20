@@ -8,6 +8,14 @@ export function todoAppReducer(state,action){
     console.log(action.type);
 
 
+    if(action.type.indexOf('CURRENT_TODO')!==-1 && action.type!=='SELECT_CURRENT_TODO'){
+        if(!state.get('current_todo_id')){
+            throw new Error(`To dispatch "${action.type}" you should set current todo. `);
+        }
+    }
+
+
+
     switch (action.type) {
 
 
@@ -21,11 +29,11 @@ export function todoAppReducer(state,action){
 
             return todoAppReducer(
                 state.setIn(['todos', newTodoId], Immutable.fromJS(action.todo)),
-                {type: 'CHANGE_CURRENT_TODO', todo_id: newTodoId}
+                {type: 'SELECT_CURRENT_TODO', todo_id: newTodoId}
             );
 
         }
-        case 'CHANGE_CURRENT_TODO':
+        case 'SELECT_CURRENT_TODO':
 
 
             return state.set('current_todo_id', action.todo_id );
@@ -40,12 +48,6 @@ export function todoAppReducer(state,action){
 
             const statePath = ['todos', state.get('current_todo_id')];
             return state.deleteIn(statePath).set('current_todo_id', null);
-
-        }
-        case 'CHANGE_CURRENT_TODO_NAME': {
-
-            const statePath = ['todos', state.get('current_todo_id'), 'name'];
-            return state.setIn(statePath, action.todo_name);
 
         }
         case 'CHANGE_CURRENT_TODO_KEY': {
