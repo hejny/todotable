@@ -51,7 +51,7 @@ export function TodoItem(props) {
 
 
                 dispatch({type:'SELECT_CURRENT_TODO',todo_id:id});
-                dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'name',value:'aaa'});
+                dispatch({type:'MOVE_CURRENT_TODO_TO_FRONT'});
 
 
 
@@ -97,6 +97,9 @@ export function TodoItem(props) {
             cursor: 'Pointer',
 
 
+            zIndex: todo.position.z,
+
+
             boxShadow: 'black 0px 0px 5px';
 
 
@@ -124,6 +127,11 @@ export function TodoItem(props) {
                     dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
 
                 }else{
+
+                    dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                    dispatch({type: 'CHANGE_CURRENT_TODO_KEY',key:'name',value:todo.name+event.key});
+                    dispatch({type: 'CLOSE_CURRENT_TODO', todo_id: id});
+
                     console.log(event.key);
                 }
 

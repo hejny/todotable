@@ -31,9 +31,6 @@ export function TodoApp(props:ITodoAppProps){
         }}
         >
 
-            {/*<h1>TodoTableApp</h1>*/}
-            {state.observer_zoom_logarithm}
-
             <TodosList state={state} dispatch={dispatch}/>
             {state.current_todo_id?<div style={{
 

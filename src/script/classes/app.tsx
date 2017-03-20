@@ -41,7 +41,7 @@ export class App{
                     description:'',
                     color: '#f00',
                     done:true,
-                    position:{x:0,y:0}
+                    position:{x:0,y:0,z:0}
                 }
             }
 

@@ -63,6 +63,13 @@ export function todoAppReducer(state,action){
             return state.setIn(statePath, !state.getIn(statePath)).set('current_todo_id', null);
 
         }
+        case 'MOVE_CURRENT_TODO_TO_FRONT': {
+
+            const statePath = ['todos', state.get('current_todo_id'), 'position','z'];
+            return state.updateIn(statePath, (z)=>z+1);
+
+
+        }
         case 'MOVE_TODO': {
 
             const statePath = ['todos', action.id, 'position'];
