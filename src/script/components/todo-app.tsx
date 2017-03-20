@@ -43,6 +43,7 @@ export function TodoApp(props:ITodoAppProps){
         }}
             onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}
 
+
         ></div>:''}
             {state.current_todo_id?<TodoEdit state={state} dispatch={dispatch}/>:''}
 

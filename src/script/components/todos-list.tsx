@@ -89,9 +89,12 @@ export function TodosList(props) {
 
 
         }}
+
+
             >
                 {Object.keys(state.todos).map((todoKey)=><TodoItem key={todoKey} id={todoKey}
-                                                                   todo={state.todos[todoKey]} state={state} dispatch={dispatch}/>)}
+                                                                   todo={state.todos[todoKey]} state={state}
+                                                                   dispatch={dispatch}/>)}
             </ul>
 
         </Draggable>

@@ -8,7 +8,7 @@ import * as tinycolor from "tinycolor2";
 
 export function TodoItem(props) {
 
-    const {todo, id, state , dispatch} = props;
+    const {todo, id, state, dispatch} = props;
 
     let moved;
 
@@ -76,8 +76,40 @@ export function TodoItem(props) {
             cursor: 'Pointer',
 
 
+            boxShadow: 'black 0px 0px 5px';
+
+
         }}
-            >{todo.done?'[FA-done]':''}{todo.name}</li>
+
+        tabIndex="1"
+        onMouseEnter={(event)=>{
+                event.target.focus();
+        }}
+        onMouseLeave={(event)=>{
+            event.target.blur();
+        }}
+        onKeyPress={(event)=> {
+
+
+
+                if (event.key === 'Enter') {
+
+                    dispatch({type: 'CHANGE_CURRENT_TODO', todo_id: id});
+
+                }else
+                if (event.key === 'Delete') {
+
+                    dispatch({type: 'CHANGE_CURRENT_TODO', todo_id: id});
+                    dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
+
+                }else{
+                    console.log(event.key);
+                }
+
+            }}
+
+
+                >{todo.done ? '[FA-done]' : ''}{todo.name}</li>
 
         </Draggable>
     );
