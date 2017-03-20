@@ -13,19 +13,18 @@ export function TodoItem(props) {
     let moved;
 
 
-
     /*const position = {
-        x: todo.position.x - state.observer_position.x,
-        y: todo.position.y - state.observer_position.y
-    };
+     x: todo.position.x - state.observer_position.x,
+     y: todo.position.y - state.observer_position.y
+     };
 
-    const zoom_multiplier = Math.pow(2,state.observer_zoom_logarithm);
-    const position_zoom = {
-        x: position.x * zoom_multiplier,
-        y: position.y * zoom_multiplier,
-    };*/
+     const zoom_multiplier = Math.pow(2,state.observer_zoom_logarithm);
+     const position_zoom = {
+     x: position.x * zoom_multiplier,
+     y: position.y * zoom_multiplier,
+     };*/
 
-    const position = realCoordsToScreenCoords(todo.position,state);
+    const position = realCoordsToScreenCoords(todo.position, state);
 
 
     return (
@@ -77,6 +76,7 @@ export function TodoItem(props) {
 
         >
 
+
             <li style={{
             position: 'absolute',
             top: '50%',
@@ -89,6 +89,7 @@ export function TodoItem(props) {
             height: 30,
             lineHeight: '30px',
             textAlign: 'center',
+            overflow: 'hidden',
 
             backgroundColor: todo.color,
             //border: '2px solid #ccc',
@@ -100,47 +101,45 @@ export function TodoItem(props) {
             zIndex: todo.zIndex,
 
 
-            boxShadow: 'black 0px 0px 5px';
-
 
         }}
 
-        tabIndex="1"
-        onMouseEnter={(event)=>{
-                event.target.focus();
-        }}
-        onMouseLeave={(event)=>{
-            event.target.blur();
-        }}
-        onKeyPress={(event)=> {
+                tabIndex="1"
+                onMouseEnter={(event)=> {
+                    event.target.focus();
+                }}
+                onMouseLeave={(event)=> {
+                    event.target.blur();
+                }}
+                onKeyPress={(event)=> {
 
 
+                    if (event.key === 'Enter') {
 
-                if (event.key === 'Enter') {
+                        dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
 
-                    dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                    } else if (event.key === 'Delete') {
 
-                }else
-                if (event.key === 'Delete') {
+                        dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
 
-                    dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
-                    dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
+                    } else {
 
-                }else{
+                        dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key: 'name', value: todo.name + event.key});
+                        dispatch({type: 'CLOSE_CURRENT_TODO', todo_id: id});
 
-                    dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
-                    dispatch({type: 'CHANGE_CURRENT_TODO_KEY',key:'name',value:todo.name+event.key});
-                    dispatch({type: 'CLOSE_CURRENT_TODO', todo_id: id});
+                        console.log(event.key);
+                    }
 
-                    console.log(event.key);
-                }
-
-            }}
+                }}
 
 
-                >{todo.done ? '[FA-done]' : ''}{todo.name}</li>
+            >{todo.done ? '[FA-done]' : ''}{todo.name}</li>
+
 
         </Draggable>
+
     );
 
 }

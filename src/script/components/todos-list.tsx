@@ -8,8 +8,6 @@ import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords'
 import {INITIAL_TODO} from '../config';
 
 
-
-
 export function TodosList(props) {
 
     const {state, dispatch} = props;
@@ -81,7 +79,7 @@ export function TodosList(props) {
         >
 
 
-            <ul style={{
+            <ul className="todo-list" style={{
 
             //border: '1px solid blue',
 
@@ -107,6 +105,7 @@ export function TodosList(props) {
             </ul>
 
         </Draggable>
+
     );
 
 }
