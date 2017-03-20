@@ -5,6 +5,9 @@ import {TodoItem} from "./todo-item";
 
 import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords';
 
+import {INITIAL_TODO} from '../config';
+
+
 
 
 export function TodosList(props) {
@@ -59,13 +62,10 @@ export function TodosList(props) {
                         y: state.observer_position.y + event.offsetY - event.target.offsetHeight/2,
                     };*/
 
-                    const todo = {
-                        name:'Click!',
-                        description: '## todo\n1) \n2) \n3) \n\n',
-                        color: '#ccc',
-                        done:false,
+
+                    const todo = Object.assign({},INITIAL_TODO,{
                         position: realCoords
-                    };
+                    });
 
 
                     dispatch({type:'CREATE_NEW_TODO',todo: todo});

@@ -44,7 +44,7 @@ export function screenCoordsToRealCoords(screenCoords:ICoords,state:ITodoAppStat
 
 
 
-export function realCoordsToscreenCoords(realCoords:ICoords,state:ITodoAppState):ICoords{
+export function realCoordsToScreenCoords(realCoords:ICoords,state:ITodoAppState):ICoords{
 
     const zoom_multiplier = countZoomMultiplier(state);
 

@@ -3,7 +3,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as Immutable from "immutable";
-import { createStore } from 'redux'
+import { createStore } from 'redux';
+
 
 
 
@@ -13,6 +14,8 @@ import {todoAppReducer} from "../reducers/todo-app-reducer";
 import * as _ from "lodash";
 import { loadState,saveState } from '../functions/local-storage'
 import { createHistoryReducer } from '../functions/create-history-reducer'
+
+import {INITIAL_APP_STATE} from '../config';
 
 
 
@@ -25,29 +28,8 @@ export class App{
     constructor(private _container:HTMLElement){
 
 
-        const defaultState = {
 
-            observer_position:{x:0,y:0},
-            observer_zoom_logarithm:1,
-
-
-            current_todo_id: null,
-
-
-            todos:
-            {
-                'uuid':{
-                    name:'todo',
-                    description:'',
-                    color: '#f00',
-                    done:true,
-                    position:{x:0,y:0,z:0}
-                }
-            }
-
-        };
-
-        const persistedState = loadState(defaultState);
+        const persistedState = loadState(INITIAL_APP_STATE);
 
 
 
@@ -56,8 +38,6 @@ export class App{
             createHistoryReducer(todoAppReducer)
             ,Immutable.fromJS(persistedState)
         );
-        this._store.subscribe((currentState)=>console.log(currentState));
-
 
 
 

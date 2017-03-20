@@ -7,6 +7,7 @@ export interface ITodo{
     color: string;
     done: boolean;
     position:ICoords;
+    zIndex:number;
 }
 
 

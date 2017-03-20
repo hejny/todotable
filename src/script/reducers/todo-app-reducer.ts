@@ -3,9 +3,51 @@ import * as Immutable from "immutable";
 import { UUID } from 'angular2-uuid';
 
 
-export function todoAppReducer(state,action){
+//import { ITodoAppState } from '../interfaces/todo-app-state';
 
-    console.log(action.type);
+
+
+
+
+function findTopZIndex(state){
+    const todos = Object.values(state.get('todos').toJS());
+    const maxZIndex = todos.reduce((maxZIndex,todo)=>Math.max(todo.zIndex||0,maxZIndex),0);
+    return maxZIndex+1;
+}
+
+
+
+export function todoAppReducer(oldState,action){
+
+    console.groupCollapsed(`==[${action.type}]==>`);
+    console.log(oldState.toJS());
+    console.log('||');
+    console.log('||');
+
+
+    console.log(`[${action.type}]`,action);
+    const newState = todoAppReducerCore(oldState,action);
+
+    console.log('||');
+    console.log('||');
+    console.log('\\/');
+    console.log(newState.toJS());
+    if(oldState.equals(newState)){
+        console.log('==>States are equal');
+    }
+    console.groupEnd();
+
+
+
+    return newState;
+
+}
+
+
+
+function todoAppReducerCore(state,action){
+
+
 
 
     if(action.type.indexOf('CURRENT_TODO')!==-1 && action.type!=='SELECT_CURRENT_TODO'){
@@ -28,7 +70,7 @@ export function todoAppReducer(state,action){
             const newTodoId = UUID.UUID();
 
             return todoAppReducer(
-                state.setIn(['todos', newTodoId], Immutable.fromJS(action.todo)),
+                state.setIn(['todos', newTodoId], Immutable.fromJS(action.todo).set('zIndex',findTopZIndex(state))),
                 {type: 'SELECT_CURRENT_TODO', todo_id: newTodoId}
             );
 
@@ -65,8 +107,8 @@ export function todoAppReducer(state,action){
         }
         case 'MOVE_CURRENT_TODO_TO_FRONT': {
 
-            const statePath = ['todos', state.get('current_todo_id'), 'position','z'];
-            return state.updateIn(statePath, (z)=>z+1);
+            const statePath = ['todos', state.get('current_todo_id'),'zIndex'];
+            return state.setIn(statePath, findTopZIndex(state));
 
 
         }
