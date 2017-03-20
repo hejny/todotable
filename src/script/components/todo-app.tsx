@@ -29,6 +29,10 @@ export function TodoApp(props:ITodoAppProps) {
         <Style>
             {`
 
+                ul.todo-list:focus {
+                    outline: none;
+                }
+
                 ul.todo-list li{
                     box-shadow: rgba(0,0,0,0.5) 0 0 5px;
                 }

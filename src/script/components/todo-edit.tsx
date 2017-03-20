@@ -74,6 +74,7 @@ export function TodoEdit(props) {
 
                 <input
                     type="text"
+                    autoFocus={true}
                     value={state.todos[state.current_todo_id].name}
                     onChange={handleChange}
                     style={{

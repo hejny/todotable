@@ -13,6 +13,7 @@ export function TodosList(props) {
     const {state, dispatch} = props;
     var moved;
 
+    var mouseRealCoords;
 
     return (
         <Draggable
@@ -96,6 +97,47 @@ export function TodosList(props) {
 
 
         }}
+
+
+            onMouseMove={(event)=> {
+                mouseRealCoords = screenCoordsToRealCoords({
+                    x:event.nativeEvent.offsetX - event.target.offsetWidth/2,
+                    y:event.nativeEvent.offsetY - event.target.offsetHeight/2
+                },state);
+            }}
+
+
+            tabIndex="1"
+            onMouseEnter={(event)=> {
+                event.stopPropagation();
+                event.preventDefault();
+                event.target.focus();
+            }}
+            onMouseLeave={(event)=> {
+                event.stopPropagation();
+                event.preventDefault();
+                event.target.blur();
+            }}
+            onKeyPress={(event)=> {
+                event.stopPropagation();
+                event.preventDefault();
+
+
+                if(typeof mouseRealCoords === 'undefined'){
+                    throw new Error('I dont know position.');
+                }
+
+                const todo = Object.assign({},INITIAL_TODO,{
+                    position: mouseRealCoords,
+                    name: event.key
+                });
+
+                dispatch({type:'CREATE_NEW_TODO',todo: todo});
+                //dispatch({type:'CLOSE_CURRENT_TODO'});
+
+
+
+            }}
 
 
             >

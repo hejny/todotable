@@ -106,13 +106,20 @@ export function TodoItem(props) {
 
                 tabIndex="1"
                 onMouseEnter={(event)=> {
+                    event.stopPropagation();
+                    event.preventDefault();
                     event.target.focus();
                 }}
                 onMouseLeave={(event)=> {
+                    event.stopPropagation();
+                    event.preventDefault();
                     event.target.blur();
+                    event.target.parentElement.focus();
                 }}
                 onKeyPress={(event)=> {
 
+                    event.stopPropagation();
+                    event.preventDefault();
 
                     if (event.key === 'Enter') {
 

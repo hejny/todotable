@@ -72,7 +72,7 @@ export class MarkDownEditor extends React.Component<IMarkDownEditorProps,any> {
                         fontSize={"1rem" as any}
                         width="100%"
 
-                        focus={true}
+                        focus={false}
                         onBlur={()=>this.setState({editingMode:false})}
 
 
