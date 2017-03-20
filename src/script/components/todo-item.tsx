@@ -3,7 +3,7 @@ import * as Draggable from "react-draggable";
 
 import * as tinycolor from "tinycolor2";
 
-
+import {realCoordsToscreenCoords,screenCoordsToRealCoords} from '../functions/coords';
 
 
 export function TodoItem(props) {
@@ -12,10 +12,20 @@ export function TodoItem(props) {
 
     let moved;
 
-    const position = {
+
+
+    /*const position = {
         x: todo.position.x - state.observer_position.x,
         y: todo.position.y - state.observer_position.y
     };
+
+    const zoom_multiplier = Math.pow(2,state.observer_zoom_logarithm);
+    const position_zoom = {
+        x: position.x * zoom_multiplier,
+        y: position.y * zoom_multiplier,
+    };*/
+
+    const position = realCoordsToscreenCoords(todo.position,state);
 
 
     return (
@@ -41,7 +51,8 @@ export function TodoItem(props) {
 
                 if(moved){
 
-                    dispatch({type:'MOVE_TODO',id:id,position:{x:object.x + state.observer_position.x,y:object.y + state.observer_position.y}});
+
+                    dispatch({type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)});
                     //onStop(event,object);
 
                 }else{

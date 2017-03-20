@@ -24,9 +24,15 @@ export function TodoApp(props:ITodoAppProps){
     return(
         <div style={{
             //overflow:'hidden'
-        }}>
+        }}
+
+        onWheel={(event)=>{
+           dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
+        }}
+        >
 
             {/*<h1>TodoTableApp</h1>*/}
+            {state.observer_zoom_logarithm}
 
             <TodosList state={state} dispatch={dispatch}/>
             {state.current_todo_id?<div style={{

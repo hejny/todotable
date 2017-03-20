@@ -84,6 +84,11 @@ export function todoAppReducer(state,action){
 
 
         }
+        case 'OBSERVER_ZOOM_LOGARITHM_BY':
+
+            return state.update('observer_zoom_logarithm', (zoom)=>zoom+action.delta);
+
+
         default:
             return state
     }

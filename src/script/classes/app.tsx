@@ -28,6 +28,9 @@ export class App{
         const defaultState = {
 
             observer_position:{x:0,y:0},
+            observer_zoom_logarithm:1,
+
+
             current_todo_id: null,
 
 
@@ -61,7 +64,10 @@ export class App{
 
         this._store.subscribe(_.throttle(() => {
 
-            const currentState = this._store.getState().toJS();
+            const currentState = this._store.getState()
+                .toJS();
+
+
             console.log(currentState);
 
             saveState(currentState);
@@ -90,6 +96,5 @@ export class App{
 
 
     }
-
 
 }

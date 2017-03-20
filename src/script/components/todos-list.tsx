@@ -3,6 +3,8 @@ import * as Draggable from "react-draggable";
 
 import {TodoItem} from "./todo-item";
 
+import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords';
+
 
 
 export function TodosList(props) {
@@ -40,23 +42,29 @@ export function TodosList(props) {
 
                 if(moved){
 
-                    dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x,y:-object.y}});
+                    const zoom_multiplier = countZoomMultiplier(state);
+                    dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x/zoom_multiplier,y:-object.y/zoom_multiplier}});
                     //onStop(event,object);
 
                 }else{
 
 
-                    const position = {
+                    const realCoords = screenCoordsToRealCoords({
+                        x:event.offsetX - event.target.offsetWidth/2,
+                        y:event.offsetY - event.target.offsetHeight/2
+                    },state);
+
+                    /*const position = {
                         x: state.observer_position.x + event.offsetX - event.target.offsetWidth/2,
                         y: state.observer_position.y + event.offsetY - event.target.offsetHeight/2,
-                    };
+                    };*/
 
                     const todo = {
                         name:'Click!',
                         description: '## todo\n1) \n2) \n3) \n\n',
                         color: '#ccc',
                         done:false,
-                        position: position
+                        position: realCoords
                     };
 
 
