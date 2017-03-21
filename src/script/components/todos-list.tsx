@@ -61,6 +61,13 @@ export function TodosList(props) {
                 }else{
 
 
+                    //polyfill
+                    if(event instanceof TouchEvent){
+                        event.offsetX = event.changedTouches[0].pageX - event.target.offsetLeft;
+                        event.offsetY = event.changedTouches[0].pageY - event.target.offsetTop;
+                    }
+
+
                     const realCoords = screenCoordsToRealCoords({
                         x:event.offsetX - event.target.offsetWidth/2,
                         y:event.offsetY - event.target.offsetHeight/2
@@ -141,20 +148,23 @@ export function TodosList(props) {
                 event.stopPropagation();
                 event.preventDefault();
 
+                     if (event.key === 'Enter') {
+                    } else if (event.key === 'Delete') {
+                    } else {
 
-                if(typeof mouseRealCoords === 'undefined'){
-                    throw new Error('I dont know position.');
-                }
+                        if(typeof mouseRealCoords === 'undefined'){
+                            throw new Error('I dont know position.');
+                        }
 
-                const todo = Object.assign({},INITIAL_TODO,{
-                    position: mouseRealCoords,
-                    name: event.key
-                });
+                        const todo = Object.assign({},INITIAL_TODO,{
+                            position: mouseRealCoords,
+                            name: event.key
+                        });
 
-                dispatch({type:'CREATE_NEW_TODO',todo: todo});
-                //dispatch({type:'CLOSE_CURRENT_TODO'});
+                        dispatch({type:'CREATE_NEW_TODO',todo: todo});
+                        //dispatch({type:'CLOSE_CURRENT_TODO'});
 
-
+                    }
 
             }}
 
