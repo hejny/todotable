@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Draggable from "react-draggable";
 import * as FontAwesome from 'react-fontawesome';
-
+import * as ReactMarkdown from "react-markdown";
 
 import * as tinycolor from "tinycolor2";
 
@@ -27,7 +27,7 @@ export function TodoItem(props) {
      };*/
 
     const position = realCoordsToScreenCoords(todo.position, state);
-
+    const width = Math.max(todo.name.length*10+20,100);
 
     return (
         <Draggable
@@ -82,14 +82,14 @@ export function TodoItem(props) {
             <li style={{
             position: 'absolute',
             top: '50%',
-            left: 'calc( 50% - 50px )',
+            left: `calc( 50% - ${width/2}px )`,
 
 
 
             listStyle: 'none',
-            width: 100,
-            height: 30,
-            lineHeight: '30px',
+            width: width,
+            minHeight: 30,
+            //lineHeight: '30px',
             textAlign: 'center',
             overflow: 'hidden',
 
@@ -145,7 +145,38 @@ export function TodoItem(props) {
                 }}
 
 
-            >{todo.done ? <FontAwesome name="check-square-o" />  : ''}{todo.name}</li>
+            >
+                {todo.done ? <FontAwesome name="check-square-o" />  : ''}
+                <h1 style={{
+                    fontSize: '1.1rem',
+                    margin: 4,
+                    padding: 0,
+                }}>
+                    {todo.name}
+                </h1>
+
+                <ReactMarkdown
+                    source={(()=>{
+
+
+                        const descriptionParts = todo.description.split('---');
+
+                        if(descriptionParts.length>1){
+                            return descriptionParts[0];
+                        }else{
+                            return '';
+                        }
+
+
+
+                    })()}
+
+                />
+
+
+
+
+            </li>
 
 
         </Draggable>
