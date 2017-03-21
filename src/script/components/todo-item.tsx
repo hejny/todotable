@@ -1,5 +1,7 @@
 import * as React from "react";
 import * as Draggable from "react-draggable";
+import * as FontAwesome from 'react-fontawesome';
+
 
 import * as tinycolor from "tinycolor2";
 
@@ -97,6 +99,7 @@ export function TodoItem(props) {
             color: (tinycolor(todo.color).getBrightness()>255/2)?'black':'white',
             cursor: 'Pointer',
 
+            opacity: todo.done?.4:1,
 
             zIndex: todo.zIndex,
 
@@ -142,7 +145,7 @@ export function TodoItem(props) {
                 }}
 
 
-            >{todo.done ? '[FA-done]' : ''}{todo.name}</li>
+            >{todo.done ? <FontAwesome name="check-square-o" />  : ''}{todo.name}</li>
 
 
         </Draggable>

@@ -15,13 +15,22 @@ export function TodosList(props) {
 
     var mouseRealCoords;
 
+
+    const zoom_multiplier = countZoomMultiplier(state);
+    const backgroundImageBlockSize = 50*zoom_multiplier;
+    const backgroundImageBlockLeft = -state.observer_position.x*zoom_multiplier;
+    const backgroundImageBlockTop  = -state.observer_position.y*zoom_multiplier;
+
+
+
+
     return (
         <Draggable
 
             position={{x:0,y:0}}
 
 
-            onStart={(event)=>{
+            onStart={(event,object)=>{
 
 
 
@@ -30,10 +39,12 @@ export function TodosList(props) {
                 moved = false;
 
             }}
-            onDrag={(event)=>{
+            onDrag={(event,object)=>{
                 event.stopPropagation();
                 event.preventDefault();
                 moved = true;
+
+
             }}
             onStop={(event,object) => {
 
@@ -41,11 +52,10 @@ export function TodosList(props) {
                 event.preventDefault();
 
 
-
                 if(moved){
 
-                    const zoom_multiplier = countZoomMultiplier(state);
                     dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x/zoom_multiplier,y:-object.y/zoom_multiplier}});
+
                     //onStop(event,object);
 
                 }else{
@@ -87,10 +97,19 @@ export function TodosList(props) {
 
             position: 'absolute',
             zIndex: 1,
-            width: '100%',
-            height: '100%',
-            top:0,
-            left:0,
+            width: '300%',
+            height: '300%',
+            top:'-100%',
+            left:'-100%',
+
+
+
+            backgroundImage: 'url("/media/images/backgrounds/Graph-paper.svg")',
+            backgroundRepeat: 'repeat, repeat',
+            backgroundSize: `${backgroundImageBlockSize}px, ${backgroundImageBlockSize}px`,
+            backgroundPosition: `top ${backgroundImageBlockTop}px left ${backgroundImageBlockLeft}px`,
+
+
 
             filter: state.current_todo_id?'blur(5px) opacity(30%)':'',
             //pointerEvents: state.current_todo_id?'none':'auto',

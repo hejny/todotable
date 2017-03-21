@@ -38,7 +38,7 @@ export function ColorPicker(props) {
 
                             display: 'inline-block',
                             width: 100/COLORS.length+'%',
-                            height: 30,
+                            height: 20,
 
                             backgroundColor: color,
 

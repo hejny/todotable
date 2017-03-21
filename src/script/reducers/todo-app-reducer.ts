@@ -102,7 +102,7 @@ function todoAppReducerCore(state,action){
         case 'TOGGLE_CURRENT_TODO_DONE': {
 
             const statePath = ['todos', state.get('current_todo_id'), 'done'];
-            return state.setIn(statePath, !state.getIn(statePath)).set('current_todo_id', null);
+            return state.setIn(statePath, !state.getIn(statePath));//.set('current_todo_id', null);
 
         }
         case 'MOVE_CURRENT_TODO_TO_FRONT': {

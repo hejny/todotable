@@ -1,6 +1,6 @@
 import * as React from "react";
 import Style from 'style-it';
-
+import * as FontAwesome from 'react-fontawesome';
 
 
 import {ColorPicker} from "./color-picker";
@@ -72,6 +72,8 @@ export function TodoEdit(props) {
             >
 
 
+
+
                 <input
                     type="text"
                     autoFocus={true}
@@ -95,6 +97,7 @@ export function TodoEdit(props) {
                 />
 
 
+
                 <MarkDownEditor
                     value={state.todos[state.current_todo_id].description}
                     onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'description',value:value})}
@@ -102,9 +105,23 @@ export function TodoEdit(props) {
                 />
 
 
-                <button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}>Ok</button>
-                <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}>Delete</button>
-                <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}>Finished</button>
+
+                <div style={{
+                        //float:'right',
+                        position: 'absolute',
+                        right: 0,
+                        bottom: 0,
+                        margin: 5,
+
+                    }}>
+                    {/*<button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}><FontAwesome name='rocket' /></button>*/}
+                    <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}><FontAwesome name={(state.todos[state.current_todo_id].done?'check-square-o':'square-o')} /> Done</button>
+                    <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}><FontAwesome name='trash-o' /> Delete</button>
+
+                </div>
+
+
+
 
 
             </div>

@@ -6,6 +6,8 @@ import {TodoEdit} from "./todo-edit";
 import Style from 'style-it';
 
 
+
+
 interface ITodoAppProps {
     state:{
         todos:string[]
@@ -21,6 +23,13 @@ export function TodoApp(props:ITodoAppProps) {
 
 
     const {state, dispatch} = props;
+
+
+
+
+    /*console.log(state.observer_position.x);
+    console.log(countZoomMultiplier(state));
+    console.log(backgroundImageBlockLeft);*/
 
 
     return (
@@ -44,15 +53,27 @@ export function TodoApp(props:ITodoAppProps) {
                 }
 
             `}
-            <div style={{
-            //overflow:'hidden'
-        }}
+            <div
 
                  onWheel={(event)=>{
            dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
         }}
             >
+                {/*<div style={{
 
+                    position: 'fixed',
+                    top: '0',
+                    bottom: '0',
+                    left: '0',
+                    right: '0',
+
+                    backgroundImage: 'url("/media/images/backgrounds/table1.png")',
+                    backgroundRepeat: 'repeat, repeat',
+                    backgroundSize: `${backgroundImageBlockSize}px, ${backgroundImageBlockSize}px`,
+                    backgroundPosition: `top 10px left ${backgroundImageBlockLeft}px`,
+
+
+            }}></div>*/}
 
                 <TodosList state={state} dispatch={dispatch}/>
 
