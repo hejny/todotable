@@ -19,6 +19,11 @@ import { createHistoryReducer } from '../functions/create-history-reducer'
 import {getDefaultState} from '../resources/default-state';
 
 
+import * as Hashes from 'jshashes';
+var SHA256 =  new Hashes.SHA256;
+
+import {createUriFromName} from '../functions/create-uri-from-name';
+
 
 
 export class App{
@@ -56,7 +61,22 @@ export class App{
 
 
                 }
-                ,(state)=>{return '#'+state.current_todo_id}
+                ,(state)=>{
+
+                    let uriParts = [];
+
+                    var SHA1 = SHA256.hex(JSON.stringify(state.todos));
+                    uriParts.push(SHA1.substring(0,7));
+
+
+                    if(state.current_todo_id){
+                        uriParts.push(createUriFromName(state.todos[state.current_todo_id].name));
+                    }
+
+                    return '/'+uriParts.join('/');
+
+
+                }
                 )
             ,Immutable.fromJS(persistedState)
         );

@@ -50,25 +50,13 @@ export function TodoItem(props) {
                 event.stopPropagation();
                 event.preventDefault();
 
-
                 dispatch({type:'SELECT_CURRENT_TODO',todo_id:id});
-                dispatch({type:'MOVE_CURRENT_TODO_TO_FRONT'});
-
-
 
                 if(moved){
-
-
+                    dispatch({type:'MOVE_CURRENT_TODO_TO_FRONT'});
                     dispatch({type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)});
                     dispatch({type:'CLOSE_CURRENT_TODO'});
-                    //onStop(event,object);
-
-                }else{
-
-
                 }
-
-
 
 
         }}

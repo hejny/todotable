@@ -8,6 +8,9 @@ var webpack = require('gulp-webpack');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
+var fs = require("fs");
+var url = require("url");
+
 
 
 gulp.task('default',['build']);
@@ -35,7 +38,16 @@ gulp.task('browser-sync-init', function (done) {
 
     browserSync.init({
         server: {
-            baseDir: "./"
+            baseDir: "./",
+            middleware: function(req, res, next) {
+                var fileName = url.parse(req.url);
+                fileName = fileName.href.split(fileName.search).join("");
+                var fileExists = fs.existsSync('./' + fileName);
+                if (!fileExists && fileName.indexOf("browser-sync-client") < 0) {
+                    req.url = "/index.html";
+                }
+                return next();
+            }
         },
         open: false
     });

@@ -111,14 +111,24 @@ export function TodosList(props) {
 
 
 
-            backgroundImage: 'url("/media/images/backgrounds/graph-paper.svg")',
+
+            //backgroundImage: 'url("/media/images/backgrounds/graph-paper.svg")',
+            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_WoodPlanksOld0255_2_seamless_S.jpg")',
+            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_WoodStudded0044_1_seamless_S.jpg")',
+            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_ConcreteBare0350_1_seamless_S.jpg")',
+            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_ConcreteBare0433_11_seamless_S.jpg")',
+            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_MetalBare0234_1_seamless_S.jpg")',
+            backgroundImage: 'url("/media/images/backgrounds/whiteboard.jpg")',
+            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_WoodFine0059_11_seamless_S.jpg")',
+
+
             backgroundRepeat: 'repeat, repeat',
             backgroundSize: `${backgroundImageBlockSize}px, ${backgroundImageBlockSize}px`,
-            backgroundPosition: `top ${backgroundImageBlockTop}px left ${backgroundImageBlockLeft}px`,
+            backgroundPosition: `calc(${backgroundImageBlockLeft}px + 50%) calc(${backgroundImageBlockTop}px + 50%)`,
 
 
 
-            filter: state.current_todo_id?'blur(5px) opacity(30%)':'',
+            filter: state.current_todo_id?'blur(5px)':'',
             //pointerEvents: state.current_todo_id?'none':'auto',
 
 
