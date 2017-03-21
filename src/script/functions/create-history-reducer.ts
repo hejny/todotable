@@ -2,7 +2,7 @@
 import * as _ from "lodash";
 
 
-export function createHistoryReducer(reducer,){
+export function createHistoryReducer(reducer,getTitleFromState,getUriFromState){
 
 
 
@@ -12,7 +12,10 @@ export function createHistoryReducer(reducer,){
 
     const debouncedPushState = _.debounce(()=>{
 
-        history.pushState(stateWaitingForPush.toJS(), '', '#');
+
+        const state = stateWaitingForPush.toJS();
+        history.pushState(state, getTitleFromState(state),getUriFromState(state));
+        document.title = getTitleFromState(state);
 
     },500);
 

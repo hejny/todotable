@@ -35,7 +35,27 @@ export class App{
 
 
         this._store = createStore(
-            createHistoryReducer(todoAppReducer)
+            createHistoryReducer(
+                todoAppReducer
+                ,(state)=>{
+
+
+                    let titleParts = [];
+
+                    if(state.current_todo_id){
+                        titleParts.push(state.todos[state.current_todo_id].name);
+                    }
+
+                    titleParts.push('TodoTable.com');
+                    titleParts = titleParts.filter((part)=>(part.trim()!==''));
+
+                    return titleParts.join(' | ');
+
+
+
+                }
+                ,(state)=>{return '#'+state.current_todo_id}
+                )
             ,Immutable.fromJS(persistedState)
         );
 
