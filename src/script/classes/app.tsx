@@ -15,7 +15,8 @@ import * as _ from "lodash";
 import { loadState,saveState } from '../functions/local-storage'
 import { createHistoryReducer } from '../functions/create-history-reducer'
 
-import {INITIAL_APP_STATE} from '../config';
+//import {INITIAL_APP_STATE} from '../config';
+import {getDefaultState} from '../resources/default-state';
 
 
 
@@ -25,13 +26,14 @@ export class App{
 
     private _store;
 
-    constructor(private _container:HTMLElement){
+    constructor(private _container:HTMLElement) {
+        this.init();
+    }
 
 
+    async init(){
 
-        const persistedState = loadState(INITIAL_APP_STATE);
-
-
+        const persistedState = loadState(await getDefaultState());
 
 
         this._store = createStore(

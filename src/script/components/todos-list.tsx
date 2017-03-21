@@ -104,7 +104,7 @@ export function TodosList(props) {
 
 
 
-            backgroundImage: 'url("/media/images/backgrounds/Graph-paper.svg")',
+            backgroundImage: 'url("/media/images/backgrounds/graph-paper.svg")',
             backgroundRepeat: 'repeat, repeat',
             backgroundSize: `${backgroundImageBlockSize}px, ${backgroundImageBlockSize}px`,
             backgroundPosition: `top ${backgroundImageBlockTop}px left ${backgroundImageBlockLeft}px`,

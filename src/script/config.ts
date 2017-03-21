@@ -1,7 +1,7 @@
 
 
 
-
+/*
 export const INITIAL_APP_STATE = {
 
     observer_position:{x:0,y:0},
@@ -12,17 +12,9 @@ export const INITIAL_APP_STATE = {
 
 
     todos:
-    {/*
-        'uuid':{
-            name:'todo',
-            description:'',
-            color: '#f00',
-            done:true,
-            position:{x:0,y:0,z:0}
-        }*/
     }
 
-};
+};*/
 
 
 
