@@ -27,7 +27,7 @@ export function TodoItem(props) {
      };*/
 
     const position = realCoordsToScreenCoords(todo.position, state);
-    const width = Math.max(todo.name.length*10+20,100);
+    const width = Math.max(todo.name.length*10+30,100);
 
     return (
         <Draggable
@@ -72,6 +72,8 @@ export function TodoItem(props) {
             top: '50%',
             left: `calc( 50% - ${width/2}px )`,
 
+
+            padding: 5,
 
 
             listStyle: 'none',
@@ -150,9 +152,9 @@ export function TodoItem(props) {
                         const descriptionParts = todo.description.split('---');
 
                         if(descriptionParts.length>1){
-                            return descriptionParts[0];
+                            return descriptionParts[0]+'\n...';
                         }else{
-                            return '';
+                            return todo.description;
                         }
 
 

@@ -42,14 +42,18 @@ export function TodoApp(props:ITodoAppProps) {
                     outline: none;
                 }
 
-                ul.todo-list li{
+                ul.todo-list > li{
                     box-shadow: rgba(0,0,0,0.5) 0 0 5px;
                 }
 
-                ul.todo-list li:focus {
+                ul.todo-list > li:focus {
                     outline: none;
                     box-shadow: rgba(0,0,0,0.8) 0 0 7px;
                     z-index: 99999999!important;
+                }
+
+                a{
+                    color: inherit;
                 }
 
             `}
