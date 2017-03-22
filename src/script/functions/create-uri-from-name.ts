@@ -4,12 +4,33 @@
 
 export function createUriFromName(name: string) {
 
-    name = removeDiacritics(name);
-    name = name.toLocaleLowerCase();
-    name = name.split(' ').join('-');
-    return name;
+    const nameWithoutDiacritics = removeDiacritics(name);
+    const nameLowerCase = nameWithoutDiacritics.toLocaleLowerCase();
+
+
+    let nameWithoutSpecialChars = '';
+    for (let char of nameLowerCase) {
+        if(URI_ALLOWED_CHARS.indexOf(char)!==-1){
+            nameWithoutSpecialChars += char;
+        }else{
+            nameWithoutSpecialChars += '-';
+        }
+    }
+
+
+    const nameWithoutMultidashes = nameWithoutSpecialChars.split(/-+/g).join('-');
+
+    const nameWithoutBorders = nameWithoutMultidashes
+        .split(/^-/g).join('')
+        .split(/-$/g).join('');
+
+
+    return nameWithoutBorders;
 
 }
+
+
+const URI_ALLOWED_CHARS = '-0123456789abcdefghijklmnopqrstuvwxyz'.split('');
 
 
 

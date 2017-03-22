@@ -4,6 +4,8 @@ import {ICoords} from './coords';
 
 export interface ITodo{
     name: string;
+    description: string;
+    uri: string;
     color: string;
     done: boolean;
     position:ICoords;
@@ -18,7 +20,7 @@ export interface ITodoAppState{
     observer_zoom_logarithm:number,
     current_todo_id: string,
 
-    //todo todos:ITodo[];
+    todos:ITodo[];
 
 
 }

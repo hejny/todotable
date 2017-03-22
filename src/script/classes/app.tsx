@@ -22,7 +22,6 @@ import {getDefaultState} from '../resources/default-state';
 import * as Hashes from 'jshashes';
 var SHA256 =  new Hashes.SHA256;
 
-import {createUriFromName} from '../functions/create-uri-from-name';
 
 
 
@@ -70,7 +69,7 @@ export class App{
 
 
                     if(state.current_todo_id){
-                        uriParts.push(createUriFromName(state.todos[state.current_todo_id].name));
+                        uriParts.push(state.todos[state.current_todo_id].uri);
                     }
 
                     return '/'+uriParts.join('/');

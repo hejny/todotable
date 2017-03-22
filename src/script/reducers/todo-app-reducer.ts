@@ -5,6 +5,7 @@ import { UUID } from 'angular2-uuid';
 
 //import { ITodoAppState } from '../interfaces/todo-app-state';
 
+import {createUriFromName} from '../functions/create-uri-from-name';
 
 
 
@@ -93,6 +94,11 @@ function todoAppReducerCore(state,action){
 
         }
         case 'CHANGE_CURRENT_TODO_KEY': {
+
+            if(action.key==='name'){
+                state = todoAppReducerCore(state,{type:'CHANGE_CURRENT_TODO_KEY',key:'uri',value:createUriFromName(action.value)});
+            }
+
 
             const statePath = ['todos', state.get('current_todo_id'), action.key];
             return state.setIn(statePath, action.value);
