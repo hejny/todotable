@@ -17,7 +17,7 @@ export function TodosList(props) {
 
 
     const zoom_multiplier = countZoomMultiplier(state);
-    const backgroundImageBlockSize = 50*zoom_multiplier;
+    const backgroundImageBlockSize = 700*zoom_multiplier;
     const backgroundImageBlockLeft = -state.observer_position.x*zoom_multiplier;
     const backgroundImageBlockTop  = -state.observer_position.y*zoom_multiplier;
 
@@ -128,7 +128,7 @@ export function TodosList(props) {
 
 
 
-            filter: state.current_todo_id!==-1?'blur(5px)':'',
+            filter: state.current_todo_id!==-1?'blur(2px)':'',
 
 
         }}

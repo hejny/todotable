@@ -48,7 +48,7 @@ export function TodoEdit(props) {
                 background-color: ${todoColor.toHexString()};
                 color: ${textColor.toHexString()};
 
-                box-shadow: black 0px 0px 25px;
+                box-shadow: black 0px 0px 15px;
                 padding: 10px;
 
               }
