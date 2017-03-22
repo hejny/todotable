@@ -2,7 +2,7 @@
 
 
 
-export const API_URL = 'http://localhost/todotable/api/';
+export const API_URL = 'http://todotable.com/api/';
 
 
 
