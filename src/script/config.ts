@@ -2,6 +2,11 @@
 
 
 
+export const API_URL = 'http://localhost/todotable/api/';
+
+
+
+}
 export const INITIAL_TODO = {
 
     name:'',

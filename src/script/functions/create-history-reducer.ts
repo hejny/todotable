@@ -1,5 +1,8 @@
+import {API_URL} from '../config';
 
 import * as _ from "lodash";
+
+import {makeRequest} from '../resources/make-request';
 
 
 export function createHistoryReducer(reducer,getTitleFromState,getUriFromState){
@@ -16,6 +19,15 @@ export function createHistoryReducer(reducer,getTitleFromState,getUriFromState){
         const state = stateWaitingForPush.toJS();
         history.pushState(state, getTitleFromState(state),getUriFromState(state));
         document.title = getTitleFromState(state);
+
+
+
+        makeRequest('POST',API_URL,JSON.stringify(state.todos),{'Content-Type':'application/json'});
+
+
+
+
+
 
     },500);
 

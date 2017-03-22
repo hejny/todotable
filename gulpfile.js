@@ -42,6 +42,11 @@ gulp.task('browser-sync-init', function (done) {
             middleware: function(req, res, next) {
                 var fileName = url.parse(req.url);
                 fileName = fileName.href.split(fileName.search).join("");
+
+
+                //if(fileName.substr(0,4)=='/api'){}
+
+
                 var fileExists = fs.existsSync('./' + fileName);
                 if (!fileExists && fileName.indexOf("browser-sync-client") < 0) {
                     req.url = "/index.html";

@@ -16,7 +16,7 @@ import { loadState,saveState } from '../functions/local-storage'
 import { createHistoryReducer } from '../functions/create-history-reducer'
 
 //import {INITIAL_APP_STATE} from '../config';
-import {getDefaultState} from '../resources/default-state';
+import {getInitialState} from '../resources/initial-state';
 
 
 import * as Hashes from 'jshashes';
@@ -37,7 +37,7 @@ export class App{
 
     async init(){
 
-        const persistedState = loadState(await getDefaultState());
+        const persistedState = await getInitialState();//loadState();
 
 
         this._store = createStore(
@@ -62,17 +62,22 @@ export class App{
                 }
                 ,(state)=>{
 
-                    let uriParts = [];
+                    let uriPathParts = [];
 
                     var SHA1 = SHA256.hex(JSON.stringify(state.todos));
-                    uriParts.push(SHA1.substring(0,7));
+                    uriPathParts.push(SHA1.substring(0,7));
 
 
                     if(state.current_todo_id!==-1){
-                        uriParts.push(state.todos[state.current_todo_id].uri);
+                        uriPathParts.push(state.todos[state.current_todo_id].uri);
                     }
 
-                    return '/'+uriParts.join('/');
+
+                    const uriPath = '/'+uriPathParts.join('/');
+
+
+
+                    return `${uriPath}?x=${state.observer_position.x.toFixed(1)}&y=${state.observer_position.y.toFixed(1)}&zoom=${state.observer_zoom_logarithm.toFixed(1)}`;
 
 
                 }
@@ -82,13 +87,13 @@ export class App{
 
 
 
-        this._store.subscribe(_.throttle(() => {
+        /*this._store.subscribe(_.throttle(() => {
 
             const currentState = this._store.getState()
                 .toJS();
             saveState(currentState);
 
-        },200));
+        },200));*/
 
 
 
