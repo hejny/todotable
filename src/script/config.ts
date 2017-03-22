@@ -1,22 +1,6 @@
 
 
 
-/*
-export const INITIAL_APP_STATE = {
-
-    observer_position:{x:0,y:0},
-    observer_zoom_logarithm:1,
-
-
-    current_todo_id: null,
-
-
-    todos:
-    }
-
-};*/
-
-
 
 export const INITIAL_TODO = {
 

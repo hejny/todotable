@@ -1,1 +1,23 @@
-{"observer_position":{"x":-344.7035303903306,"y":-325.5726145561613},"observer_zoom_logarithm":1.5000000000000004,"current_todo_id":null,"todos":{"98db0609-3d96-d03b-b37e-2528b9479eae":{"name":"","description":"## todo\n1) \n2) \n3) \n\n","color":"#ccc","done":false,"position":{"x":-20.65163821870415,"y":-78.81726145854073},"zIndex":15},"44e8521e-6c55-a1e7-34ec-02b76a3beb3c":{"name":"ssss","description":"## todo\n1) \n2) \n3) \n\n","color":"#ccc","done":true,"position":{"x":-188.25,"y":-120.25},"zIndex":32},"043a5adf-1e96-e7c0-0533-1cd96d0f9741":{"name":"","description":"## todo\n1) \n2) \n3) \n\n","color":"#ccc","done":false,"position":{"x":68.75,"y":-92.75},"zIndex":5},"57016fff-4958-22be-9e9e-b5baeba0cacd":{"name":"TodoTable","description":"## todo\n1) \n2) \n3) \n\n","color":"#4A6D7C","done":false,"position":{"x":-340.99121978910125,"y":-347.49292477294426},"zIndex":36}}}
+{
+  "observer_position":{
+    "x":0,
+    "y":0
+  },
+  "observer_zoom_logarithm":1,
+  "current_todo_id":-1,
+  "todos":[
+
+    {
+      "name":"TodoTable.com",
+      "description":"## todo\n1) \n2) \n3) \n\n",
+      "color":"#4A6D7C",
+      "done":false,
+      "position":{
+        "x":0,
+        "y":0
+      },
+      "zIndex":1
+    }
+
+  ]
+}

@@ -18,7 +18,7 @@ export interface ITodoAppState{
 
     observer_position:ICoords,
     observer_zoom_logarithm:number,
-    current_todo_id: string,
+    current_todo_id: number,
 
     todos:ITodo[];
 

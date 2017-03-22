@@ -48,7 +48,7 @@ export class App{
 
                     let titleParts = [];
 
-                    if(state.current_todo_id){
+                    if(state.current_todo_id!==-1){
                         titleParts.push(state.todos[state.current_todo_id].name);
                     }
 
@@ -68,7 +68,7 @@ export class App{
                     uriParts.push(SHA1.substring(0,7));
 
 
-                    if(state.current_todo_id){
+                    if(state.current_todo_id!==-1){
                         uriParts.push(state.todos[state.current_todo_id].uri);
                     }
 

@@ -1,6 +1,6 @@
 import * as Immutable from "immutable";
 
-import { UUID } from 'angular2-uuid';
+//import { UUID } from 'angular2-uuid';
 
 
 //import { ITodoAppState } from '../interfaces/todo-app-state';
@@ -52,7 +52,7 @@ function todoAppReducerCore(state,action){
 
 
     if(action.type.indexOf('CURRENT_TODO')!==-1 && action.type!=='SELECT_CURRENT_TODO'){
-        if(!state.get('current_todo_id')){
+        if(state.get('current_todo_id')===-1){
             throw new Error(`To dispatch "${action.type}" you should set current todo. `);
         }
     }
@@ -68,12 +68,16 @@ function todoAppReducerCore(state,action){
 
         case 'CREATE_NEW_TODO': {
 
-            const newTodoId = UUID.UUID();
 
-            return todoAppReducer(
-                state.setIn(['todos', newTodoId], Immutable.fromJS(action.todo).set('zIndex',findTopZIndex(state))),
-                {type: 'SELECT_CURRENT_TODO', todo_id: newTodoId}
+            state = state.update('todos',
+
+                (todos)=>todos.push(Immutable.fromJS(action.todo).set('zIndex',findTopZIndex(state)))
+
             );
+
+
+
+            return todoAppReducerCore(state, {type: 'SELECT_CURRENT_TODO', todo_id: state.get('todos').size-1});
 
         }
         case 'SELECT_CURRENT_TODO':
@@ -84,13 +88,13 @@ function todoAppReducerCore(state,action){
         case 'CLOSE_CURRENT_TODO':
 
 
-            return state.set('current_todo_id', null );
+            return state.set('current_todo_id', -1 );
 
         case 'DELETE_CURRENT_TODO': {
 
 
             const statePath = ['todos', state.get('current_todo_id')];
-            return state.deleteIn(statePath).set('current_todo_id', null);
+            return state.deleteIn(statePath).set('current_todo_id', -1);//todo recursion
 
         }
         case 'CHANGE_CURRENT_TODO_KEY': {
@@ -108,7 +112,7 @@ function todoAppReducerCore(state,action){
         case 'TOGGLE_CURRENT_TODO_DONE': {
 
             const statePath = ['todos', state.get('current_todo_id'), 'done'];
-            return state.setIn(statePath, !state.getIn(statePath));//.set('current_todo_id', null);
+            return state.setIn(statePath, !state.getIn(statePath));
 
         }
         case 'MOVE_CURRENT_TODO_TO_FRONT': {

@@ -11,7 +11,7 @@ import Style from 'style-it';
 interface ITodoAppProps {
     state:{
         todos:string[]
-        current_todo_id: string
+        current_todo_id: number
     }
     dispatch():void
 }
@@ -78,7 +78,7 @@ export function TodoApp(props:ITodoAppProps) {
                 <TodosList state={state} dispatch={dispatch}/>
 
 
-                {state.current_todo_id ?<div style={{
+                {state.current_todo_id!==-1 ?<div style={{
 
             //border: '1px solid blue';
 
@@ -95,7 +95,7 @@ export function TodoApp(props:ITodoAppProps) {
 
 
                 ></div>: ''}
-                {state.current_todo_id ?<TodoEdit state={state} dispatch={dispatch}/>: ''}
+                {state.current_todo_id!==-1 ?<TodoEdit state={state} dispatch={dispatch}/>: ''}
 
             </div>
         </Style>

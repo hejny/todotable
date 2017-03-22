@@ -128,8 +128,7 @@ export function TodosList(props) {
 
 
 
-            filter: state.current_todo_id?'blur(5px)':'',
-            //pointerEvents: state.current_todo_id?'none':'auto',
+            filter: state.current_todo_id!==-1?'blur(5px)':'',
 
 
         }}
