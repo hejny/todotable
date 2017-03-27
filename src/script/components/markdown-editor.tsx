@@ -84,6 +84,10 @@ export class MarkDownEditor extends React.Component<IMarkDownEditorProps,any> {
                         <ReactMarkdown
                             source={this.props.value}
 
+                            renderers={{Link: props => <a href={props.href} target="_blank" onClick={(e)=>{e.stopPropagation();}}>{props.children}</a>}}
+
+
+
                         />
                     </div>
                 }

@@ -52,6 +52,10 @@ export function TodoApp(props:ITodoAppProps) {
                     z-index: 99999999!important;
                 }
 
+                ul.todo-list > li h3{
+                    font-size: 1.1rem;
+                }
+
                 a{
                     color: inherit;
                 }

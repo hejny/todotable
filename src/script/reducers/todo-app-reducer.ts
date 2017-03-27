@@ -6,6 +6,7 @@ import * as Immutable from "immutable";
 //import { ITodoAppState } from '../interfaces/todo-app-state';
 
 import {createUriFromName} from '../functions/create-uri-from-name';
+import {TODO_WIDTHS,INITIAL_TODO} from '../config';
 
 
 
@@ -113,6 +114,26 @@ function todoAppReducerCore(state,action){
 
             const statePath = ['todos', state.get('current_todo_id'), 'done'];
             return state.setIn(statePath, !state.getIn(statePath));
+
+        }
+        case 'TOGGLE_CURRENT_TODO_WIDTH': {
+
+            const statePath = ['todos', state.get('current_todo_id'), 'width'];
+
+            const oldWidth = state.getIn(statePath);
+            const oldWidthIndex = TODO_WIDTHS.indexOf(oldWidth);
+            let newWidth:number;
+
+            if(oldWidthIndex===-1){
+                newWidth = INITIAL_TODO.width;
+            }else
+            if(oldWidthIndex<TODO_WIDTHS.length-1){
+                newWidth = TODO_WIDTHS[oldWidthIndex+1];
+            }else{
+                newWidth = TODO_WIDTHS[0];
+            }
+
+            return state.setIn(statePath, newWidth);
 
         }
         case 'MOVE_CURRENT_TODO_TO_FRONT': {

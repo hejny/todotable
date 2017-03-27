@@ -27,7 +27,11 @@ export function TodoItem(props) {
      };*/
 
     const position = realCoordsToScreenCoords(todo.position, state);
-    const width = Math.max(todo.name.length*10+30,100);
+
+
+    const width = ((todo.width||-1)>0)?todo.width:Math.max(todo.name.length*10+30,100);
+
+
 
     return (
         <Draggable
@@ -160,6 +164,9 @@ export function TodoItem(props) {
 
 
                     })()}
+
+
+                    renderers={{Link: props => <a href={props.href} target="_blank" onClick={(e)=>{e.stopPropagation();}}>{props.children}</a>}}
 
                 />
 

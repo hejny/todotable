@@ -115,6 +115,14 @@ export function TodoEdit(props) {
 
                     }}>
                     {/*<button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}><FontAwesome name='rocket' /></button>*/}
+
+
+
+                    <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_WIDTH'})}>
+                        <FontAwesome name="text-width" />{' '}
+                        {state.todos[state.current_todo_id].width==-1?'auto':state.todos[state.current_todo_id].width+'px'}
+                    </button>
+
                     <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}><FontAwesome name={(state.todos[state.current_todo_id].done?'check-square-o':'square-o')} /> Done</button>
                     <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}><FontAwesome name='trash-o' /> Delete</button>
 

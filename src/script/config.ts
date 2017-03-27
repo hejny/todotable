@@ -13,6 +13,11 @@ export const INITIAL_TODO = {
     description: '',//'## todo\n1) \n2) \n3) \n\n',
     uri: '',
     color: '#453F3C',
-    done:false
+    done:false,
+    width: -1
+
 
 };
+
+
+export const TODO_WIDTHS = [-1,100,200,300,400,500];
