@@ -105,6 +105,11 @@ export function TodoApp(props:ITodoAppProps) {
                 ></div>: ''}
                 {state.current_todo_id!==-1 ?<TodoEdit state={state} dispatch={dispatch}/>: ''}
 
+
+
+                aaaaaaa
+
+
             </div>
         </Style>
     );

@@ -89,7 +89,15 @@ function todoAppReducerCore(state,action){
         case 'CLOSE_CURRENT_TODO':
 
 
-            return state.set('current_todo_id', -1 );
+            const current_todo = state.getIn(['todos', state.get('current_todo_id')]).toJS();
+
+            if(!current_todo.name && !current_todo.description){
+                return todoAppReducerCore(state,{type:'DELETE_CURRENT_TODO'});
+            }else{
+                return state.set('current_todo_id', -1 );
+            }
+
+
 
         case 'DELETE_CURRENT_TODO': {
 

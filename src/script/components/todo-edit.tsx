@@ -98,6 +98,12 @@ export function TodoEdit(props) {
 
 
 
+
+
+              {/*<iframe src="/donate.html"></iframe>*/}
+
+
+
                 <MarkDownEditor
                     value={state.todos[state.current_todo_id].description}
                     onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'description',value:value})}
