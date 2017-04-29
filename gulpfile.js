@@ -93,17 +93,14 @@ gulp.task('build-js', function() {
     return gulp.src('./src/*')
         .pipe(webpack({
             entry: {
-                todotable: "./src/script/index.tsx"
+                browser: "./src/script/browser.tsx"
             },
             output: {
                 filename: "[name].js",
-                path: __dirname + "/dist",
-                libraryTarget: 'var',
-                library: 'TodoTable'
+                path: __dirname + "/dist"
             },
 
             devtool: "source-map",
-
             resolve: {
                 extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", '.json', 'index.json']
             },

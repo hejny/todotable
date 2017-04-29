@@ -8,19 +8,104 @@ import { createStore } from 'redux';
 
 
 
-import {TodoApp} from "../components/todo-app";
-import {todoAppReducer} from "../reducers/todo-app-reducer";
+import {TodoApp} from "./components/todo-app";
+import {stateReducer} from "./reducers/state-reducer";
 
 import * as _ from "lodash";
-import { loadState,saveState } from '../functions/local-storage'
-import { createHistoryReducer } from '../functions/create-history-reducer'
+import { loadState,saveState } from './functions/local-storage'
+import { createHistoryReducer } from './functions/create-history-reducer'
+import {wrapReducer} from './functions/wrap-reducer';
+
 
 //import {INITIAL_APP_STATE} from '../config';
-import {getInitialState} from '../resources/initial-state';
+import {getInitialState} from './resources/initial-state';
 
 
 import * as Hashes from 'jshashes';
 var SHA256 =  new Hashes.SHA256;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export class App{
+
+    private _store;
+    private _stateInitialized;
+    private _subscribers;
+
+    constructor() {
+        this._subscribers = [];
+        this._stateInitialized = false;
+    }
+
+    _stateInitializedCheck(){
+        if(!this._stateInitialized){
+            throw new Error(`State was not set yet.`);
+        }
+    }
+
+
+    setState(state: Immutable){
+
+        this._store = createStore(
+            wrapReducer(stateReducer)
+            //todo backward compatibility
+            ,state
+        );
+        this._store.subscribe(this._triggerSubscribers.bind(this));
+        this._stateInitialized = true;
+
+    }
+
+
+    getState(){
+        this._stateInitializedCheck();
+        return this._store.getState();
+    }
+
+
+    subscribe(subscriberCallback){
+        this._subscribers.push(subscriberCallback);
+    }
+
+    _triggerSubscribers(){
+        this._subscribers.forEach((subscriberCallback)=>{
+            subscriberCallback();
+        });
+
+    }
+
+    createJSX(){
+
+        this._stateInitializedCheck();
+        //todo rename to TodoComponent
+        return <TodoApp store={this._store}/>;
+    }
+
+}
+
+
+
+
+
+
+
+/*
 
 
 
@@ -42,7 +127,9 @@ export class App{
 
         this._store = createStore(
             createHistoryReducer(
-                todoAppReducer
+
+
+                wrapReducer(stateReducer)
                 ,(state)=>{
 
 
@@ -87,14 +174,6 @@ export class App{
 
 
 
-        /*this._store.subscribe(_.throttle(() => {
-
-            const currentState = this._store.getState()
-                .toJS();
-            saveState(currentState);
-
-        },200));*/
-
 
 
         window.onpopstate = (event) => {
@@ -125,3 +204,5 @@ export class App{
     }
 
 }
+
+/**/

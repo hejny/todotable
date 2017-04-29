@@ -15,26 +15,27 @@ import * as tinycolor from "tinycolor2";
 export function TodoEdit(props) {
 
 
-    const {state, dispatch} = props;
+    const {store} = props;
+    const stateJS = store.getState().toJS();
 
 
     const handleKeyPress = (event) => {
         if (event.key == 'Enter') {
 
-            dispatch({type: 'CLOSE_CURRENT_TODO'});
+            store.dispatch({type: 'CLOSE_CURRENT_TODO'});
 
         }
     };
 
 
     const handleChange = (event) => {
-        dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key:'name', value: event.target.value})
+        store.dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key:'name', value: event.target.value})
     };
 
 
 
 
-    const todoColor = tinycolor(state.todos[state.current_todo_id].color);
+    const todoColor = tinycolor(stateJS.todos[stateJS.current_todo_id].color);
     const textColor = tinycolor((todoColor.getBrightness()>255/2)?'black':'white');
 
 
@@ -77,7 +78,7 @@ export function TodoEdit(props) {
                 <input
                     type="text"
                     autoFocus={true}
-                    value={state.todos[state.current_todo_id].name}
+                    value={stateJS.todos[stateJS.current_todo_id].name}
                     onChange={handleChange}
                     style={{
                   width: '100%',
@@ -92,8 +93,8 @@ export function TodoEdit(props) {
 
                 <ColorPicker
 
-                    value={state.todos[state.current_todo_id].color}
-                    onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:value})}
+                    value={stateJS.todos[stateJS.current_todo_id].color}
+                    onChange={(value)=>store.dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:value})}
                 />
 
 
@@ -105,8 +106,8 @@ export function TodoEdit(props) {
 
 
                 <MarkDownEditor
-                    value={state.todos[state.current_todo_id].description}
-                    onChange={(value)=>dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'description',value:value})}
+                    value={stateJS.todos[stateJS.current_todo_id].description}
+                    onChange={(value)=>store.dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'description',value:value})}
 
                 />
 
@@ -120,17 +121,17 @@ export function TodoEdit(props) {
                         margin: 5,
 
                     }}>
-                    {/*<button onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}><FontAwesome name='rocket' /></button>*/}
+                    {/*<button onClick={store.dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}><FontAwesome name='rocket' /></button>*/}
 
 
 
-                    <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_WIDTH'})}>
+                    <button onClick={store.dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_WIDTH'})}>
                         <FontAwesome name="text-width" />{' '}
-                        {state.todos[state.current_todo_id].width==-1?'auto':state.todos[state.current_todo_id].width+'px'}
+                        {stateJS.todos[stateJS.current_todo_id].width==-1?'auto':stateJS.todos[stateJS.current_todo_id].width+'px'}
                     </button>
 
-                    <button onClick={dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}><FontAwesome name={(state.todos[state.current_todo_id].done?'check-square-o':'square-o')} /> Done</button>
-                    <button onClick={dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}><FontAwesome name='trash-o' /> Delete</button>
+                    <button onClick={store.dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_DONE'})}><FontAwesome name={(stateJS.todos[stateJS.current_todo_id].done?'check-square-o':'square-o')} /> Done</button>
+                    <button onClick={store.dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}><FontAwesome name='trash-o' /> Delete</button>
 
                 </div>
 

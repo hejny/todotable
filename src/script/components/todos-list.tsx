@@ -10,16 +10,19 @@ import {INITIAL_TODO} from '../config';
 
 export function TodosList(props) {
 
-    const {state, dispatch} = props;
+    const {store} = props;
+    const stateJS = store.getState().toJS();
+
+
     var moved;
 
     var mouseRealCoords;
 
 
-    const zoom_multiplier = countZoomMultiplier(state);
+    const zoom_multiplier = countZoomMultiplier(stateJS);
     const backgroundImageBlockSize = 700*zoom_multiplier;
-    const backgroundImageBlockLeft = -state.observer_position.x*zoom_multiplier;
-    const backgroundImageBlockTop  = -state.observer_position.y*zoom_multiplier;
+    const backgroundImageBlockLeft = -stateJS.observer_position.x*zoom_multiplier;
+    const backgroundImageBlockTop  = -stateJS.observer_position.y*zoom_multiplier;
 
 
 
@@ -54,7 +57,7 @@ export function TodosList(props) {
 
                 if(moved){
 
-                    dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x/zoom_multiplier,y:-object.y/zoom_multiplier}});
+                    store.dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x/zoom_multiplier,y:-object.y/zoom_multiplier}});
 
                     //onStop(event,object);
 
@@ -71,7 +74,7 @@ export function TodosList(props) {
                     const realCoords = screenCoordsToRealCoords({
                         x:event.offsetX - event.target.offsetWidth/2,
                         y:event.offsetY - event.target.offsetHeight/2
-                    },state);
+                    },stateJS);
 
                     /*const position = {
                         x: state.observer_position.x + event.offsetX - event.target.offsetWidth/2,
@@ -84,7 +87,7 @@ export function TodosList(props) {
                     });
 
 
-                    dispatch({type:'CREATE_NEW_TODO',todo: todo});
+                    store.dispatch({type:'CREATE_NEW_TODO',todo: todo});
 
 
 
@@ -128,7 +131,7 @@ export function TodosList(props) {
 
 
 
-            filter: state.current_todo_id!==-1?'blur(2px)':'',
+            filter: stateJS.current_todo_id!==-1?'blur(2px)':'',
 
 
         }}
@@ -138,7 +141,7 @@ export function TodosList(props) {
                 mouseRealCoords = screenCoordsToRealCoords({
                     x:event.nativeEvent.offsetX - event.target.offsetWidth/2,
                     y:event.nativeEvent.offsetY - event.target.offsetHeight/2
-                },state);
+                },stateJS);
             }}
 
 
@@ -170,7 +173,7 @@ export function TodosList(props) {
                             name: event.key
                         });
 
-                        dispatch({type:'CREATE_NEW_TODO',todo: todo});
+                        store.dispatch({type:'CREATE_NEW_TODO',todo: todo});
                         //dispatch({type:'CLOSE_CURRENT_TODO'});
 
                     }
@@ -179,9 +182,9 @@ export function TodosList(props) {
 
 
             >
-                {Object.keys(state.todos).map((todoKey)=><TodoItem key={todoKey} id={todoKey}
-                                                                   todo={state.todos[todoKey]} state={state}
-                                                                   dispatch={dispatch}/>)}
+                {Object.keys(stateJS.todos).map((todoKey)=><TodoItem key={todoKey} id={todoKey}
+                                                                   todo={stateJS.todos[todoKey]} state={stateJS}
+                                                                     store={store}/>)}
             </ul>
 
         </Draggable>

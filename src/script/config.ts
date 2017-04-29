@@ -1,12 +1,11 @@
 
 
-
-
+//todo create client-default-config
 export const API_URL = 'http://todotable.com/api/';
 
 
 
-}
+
 export const INITIAL_TODO = {
 
     name:'',

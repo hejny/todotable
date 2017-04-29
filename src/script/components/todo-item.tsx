@@ -10,7 +10,7 @@ import {realCoordsToScreenCoords,screenCoordsToRealCoords} from '../functions/co
 
 export function TodoItem(props) {
 
-    const {todo, id, state, dispatch} = props;
+    const {todo, id, state, store} = props;
 
     let moved;
 
@@ -54,12 +54,12 @@ export function TodoItem(props) {
                 event.stopPropagation();
                 event.preventDefault();
 
-                dispatch({type:'SELECT_CURRENT_TODO',todo_id:id});
+                store.dispatch({type:'SELECT_CURRENT_TODO',todo_id:id});
 
                 if(moved){
-                    dispatch({type:'MOVE_CURRENT_TODO_TO_FRONT'});
-                    dispatch({type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)});
-                    dispatch({type:'CLOSE_CURRENT_TODO'});
+                    store.dispatch({type:'MOVE_CURRENT_TODO_TO_FRONT'});
+                    store.dispatch({type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)});
+                    store.dispatch({type:'CLOSE_CURRENT_TODO'});
                 }
 
 
@@ -120,18 +120,18 @@ export function TodoItem(props) {
 
                     if (event.key === 'Enter') {
 
-                        dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
 
                     } else if (event.key === 'Delete') {
 
-                        dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
-                        dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
 
                     } else {
 
-                        dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
-                        dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key: 'name', value: todo.name + event.key});
-                        dispatch({type: 'CLOSE_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key: 'name', value: todo.name + event.key});
+                        store.dispatch({type: 'CLOSE_CURRENT_TODO', todo_id: id});
 
                         console.log(event.key);
                     }

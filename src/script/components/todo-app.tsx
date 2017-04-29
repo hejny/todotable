@@ -22,10 +22,10 @@ interface ITodoAppProps {
 export function TodoApp(props:ITodoAppProps) {
 
 
-    const {state, dispatch} = props;
+    const {store} = props;
+    const stateJS = store.getState().toJS();
 
-
-
+    console.log(stateJS);
 
     /*console.log(state.observer_position.x);
     console.log(countZoomMultiplier(state));
@@ -64,7 +64,7 @@ export function TodoApp(props:ITodoAppProps) {
             <div
 
                  onWheel={(event)=>{
-           dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
+           store.dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
         }}
             >
                 {/*<div style={{
@@ -83,10 +83,10 @@ export function TodoApp(props:ITodoAppProps) {
 
             }}></div>*/}
 
-                <TodosList state={state} dispatch={dispatch}/>
+                <TodosList store={store}/>
 
 
-                {state.current_todo_id!==-1 ?<div style={{
+                {stateJS.current_todo_id!==-1 ?<div style={{
 
             //border: '1px solid blue';
 
@@ -99,15 +99,13 @@ export function TodoApp(props:ITodoAppProps) {
             backgroundColor: 'rgba(255,255,255,0.1)',
 
         }}
-        onClick={dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}
+        onClick={store.dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}
 
 
                 ></div>: ''}
-                {state.current_todo_id!==-1 ?<TodoEdit state={state} dispatch={dispatch}/>: ''}
+                {stateJS.current_todo_id!==-1 ?<TodoEdit store={store}/>: ''}
 
 
-
-                aaaaaaa
 
 
             </div>

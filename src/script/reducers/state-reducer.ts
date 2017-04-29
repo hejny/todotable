@@ -19,35 +19,10 @@ function findTopZIndex(state){
 
 
 
-export function todoAppReducer(oldState,action){
-
-    console.groupCollapsed(`==[${action.type}]==>`);
-    console.log(oldState.toJS());
-    console.log('||');
-    console.log('||');
-
-
-    console.log(`[${action.type}]`,action);
-    const newState = todoAppReducerCore(oldState,action);
-
-    console.log('||');
-    console.log('||');
-    console.log('\\/');
-    console.log(newState.toJS());
-    if(oldState.equals(newState)){
-        console.log('==>States are equal');
-    }
-    console.groupEnd();
 
 
 
-    return newState;
-
-}
-
-
-
-function todoAppReducerCore(state,action){
+export function stateReducer(state,action){
 
 
 
@@ -78,7 +53,7 @@ function todoAppReducerCore(state,action){
 
 
 
-            return todoAppReducerCore(state, {type: 'SELECT_CURRENT_TODO', todo_id: state.get('todos').size-1});
+            return stateReducer(state, {type: 'SELECT_CURRENT_TODO', todo_id: state.get('todos').size-1});
 
         }
         case 'SELECT_CURRENT_TODO':
@@ -92,7 +67,7 @@ function todoAppReducerCore(state,action){
             const current_todo = state.getIn(['todos', state.get('current_todo_id')]).toJS();
 
             if(!current_todo.name && !current_todo.description){
-                return todoAppReducerCore(state,{type:'DELETE_CURRENT_TODO'});
+                return stateReducer(state,{type:'DELETE_CURRENT_TODO'});
             }else{
                 return state.set('current_todo_id', -1 );
             }
@@ -109,7 +84,7 @@ function todoAppReducerCore(state,action){
         case 'CHANGE_CURRENT_TODO_KEY': {
 
             if(action.key==='name'){
-                state = todoAppReducerCore(state,{type:'CHANGE_CURRENT_TODO_KEY',key:'uri',value:createUriFromName(action.value)});
+                state = stateReducer(state,{type:'CHANGE_CURRENT_TODO_KEY',key:'uri',value:createUriFromName(action.value)});
             }
 
 
