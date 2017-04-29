@@ -56,11 +56,26 @@ export function TodoItem(props) {
 
                 store.dispatch({type:'SELECT_CURRENT_TODO',todo_id:id});
 
+
+
+
                 if(moved){
-                    store.dispatch({type:'MOVE_CURRENT_TODO_TO_FRONT'});
-                    store.dispatch({type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)});
-                    store.dispatch({type:'CLOSE_CURRENT_TODO'});
+
+
+                    store.dispatch({
+                        type:'MULTIACTION',
+                        actions: [
+                            {type:'MOVE_CURRENT_TODO_TO_FRONT'},
+                            {type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)},
+                            {type:'CLOSE_CURRENT_TODO'},
+                        ]
+                    });
+
+
                 }
+
+
+
 
 
         }}

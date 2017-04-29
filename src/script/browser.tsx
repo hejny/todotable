@@ -8,6 +8,7 @@ import {App} from './app.tsx';
 import {createStateFromUri} from "./uri/create-state-from-uri.ts";
 import {createUriFromState} from "./uri/create-uri-from-state.ts";
 import {createTitleFromState} from "./uri/create-title-from-state.ts";
+import {async} from "ts-promise/dist/lib/async";
 
 
 
@@ -52,16 +53,22 @@ window.addEventListener('load', function() {
 
 
 
-    app.subscribe(()=>{
+
+
+
+    //todo throttle
+    app.subscribe(async function(){
 
 
         const state = app.getState();
 
-        //todo throttle
-        const url =   createUriFromState(state);
-        const title = createTitleFromState(state);
+
+        //todo use await* in future
+        const [uri, title] = await Promise.all([createUriFromState(state) , createTitleFromState(state)]);
+
+
         document.title = title;
-        history.pushState(state,title,url);
+        history.pushState(state,title,uri);
 
 
         //------
@@ -75,6 +82,14 @@ window.addEventListener('load', function() {
 
 
     });
+
+
+
+
+
+
+
+
 
 
 

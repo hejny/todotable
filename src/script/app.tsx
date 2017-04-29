@@ -21,10 +21,6 @@ import {wrapReducer} from './functions/wrap-reducer';
 import {getInitialState} from './resources/initial-state';
 
 
-import * as Hashes from 'jshashes';
-var SHA256 =  new Hashes.SHA256;
-
-
 
 
 

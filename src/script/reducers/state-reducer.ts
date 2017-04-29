@@ -38,9 +38,15 @@ export function stateReducer(state,action){
     switch (action.type) {
 
 
+        //todo deprecated
         case 'CHANGE_STATE':
 
             return action.state;
+
+        case 'MULTIACTION':
+
+            return action.actions.reduce(stateReducer,state);
+
 
         case 'CREATE_NEW_TODO': {
 
