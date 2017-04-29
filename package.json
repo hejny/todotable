@@ -19,9 +19,9 @@
     "react-fontawesome": "^1.5.0",
     "react-markdown": "^2.4.6",
     "redux": "^3.6.0",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.0",
     "style-it": "^1.6.7",
+    "superagent": "^3.5.2",
+    "superagent-promise": "^1.1.0",
     "tinycolor2": "^1.4.1",
     "ts-promise": "^0.3.4"
   },
