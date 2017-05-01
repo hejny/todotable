@@ -7,6 +7,8 @@ var ts = require('gulp-typescript');
 var gulpWebpack = require('gulp-webpack');
 const webpack = require('webpack');
 //const gulpWebpack = require('webpack-stream');
+
+
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
@@ -102,10 +104,10 @@ gulp.task('build-css', function() {
 
 
         gulp.task('build-js-'+target+'-'+environment, function () {
-            return gulp.src('./src/*')
+            return gulp.src('./src/script')
                 .pipe(gulpWebpack({
                     entry: {
-                        browser: './src/script/'+target+'.tsx'
+                        index: './src/script/'+target+'.tsx'
                     },
                     output: {
                         filename: target+(environment==='production'?'.min':'')+".js",
@@ -114,9 +116,12 @@ gulp.task('build-css', function() {
 
 
                     target: target==='browser'?'web':'node',
+
+
+
                     devtool: "source-map",
                     resolve: {
-                        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", '.json', 'index.json']
+                        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", '.json']
                     },
 
                     module: {
@@ -147,6 +152,11 @@ gulp.task('build-css', function() {
                         "react": "React",
                         "react-dom": "ReactDOM"
                     }*/
+                    stats:{
+                        errorDetails: true,
+                    },
+
+
 
                 }))
                 .pipe(gulp.dest('./dist/'));
