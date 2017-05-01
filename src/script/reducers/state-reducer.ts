@@ -3,7 +3,7 @@ import * as Immutable from "immutable";
 //import { UUID } from 'angular2-uuid';
 
 
-//import { ITodoAppState } from '../interfaces/todo-app-state';
+//import { ITodoAppState } from '../interfaces/todo-expressApp-state';
 
 import {createUriFromName} from '../functions/create-uri-from-name';
 import {TODO_WIDTHS,INITIAL_TODO} from '../config';

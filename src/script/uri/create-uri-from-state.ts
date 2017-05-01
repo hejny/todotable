@@ -10,6 +10,8 @@ const SHA256 =  new Hashes.SHA256;
 //todo this function should persist the state
 export async function createUriFromState(state:Immutable):string{
 
+    console.log('createUriFromState');
+
     const stateJS = state.toJS();
 
     let uriPathParts = [];

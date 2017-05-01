@@ -4,7 +4,9 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var ts = require('gulp-typescript');
-var webpack = require('gulp-webpack');
+var gulpWebpack = require('gulp-webpack');
+const webpack = require('webpack');
+//const gulpWebpack = require('webpack-stream');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
@@ -13,15 +15,12 @@ var url = require("url");
 
 
 
-gulp.task('default',['build']);
+gulp.task('default',['build-production']);
 
 
 
 
-gulp.task('build', ['build-js','build-css']);
-
-
-
+/*
 
 gulp.task('browser-sync', function() {
 
@@ -60,9 +59,9 @@ gulp.task('browser-sync-init', function (done) {
 
 });
 gulp.task('browser-sync-watch', function (done) {
-    gulp.watch("./src/script/**/*.ts",  ['browser-sync-build-js']);
-    gulp.watch("./src/script/**/*.tsx", ['browser-sync-build-js']);
-    gulp.watch("./src/style/**/*.scss", ['build-css']);
+    gulp.watch("./src/script/**"+"/*.ts",  ['browser-sync-build-js']);
+    gulp.watch("./src/script/**"+"/*.tsx", ['browser-sync-build-js']);
+    gulp.watch("./src/style/**"+"/*.scss", ['build-css']);
     gulp.watch("./*.html").on('change', browserSync.reload);
     done();
 });
@@ -73,6 +72,13 @@ gulp.task('browser-sync-build-js', ['build-js'], function (done) {
     done();
 });
 
+/**/
+
+
+
+
+
+gulp.task('build-production', ['build-js-browser-production','build-js-server-production','build-css']);
 
 
 
@@ -89,50 +95,69 @@ gulp.task('build-css', function() {
 
 
 
-gulp.task('build-js', function() {
-    return gulp.src('./src/*')
-        .pipe(webpack({
-            entry: {
-                browser: "./src/script/browser.tsx"
-            },
-            output: {
-                filename: "[name].js",
-                path: __dirname + "/dist"
-            },
 
-            devtool: "source-map",
-            resolve: {
-                extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", '.json', 'index.json']
-            },
 
-            module: {
-                loaders: [
-                    {
-                        test: /\.ts(x?)$/,
-                        loader: 'ts-loader'
+['browser','server'].forEach(function(target) {
+    ['development', 'production'].forEach(function (environment) {
+
+
+        gulp.task('build-js-'+target+'-'+environment, function () {
+            return gulp.src('./src/*')
+                .pipe(gulpWebpack({
+                    entry: {
+                        browser: './src/script/'+target+'.tsx'
                     },
-                    { test: /\.json$/, loader: "json-loader" }
-                ],
+                    output: {
+                        filename: target+(environment==='production'?'.min':'')+".js",
+                        path: __dirname + "/dist"
+                    },
 
 
-                preLoaders: [
-                    { test: /\.js$/, loader: "source-map-loader" },
-                ]
-            },
+                    target: target==='browser'?'web':'node',
+                    devtool: "source-map",
+                    resolve: {
+                        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", '.json', 'index.json']
+                    },
+
+                    module: {
+                        loaders: [
+                            {
+                                test: /\.ts(x?)$/,
+                                loader: 'ts-loader'
+                            },
+                            {
+                                test: /\.json$/,
+                                loader: "json-loader"
+                            }
+                        ],
 
 
-            externals: {
-                "react": "React",
-                "react-dom": "ReactDOM"
-            }
+                        preLoaders: [
+                            {test: /\.js$/, loader: "source-map-loader"},
+                        ]
+                    },
 
-        }))
-        .pipe(gulp.dest('./dist/'));
+
+                    plugins: [
+                        new webpack.DefinePlugin({ "global.GENTLY": false })
+                    ],
+
+
+                    /*externals: {
+                        "react": "React",
+                        "react-dom": "ReactDOM"
+                    }*/
+
+                }))
+                .pipe(gulp.dest('./dist/'));
+        });
+
+
+
+
+
+    });
 });
-
-
-
-
 
 
 

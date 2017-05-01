@@ -25,11 +25,6 @@ export function TodoApp(props:ITodoAppProps) {
     const {store} = props;
     const stateJS = store.getState().toJS();
 
-    console.log(stateJS);
-
-    /*console.log(state.observer_position.x);
-    console.log(countZoomMultiplier(state));
-    console.log(backgroundImageBlockLeft);*/
 
 
     return (
