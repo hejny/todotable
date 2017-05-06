@@ -16,7 +16,7 @@ var url = require("url");
 
 
 
-gulp.task('default',['build-production']);
+gulp.task('default',['build']);
 
 
 
@@ -81,7 +81,7 @@ gulp.task('browser-sync-build-js', ['build-js-browser-development'], function (d
 
 
 
-gulp.task('build-production', ['build-js-browser-production','build-js-server-production','build-css']);
+gulp.task('build', ['build-js-browser-production','build-js-server-production','build-css']);
 
 
 
