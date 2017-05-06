@@ -9,7 +9,6 @@ const webpack = require('webpack');
 //const gulpWebpack = require('webpack-stream');
 
 
-var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
 var fs = require("fs");
@@ -35,8 +34,10 @@ gulp.task('browser-sync', function() {
 });
 
 
+var browserSync = null;
 gulp.task('browser-sync-init', function (done) {
 
+    browserSync = require('browser-sync').create();
     browserSync.init({
         server: {
             baseDir: "./",
@@ -87,11 +88,20 @@ gulp.task('build-production', ['build-js-browser-production','build-js-server-pr
 
 
 gulp.task('build-css', function() {
-    return gulp.src("./src/style/index.scss")
+
+
+    var stream = gulp.src("./src/style/index.scss")
         .pipe(sass())
         .pipe(rename("./todotable.css"))
         .pipe(gulp.dest("./dist"))
-        .pipe(browserSync.stream());
+        ;
+
+    if(browserSync){
+        stream.pipe(browserSync.stream());
+    }
+
+
+    return stream;
 });
 
 
