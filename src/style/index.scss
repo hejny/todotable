@@ -76,3 +76,13 @@ button, .button, input[type="submit"] {
 }
 
 
+#loading{
+  position: fixed;
+  z-index: 99999;
+
+  top: 0px;
+  left: 50vw;
+
+  color: red;
+
+}

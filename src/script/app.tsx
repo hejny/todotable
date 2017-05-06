@@ -13,7 +13,7 @@ import {stateReducer} from "./reducers/state-reducer";
 
 import * as _ from "lodash";
 import { loadState,saveState } from './functions/local-storage'
-import { createHistoryReducer } from './functions/create-history-reducer'
+//import { createHistoryReducer } from './functions/create-history-reducer'
 import {wrapReducer} from './functions/wrap-reducer';
 
 

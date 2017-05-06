@@ -8,8 +8,12 @@ import {App} from './app.tsx';
 import {createStateFromUri} from "./uri/create-state-from-uri.ts";
 import {createUriFromState} from "./uri/create-uri-from-state.ts";
 import {createTitleFromState} from "./uri/create-title-from-state.ts";
-import {async} from "ts-promise/dist/lib/async";
+//import {async} from "ts-promise/dist/lib/async";
 
+
+
+import {API_URL} from './config';
+import {makeRequest} from './resources/make-request';
 
 
 
@@ -21,6 +25,7 @@ window.addEventListener('load', function() {
 
 
 
+    const loadingElement = document.getElementById('loading');
     const root = document.getElementById('root');
     const app = new App();
 
@@ -56,11 +61,43 @@ window.addEventListener('load', function() {
 
 
 
-    //todo throttle
+    //todo throttle  import * as _ from "lodash";
     app.subscribe(async function(){
 
 
         const state = app.getState();
+
+
+
+
+
+
+        console.log(loadingElement);
+
+
+        ReactDOM.render(
+            <div>aaa</div>,
+            loadingElement
+        );
+        makeRequest('POST', API_URL, JSON.stringify(state.get('todos').toJS()), {'Content-Type': 'application/json'})
+            .then((response)=>{
+                ReactDOM.render(
+                    <div>success</div>,
+                    loadingElement
+                );
+            })
+            .catch((error)=>{
+                ReactDOM.render(
+                    <div>error</div>,
+                    loadingElement
+                );
+            })
+        ;
+
+
+
+
+
 
 
         //todo use await* in future

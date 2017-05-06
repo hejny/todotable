@@ -22,7 +22,7 @@ gulp.task('default',['build-production']);
 
 
 
-/*
+
 
 gulp.task('browser-sync', function() {
 
@@ -69,7 +69,7 @@ gulp.task('browser-sync-watch', function (done) {
 });
 
 
-gulp.task('browser-sync-build-js', ['build-js'], function (done) {
+gulp.task('browser-sync-build-js', ['build-js-browser-development'], function (done) {
     browserSync.reload();
     done();
 });

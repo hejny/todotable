@@ -131,7 +131,7 @@ export function TodosList(props) {
 
 
 
-            filter: stateJS.current_todo_id!==-1?'blur(2px)':'',
+            //filter: stateJS.current_todo_id!==-1?'blur(2px)':'',
 
 
         }}
