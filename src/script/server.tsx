@@ -144,9 +144,9 @@ expressApp.get('/*', function (req, res) {
  /**/
 
 
-app.set('port', (process.env.PORT || 5000));
+expressApp.set('port', (process.env.PORT || 5000));
 
 
-app.listen(app.get('port'), function () {
-    console.log(`App listening on port ${app.get('port')}!`)
+expressApp.listen(expressApp.get('port'), function () {
+    console.log(`App listening on port ${expressApp.get('port')}!`)
 });
