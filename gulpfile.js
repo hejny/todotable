@@ -81,7 +81,7 @@ gulp.task('browser-sync-build-js', ['build-js-browser-development'], function (d
 
 
 
-gulp.task('build', ['build-js-browser-production','build-js-server-production','build-css']);
+gulp.task('build', ['build-js-browser-production','build-js-server-development','build-css']);
 
 
 
