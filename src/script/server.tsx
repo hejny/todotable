@@ -13,8 +13,8 @@ var expressApp = express();
 
 
 //Static content
-expressApp.use('/media', express.static('../media/'));
-expressApp.use('/dist', express.static('../dist/'));
+expressApp.use('/media', express.static('./media/'));
+expressApp.use('/dist', express.static('./dist/'));
 
 
 
@@ -44,7 +44,7 @@ import {async} from "ts-promise/dist/lib/async";
 //console.log(path.join(__dirname, '../index.html'));
 
 
-const indexHtml = fs.readFileSync('../index.html', 'utf8');
+const indexHtml = fs.readFileSync('./index.html', 'utf8');
 //const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
 //const stats = fs.statSync(path.join(''));
 //const mtime = new Date(util.inspect(stats.mtime));
@@ -144,8 +144,9 @@ expressApp.get('/*', function (req, res) {
  /**/
 
 
+app.set('port', (process.env.PORT || 5000));
 
-//todo server-config port
-expressApp.listen(12345, function () {
-    console.log('Example expressApp listening on port 12345!')
+
+app.listen(app.get('port'), function () {
+    console.log(`App listening on port ${app.get('port')}!`)
 });
