@@ -1,3 +1,4 @@
+import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 
@@ -8,6 +9,7 @@ import {App} from './app.tsx';
 import {createStateFromUri} from "./uri/create-state-from-uri.ts";
 import {createUriFromState} from "./uri/create-uri-from-state.ts";
 import {createTitleFromState} from "./uri/create-title-from-state.ts";
+import * as FontAwesome from 'react-fontawesome';
 //import {async} from "ts-promise/dist/lib/async";
 
 
@@ -75,20 +77,20 @@ window.addEventListener('load', function() {
         console.log(loadingElement);
 
 
-        ReactDOM.render(
-            <div>aaa</div>,
+        ReactDOM.render(//todo spinner
+            <div><FontAwesome name="spinner" spin />  Saving</div>,
             loadingElement
         );
         makeRequest('POST', API_URL, JSON.stringify(state.get('todos').toJS()), {'Content-Type': 'application/json'})
-            .then((response)=>{
+            .then((response)=>{//show time
                 ReactDOM.render(
-                    <div>success</div>,
+                    <div>Saved</div>,
                     loadingElement
                 );
             })
             .catch((error)=>{
                 ReactDOM.render(
-                    <div>error</div>,
+                    <div>Error in saving</div>,
                     loadingElement
                 );
             })

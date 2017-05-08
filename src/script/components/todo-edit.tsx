@@ -11,12 +11,39 @@ import * as tinycolor from "tinycolor2";
 
 
 
+//todo separate file
+function mapObject(object:Object,callback:(string,any)=>any){
+    let mappedArray = [];
+    for(let key in object){
+        mappedArray.push(callback(key,object[key]));
+    }
+    return mappedArray;
+}
+
+
+
 
 export function TodoEdit(props) {
 
 
     const {store} = props;
     const stateJS = store.getState().toJS();
+
+
+    /*
+    let outputs = [];
+    let inputs  = [];
+    //todo ?reducer
+    stateJS.todos.forEach((todo)=>{
+
+        outputs.concat(todo.outputs.keys());
+        inputs.concat(todo.inputs.keys());
+
+    });*/
+
+
+
+
 
 
     const handleKeyPress = (event) => {
@@ -49,7 +76,7 @@ export function TodoEdit(props) {
                 background-color: ${todoColor.toHexString()};
                 color: ${textColor.toHexString()};
 
-                box-shadow: black 0px 0px 15px;
+                box-shadow: black 0px 0px 5px;
                 padding: 10px;
 
               }
@@ -67,7 +94,7 @@ export function TodoEdit(props) {
 
 
             <div
-                 className="popup-window"
+                 className="popup-window todo-edit"
                  onKeyPress={handleKeyPress}
 
             >
@@ -102,6 +129,61 @@ export function TodoEdit(props) {
 
 
               {/*<iframe src="/donate.html"></iframe>*/}
+
+
+              <div className="resources">
+                  <div className="inputs">
+                      <h2>Inputs</h2>
+                      <ul>
+
+                          {stateJS.resources.map((resource)=>{
+
+                              //onChange={(event)=>store.dispatch({type:'CHANGE_RESOURCE_NAME',oldName:key,newName:event.target.value})}
+
+                              return(
+                                  <li key={resource.key}>
+
+                                      <label>
+                                          <span className="resource">
+                                              <span className="key">{resource.key}</span>
+                                              <span className="unit">[{resource.unit}]</span>
+                                          </span>
+                                          <input
+                                              type="number"
+                                              value={stateJS.todos[stateJS.current_todo_id].inputs[resource.key]||0} onChange={(event)=>store.dispatch({type:'CHANGE_CURRENT_TODO_INPUT',resource:resource.key,value:event.target.value})}
+                                          />
+                                      </label>
+                                  </li>
+                              );
+
+                          })}
+
+
+                      </ul>
+
+                  </div>
+
+                  <div className="outputs">
+                      <h2>Outputs</h2>
+                      <ul>
+                          <li>
+                              <input value="USD"/>
+                              <input value="1800"/>
+                          </li>
+                          <li>
+                              <input value="Time"/>
+                              <input value="60"/>
+                          </li>
+
+                      </ul>
+
+                  </div>
+
+
+              </div>
+
+
+
 
 
 

@@ -6,7 +6,7 @@ import * as Immutable from "immutable";
 //import { ITodoAppState } from '../interfaces/todo-expressApp-state';
 
 import {createUriFromName} from '../functions/create-uri-from-name';
-import {TODO_WIDTHS,INITIAL_TODO} from '../config';
+import {TODO_WIDTHS,EMPTY_TODO} from '../config';
 
 
 
@@ -90,7 +90,23 @@ export function stateReducer(state,action){
         case 'CHANGE_CURRENT_TODO_KEY': {
 
             if(action.key==='name'){
-                state = stateReducer(state,{type:'CHANGE_CURRENT_TODO_KEY',key:'uri',value:createUriFromName(action.value)});
+
+
+
+                let uriBase = createUriFromName(action.value);
+                let uri = uriBase;
+
+                for(let uriIncrement=1;state.get('todos').toJS().some((todo)=>todo.uri===uri);uriIncrement++){
+                    uri = uriBase+'-'+uriIncrement;
+                }
+
+
+
+                state = stateReducer(state,{type:'CHANGE_CURRENT_TODO_KEY',key:'uri',value:uri});
+
+
+
+
             }
 
 
@@ -114,7 +130,7 @@ export function stateReducer(state,action){
             let newWidth:number;
 
             if(oldWidthIndex===-1){
-                newWidth = INITIAL_TODO.width;
+                newWidth = EMPTY_TODO.width;
             }else
             if(oldWidthIndex<TODO_WIDTHS.length-1){
                 newWidth = TODO_WIDTHS[oldWidthIndex+1];
@@ -125,6 +141,45 @@ export function stateReducer(state,action){
             return state.setIn(statePath, newWidth);
 
         }
+        case 'CHANGE_CURRENT_TODO_INPUT': {
+
+
+            const statePath = ['todos', state.get('current_todo_id'), 'inputs',action.resource];
+            return state.setIn(statePath, action.value);
+
+
+        }
+        case 'CHANGE_CURRENT_TODO_OUTPUT': {
+
+
+            const statePath = ['todos', state.get('current_todo_id'), 'outputs',action.resource];
+            return state.setIn(statePath, action.value);
+
+
+        }
+        /*case 'CHANGE_CURRENT_TODO_INPUT_NAME': {
+
+
+            const statePathOld = ['todos', state.get('current_todo_id'), 'inputs',action.oldName];
+            const statePathNew = ['todos', state.get('current_todo_id'), 'inputs',action.newName];
+            return state.setIn(statePathNew, state.getIn(statePathOld)).deleteIn(statePathOld);
+
+
+        }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         case 'MOVE_CURRENT_TODO_TO_FRONT': {
 
             const statePath = ['todos', state.get('current_todo_id'),'zIndex'];

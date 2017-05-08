@@ -59,9 +59,10 @@ export function TodoApp(props:ITodoAppProps) {
             <div
 
                  onWheel={(event)=>{
-           store.dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
-        }}
-            >
+                    if(stateJS.current_todo_id===-1){
+                        store.dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
+                    }}}
+                >
                 {/*<div style={{
 
                     position: 'fixed',

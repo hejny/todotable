@@ -5,7 +5,7 @@ import {TodoItem} from "./todo-item";
 
 import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords';
 
-import {INITIAL_TODO} from '../config';
+import {EMPTY_TODO} from '../config';
 
 
 export function TodosList(props) {
@@ -82,7 +82,7 @@ export function TodosList(props) {
                     };*/
 
 
-                    const todo = Object.assign({},INITIAL_TODO,{
+                    const todo = Object.assign({},EMPTY_TODO,{
                         position: realCoords
                     });
 
@@ -168,7 +168,7 @@ export function TodosList(props) {
                             throw new Error('I dont know position.');
                         }
 
-                        const todo = Object.assign({},INITIAL_TODO,{
+                        const todo = Object.assign({},EMPTY_TODO,{
                             position: mouseRealCoords,
                             name: event.key
                         });

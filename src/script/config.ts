@@ -9,12 +9,16 @@ export const TITLE_SEPARATOR = ' | ';
 
 
 //todo create client-default-config
-export const API_URL = 'http://todotable.com/api/';
+export const API_URL = 'http://localhost/todotable/api/';
 
 
 
+export const TODO_WIDTHS = [-1,100,200,300,400,500];
 
-export const INITIAL_TODO = {
+
+export const DEFAULT_URI = '/266e529?x=15.0&y=-50.0&zoom=0.0';
+
+export const EMPTY_TODO = {
 
     name:'',
     description: '',//'## todo\n1) \n2) \n3) \n\n',
@@ -24,7 +28,18 @@ export const INITIAL_TODO = {
     width: -1
 
 
+
+    inputs:{
+        "USD": 25,
+        "time": 25,
+    },
+
+
+    outputs:{
+        "USD": 25,
+        "time": 25,
+    }
+
+
 };
 
-
-export const TODO_WIDTHS = [-1,100,200,300,400,500];

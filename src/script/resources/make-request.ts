@@ -4,6 +4,8 @@ export function makeRequest (method:string, url:string, data?:string, headers?={
 
 
     return new Promise(function (resolve, reject) {
+
+
         var xhr = new XMLHttpRequest();
         xhr.open(method, url);
         xhr.onload = function () {
