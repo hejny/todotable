@@ -115,12 +115,22 @@ export function stateReducer(state,action){
 
 
         }
-        case 'TOGGLE_CURRENT_TODO_DONE': {
+        //todo all actions should begin with CURRENT_TODO
+        case 'CURRENT_TODO_ADD_DONE_TIME': {
 
-            const statePath = ['todos', state.get('current_todo_id'), 'done'];
-            return state.setIn(statePath, !state.getIn(statePath));
+            const statePath = ['todos', state.get('current_todo_id'), 'done_times'];
+            state = state.updateIn(statePath,
 
-        }
+                (todos)=>todos.push(action.date/1)//todo is thare a better way to convert Date to integer
+
+            );
+        case 'CURRENT_TODO_DELETE_DONE_TIME': {
+
+                const statePath = ['todos', state.get('current_todo_id'), 'done_times',action.index];
+                return state.deleteIn(statePath);
+
+
+            }
         case 'TOGGLE_CURRENT_TODO_WIDTH': {
 
             const statePath = ['todos', state.get('current_todo_id'), 'width'];
