@@ -26,7 +26,37 @@ export function TodoItem(props) {
      y: position.y * zoom_multiplier,
      };*/
 
-    const position = realCoordsToScreenCoords(todo.position, state);
+
+    let inout = {x:0,y:0};
+
+
+    const lastDoneTime = todo.done_times.reduce((done_time,latest)=>done_time>latest?done_time:latest,0);
+    const s = Math.floor(((new Date()/1) - lastDoneTime)/1000);
+    const m = Math.floor(s/60);
+    const h = Math.floor(s/60);
+    const d = Math.floor(s/24);
+    state.resources.forEach((resource)=> {
+
+
+
+        const expression = todo['inputs'][resource.key] || 0;
+        let result;
+        try {
+            result = eval(expression);
+        } catch (error) {
+            result = 0;
+        }
+
+        inout.x +=  result;
+    });
+
+
+    console.log(inout);
+
+    //const position = realCoordsToScreenCoords(todo.position, state);
+    const position = realCoordsToScreenCoords(inout, state);
+
+
 
 
     const width = ((todo.width||-1)>0)?todo.width:Math.max(todo.name.length*10+30,100);

@@ -38,8 +38,9 @@ export const EMPTY_TODO = {
     outputs:{
         "USD": 25,
         "time": 25,
-    }
+    },
 
+    done_times: []
 
 };
 

@@ -1,6 +1,8 @@
 
 import * as Immutable from "immutable";
+import * as _ from "lodash";
 import * as Uri from 'jsuri';
+import {EMPTY_TODO} from '../config';
 //import * as defaultState from '../../../default-state.json';
 
 import {API_URL,DEFAULT_URI} from '../config';
@@ -21,9 +23,16 @@ async function _createStateFromUriCore(uri:string) {
 
     const todos_id = uriObject.path().split('/')[1];
     const response = await superagentPromise('GET', `${API_URL}?id=${todos_id}`);
-    console.log(response);
+    //console.log(response);
 
-    const todos = JSON.parse(response.text);
+
+
+    const todos = JSON.parse(response.text).map((todo)=>_.defaults({},todo,EMPTY_TODO));
+
+
+
+
+
 
 
 

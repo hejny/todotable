@@ -151,18 +151,10 @@ export function stateReducer(state,action){
             return state.setIn(statePath, newWidth);
 
         }
-        case 'CHANGE_CURRENT_TODO_INPUT': {
+        case 'CHANGE_CURRENT_TODO_RESOURCE': {
 
 
-            const statePath = ['todos', state.get('current_todo_id'), 'inputs',action.resource];
-            return state.setIn(statePath, action.value);
-
-
-        }
-        case 'CHANGE_CURRENT_TODO_OUTPUT': {
-
-
-            const statePath = ['todos', state.get('current_todo_id'), 'outputs',action.resource];
+            const statePath = ['todos', state.get('current_todo_id'), action.direction,action.resource];
             return state.setIn(statePath, action.value);
 
 

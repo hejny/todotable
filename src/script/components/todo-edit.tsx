@@ -5,6 +5,8 @@ import * as FontAwesome from 'react-fontawesome';
 
 import {ColorPicker} from "./color-picker";
 import {MarkDownEditor} from "./markdown-editor";
+import {TodoEditResources} from "./todo-edit-resources";
+import {TodoEditDoneTimes} from "./todo-edit-done-times";
 
 
 import * as tinycolor from "tinycolor2";
@@ -64,6 +66,8 @@ export function TodoEdit(props) {
 
     const todoColor = tinycolor(stateJS.todos[stateJS.current_todo_id].color);
     const textColor = tinycolor((todoColor.getBrightness()>255/2)?'black':'white');
+
+
 
 
 
@@ -127,97 +131,6 @@ export function TodoEdit(props) {
 
 
 
-
-              {/*<iframe src="/donate.html"></iframe>*/}
-
-
-              <div className="resources segment">
-                  <div className="inputs">
-                      <h2>Inputs</h2>
-                      <ul>
-
-                          {stateJS.resources.map((resource)=>{
-
-                              //onChange={(event)=>store.dispatch({type:'CHANGE_RESOURCE_NAME',oldName:key,newName:event.target.value})}
-
-                              return(
-                                  <li key={resource.key}>
-
-                                      <label>
-                                          <span className="resource">
-                                              <span className="key">{resource.key}</span>
-                                              <span className="unit">[{resource.unit}]</span>
-                                          </span>
-                                          <input
-                                              type="number"
-                                              value={stateJS.todos[stateJS.current_todo_id].inputs[resource.key]||0} onChange={(event)=>store.dispatch({type:'CHANGE_CURRENT_TODO_INPUT',resource:resource.key,value:event.target.value})}
-                                          />
-                                      </label>
-                                  </li>
-                              );
-
-                          })}
-
-
-                      </ul>
-
-                  </div>
-
-                  <div className="outputs">
-                      <h2>Outputs</h2>
-                      <ul>
-                          <li>
-                              <input value="USD"/>
-                              <input value="1800"/>
-                          </li>
-                          <li>
-                              <input value="Time"/>
-                              <input value="60"/>
-                          </li>
-
-                      </ul>
-
-                  </div>
-
-
-              </div>
-
-
-
-
-
-                <div className="done-times segment">
-                    <h2>Done times</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Time</td>
-                                <td>Actions</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            stateJS.todos[stateJS.current_todo_id].done_times.map(
-                                (done_time,index)=>
-                                    <tr key={index}>
-                                        <td>{moment(done_time).calendar()}</td>
-                                        <td>
-                                            <div onClick={store.dispatch.bind(this,{type:'CURRENT_TODO_DELETE_DONE_TIME',index})}>
-                                                <FontAwesome name='trash-o' />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                        }
-
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-
-
                 <div className="editor segment">
                     <MarkDownEditor
                         value={stateJS.todos[stateJS.current_todo_id].description}
@@ -225,6 +138,14 @@ export function TodoEdit(props) {
 
                     />
                 </div>
+                <div className="done-times segment">
+                    <TodoEditResources store={store} />
+                </div>
+                <div className="resources segment">
+                    <TodoEditDoneTimes  store={store} />
+                </div>
+
+
 
 
 

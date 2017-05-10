@@ -48,6 +48,19 @@ window.addEventListener('load', function() {
 
 
 
+
+            setInterval(()=>{
+                console.log('Tick render...');
+                ReactDOM.render(
+                    app.createJSX(),
+                    root
+                );
+            },1000);
+
+
+
+
+
         });
 
 
