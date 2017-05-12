@@ -1,9 +1,14 @@
 import * as React from "react";
+
+import * as FontAwesome from 'react-fontawesome';
+
+import {TodosBoard} from "./todos-board";
 import {TodosList} from "./todos-list";
 import {TodoEdit} from "./todo-edit";
 
 
 import Style from 'style-it';
+import {EMPTY_TODO} from "../config";
 
 
 
@@ -63,23 +68,19 @@ export function TodoApp(props:ITodoAppProps) {
                         store.dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
                     }}}
                 >
-                {/*<div style={{
-
-                    position: 'fixed',
-                    top: '0',
-                    bottom: '0',
-                    left: '0',
-                    right: '0',
-
-                    backgroundImage: 'url("/media/images/backgrounds/table1.png")',
-                    backgroundRepeat: 'repeat, repeat',
-                    backgroundSize: `${backgroundImageBlockSize}px, ${backgroundImageBlockSize}px`,
-                    backgroundPosition: `top 10px left ${backgroundImageBlockLeft}px`,
 
 
-            }}></div>*/}
 
-                <TodosList store={store}/>
+                <TodosBoard store={store}/>
+
+
+                <div
+                    className="add-todo"
+                    onClick={()=>store.dispatch({type:'CREATE_NEW_TODO',todo: EMPTY_TODO})}
+                >
+                    <FontAwesome name="plus" />
+                </div>
+
 
 
                 {stateJS.current_todo_id!==-1 ?<div style={{

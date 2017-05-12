@@ -5,10 +5,11 @@ import {TodoItem} from "./todo-item";
 
 import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords';
 
+
 import {EMPTY_TODO} from '../config';
 
 
-export function TodosList(props) {
+export function TodosBoard(props) {
 
     const {store} = props;
     const stateJS = store.getState().toJS();
@@ -20,14 +21,55 @@ export function TodosList(props) {
 
 
     const zoom_multiplier = countZoomMultiplier(stateJS);
-    const backgroundImageBlockSize = 700 * zoom_multiplier;
-    const backgroundImageBlockLeft = -stateJS.observer_position.x * zoom_multiplier;
-    const backgroundImageBlockTop = -stateJS.observer_position.y * zoom_multiplier;
+    const backgroundImageBlockSize = 700*zoom_multiplier;
+    const backgroundImageBlockLeft = -stateJS.observer_position.x*zoom_multiplier;
+    const backgroundImageBlockTop  = -stateJS.observer_position.y*zoom_multiplier;
+
+
 
 
     return (
+        <Draggable
 
-        <ul className="todo-list" style={{
+            position={{x:0,y:0}}
+
+
+            onStart={(event,object)=>{
+
+
+
+                event.stopPropagation();
+                event.preventDefault();
+                moved = false;
+
+            }}
+            onDrag={(event,object)=>{
+                event.stopPropagation();
+                event.preventDefault();
+                moved = true;
+
+
+            }}
+            onStop={(event,object) => {
+
+                event.stopPropagation();
+                event.preventDefault();
+
+
+                if(moved){
+
+                    store.dispatch({type:'OBSERVER_MOVE_BY',position:{x:-object.x/zoom_multiplier,y:-object.y/zoom_multiplier}});
+
+
+                }
+
+            }}
+            className=""
+
+        >
+
+
+            <ul className="todo-list" style={{
 
             //border: '1px solid blue',
 
@@ -83,36 +125,16 @@ export function TodosList(props) {
                 event.preventDefault();
                 event.target.blur();
             }}
-            onKeyPress={(event)=> {
-                event.stopPropagation();
-                event.preventDefault();
-
-                     if (event.key === 'Enter') {
-                    } else if (event.key === 'Delete') {
-                    } else {
-
-                        if(typeof mouseRealCoords === 'undefined'){
-                            throw new Error('I dont know position.');
-                        }
-
-                        const todo = Object.assign({},EMPTY_TODO,{
-                            position: mouseRealCoords,
-                            name: event.key
-                        });
-
-                        store.dispatch({type:'CREATE_NEW_TODO',todo: todo});
-                        //dispatch({type:'CLOSE_CURRENT_TODO'});
-
-                    }
-
-            }}
 
 
-        >
-            {Object.keys(stateJS.todos).map((todoKey)=><TodoItem key={todoKey} id={todoKey}
-                                                                 todo={stateJS.todos[todoKey]} state={stateJS}
-                                                                 store={store}/>)}
-        </ul>
+
+            >
+                {Object.keys(stateJS.todos).map((todoKey)=><TodoItem key={todoKey} id={todoKey}
+                                                                   todo={stateJS.todos[todoKey]} state={stateJS}
+                                                                     store={store}/>)}
+            </ul>
+
+        </Draggable>
 
     );
 
