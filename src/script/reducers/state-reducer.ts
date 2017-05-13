@@ -27,14 +27,6 @@ export function stateReducer(state,action){
 
 
 
-    if(action.type.indexOf('CURRENT_TODO')!==-1 && action.type!=='SELECT_CURRENT_TODO'){
-        if(state.get('current_todo_id')===-1){
-            throw new Error(`To dispatch "${action.type}" you should set current todo. `);
-        }
-    }
-
-
-
     switch (action.type) {
 
 
@@ -48,7 +40,7 @@ export function stateReducer(state,action){
             return action.actions.reduce(stateReducer,state);
 
 
-        case 'CREATE_NEW_TODO': {
+        case 'TODO_CREATE': {
 
 
             state = state.update('todos',
@@ -58,36 +50,35 @@ export function stateReducer(state,action){
             );
 
 
-
-            return stateReducer(state, {type: 'SELECT_CURRENT_TODO', todo_id: state.get('todos').size-1});
+            return stateReducer(state, {type: 'CURRENT_TODO_SELECT', todo_id: state.get('todos').size-1});
 
         }
-        case 'SELECT_CURRENT_TODO':
+        case 'CURRENT_TODO_SELECT':
 
 
             return state.set('current_todo_id', action.todo_id );
 
-        case 'CLOSE_CURRENT_TODO':
+        case 'CURRENT_TODO_CLOSE':
 
 
             const current_todo = state.getIn(['todos', state.get('current_todo_id')]).toJS();
 
             if(!current_todo.name && !current_todo.description){
-                return stateReducer(state,{type:'DELETE_CURRENT_TODO'});
+                return stateReducer(state,{type:'TODO_DELETE',todo_id:state.get('current_todo_id')});
             }else{
                 return state.set('current_todo_id', -1 );
             }
 
 
 
-        case 'DELETE_CURRENT_TODO': {
+        case 'TODO_DELETE': {
 
 
-            const statePath = ['todos', state.get('current_todo_id')];
-            return state.deleteIn(statePath).set('current_todo_id', -1);//todo recursion
+            const statePath = ['todos', action.todo_id];
+            return state.deleteIn(statePath).set('current_todo_id', -1);//todo ??
 
         }
-        case 'CHANGE_CURRENT_TODO_KEY': {
+        case 'TODO_CHANGE_KEY': {
 
             if(action.key==='name'){
 
@@ -102,7 +93,7 @@ export function stateReducer(state,action){
 
 
 
-                state = stateReducer(state,{type:'CHANGE_CURRENT_TODO_KEY',key:'uri',value:uri});
+                state = stateReducer(state,{type:'TODO_CHANGE_KEY',key:'uri',value:uri,todo_id:state.get('current_todo_id')});
 
 
 
@@ -110,30 +101,32 @@ export function stateReducer(state,action){
             }
 
 
-            const statePath = ['todos', state.get('current_todo_id'), action.key];
+            const statePath = ['todos', action.todo_id, action.key];
             return state.setIn(statePath, action.value);
 
 
         }
-        //todo all actions should begin with CURRENT_TODO
-        case 'CURRENT_TODO_ADD_DONE_TIME': {
 
-            const statePath = ['todos', state.get('current_todo_id'), 'done_times'];
+        case 'TODO_ADD_DONE_TIME': {
+
+            const statePath = ['todos', action.todo_id, 'done_times'];
             state = state.updateIn(statePath,
 
-                (todos)=>todos.push(action.date/1)//todo is thare a better way to convert Date to integer
+                (todos)=>todos.push(action.date / 1)//todo is thare a better way to convert Date to integer
 
             );
-        case 'CURRENT_TODO_DELETE_DONE_TIME': {
 
-                const statePath = ['todos', state.get('current_todo_id'), 'done_times',action.index];
-                return state.deleteIn(statePath);
+        }
+        case 'TODO_DELETE_DONE_TIME': {
+
+            const statePath = ['todos', action.todo_id, 'done_times',action.index];
+            return state.deleteIn(statePath);
 
 
-            }
-        case 'TOGGLE_CURRENT_TODO_WIDTH': {
+        }
+        case 'TODO_TOGGLE_WIDTH': {
 
-            const statePath = ['todos', state.get('current_todo_id'), 'width'];
+            const statePath = ['todos', action.todo_id, 'width'];
 
             const oldWidth = state.getIn(statePath);
             const oldWidthIndex = TODO_WIDTHS.indexOf(oldWidth);
@@ -151,45 +144,26 @@ export function stateReducer(state,action){
             return state.setIn(statePath, newWidth);
 
         }
-        case 'CHANGE_CURRENT_TODO_RESOURCE': {
+        case 'TODO_CHANGE_RESOURCE': {
 
 
-            const statePath = ['todos', state.get('current_todo_id'), action.direction,action.resource];
+            const statePath = ['todos', action.todo_id, action.direction,action.resource];
             return state.setIn(statePath, action.value);
 
 
         }
-        /*case 'CHANGE_CURRENT_TODO_INPUT_NAME': {
-
-
-            const statePathOld = ['todos', state.get('current_todo_id'), 'inputs',action.oldName];
-            const statePathNew = ['todos', state.get('current_todo_id'), 'inputs',action.newName];
-            return state.setIn(statePathNew, state.getIn(statePathOld)).deleteIn(statePathOld);
-
-
-        }*/
 
 
 
 
+        case 'TODO_MOVE_TO_FRONT': {
 
-
-
-
-
-
-
-
-
-
-        case 'MOVE_CURRENT_TODO_TO_FRONT': {
-
-            const statePath = ['todos', state.get('current_todo_id'),'zIndex'];
+            const statePath = ['todos', action.todo_id,'zIndex'];
             return state.setIn(statePath, findTopZIndex(state));
 
 
         }
-        case 'MOVE_TODO': {
+        case 'TODO_MOVE': {
 
             const statePath = ['todos', action.id, 'position'];
             return state.setIn(statePath, Immutable.fromJS(action.position));
@@ -216,7 +190,23 @@ export function stateReducer(state,action){
 
             return state.update('observer_zoom_logarithm', (zoom)=>zoom+action.delta);
 
+        case 'TABLE_VIEW_CHANGE_PAGE':
+            return state.set('page',action.page);
+        case 'TABLE_VIEW_CHANGE_ONPAGE':
+            return state.set('onpage',action.onpage);
+      case 'TABLE_VIEW_SORT_BY':{
 
+                if (state.get('sort_by') === action.sort_by) {
+                    if (state.get('sort_direction') === 'ascending') {
+                        return state.set('sort_direction', 'descending');
+                    }else{
+                        return state.set('sort_direction', 'ascending');
+                    }
+                }else {
+                    return state.set('sort_by', action.sort_by);
+
+                }
+            }
         default:
             return state
     }

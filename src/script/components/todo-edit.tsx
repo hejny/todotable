@@ -51,14 +51,14 @@ export function TodoEdit(props) {
     const handleKeyPress = (event) => {
         if (event.key == 'Enter') {
 
-            store.dispatch({type: 'CLOSE_CURRENT_TODO'});
+            store.dispatch({type: 'CURRENT_TODO_CLOSE'});
 
         }
     };
 
 
     const handleChange = (event) => {
-        store.dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key:'name', value: event.target.value})
+        store.dispatch({type: 'TODO_CHANGE_KEY',todo_id: stateJS.current_todo_id, key:'name', value: event.target.value})
     };
 
 
@@ -125,7 +125,7 @@ export function TodoEdit(props) {
                 <ColorPicker
 
                     value={stateJS.todos[stateJS.current_todo_id].color}
-                    onChange={(value)=>store.dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'color',value:value})}
+                    onChange={(value)=>store.dispatch({type:'TODO_CHANGE_KEY',todo_id: stateJS.current_todo_id,key:'color',value:value})}
                 />
 
 
@@ -134,7 +134,7 @@ export function TodoEdit(props) {
                 <div className="editor segment">
                     <MarkDownEditor
                         value={stateJS.todos[stateJS.current_todo_id].description}
-                        onChange={(value)=>store.dispatch({type:'CHANGE_CURRENT_TODO_KEY',key:'description',value:value})}
+                        onChange={(value)=>store.dispatch({type:'TODO_CHANGE_KEY',todo_id: stateJS.current_todo_id,key:'description',value:value})}
 
                     />
                 </div>
@@ -157,17 +157,17 @@ export function TodoEdit(props) {
                         margin: 5,
 
                     }}>
-                    {/*<button onClick={store.dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}><FontAwesome name='rocket' /></button>*/}
+                    {/*<button onClick={store.dispatch.bind(this,{type:'CURRENT_TODO_CLOSE'})}><FontAwesome name='rocket' /></button>*/}
 
 
 
-                    <button onClick={store.dispatch.bind(this,{type:'TOGGLE_CURRENT_TODO_WIDTH'})}>
+                    <button onClick={store.dispatch.bind(this,{type:'TODO_TOGGLE_WIDTH',todo_id: stateJS.current_todo_id})}>
                         <FontAwesome name="text-width" />{' '}
                         {stateJS.todos[stateJS.current_todo_id].width==-1?'auto':stateJS.todos[stateJS.current_todo_id].width+'px'}
                     </button>
 
-                    <button onClick={store.dispatch.bind(this,{type:'CURRENT_TODO_ADD_DONE_TIME',date:new Date()})}><FontAwesome name="check-square-o" /> Done</button>
-                    <button onClick={store.dispatch.bind(this,{type:'DELETE_CURRENT_TODO'})}><FontAwesome name='trash-o' /> Delete</button>
+                    <button onClick={store.dispatch.bind(this,{type:'TODO_ADD_DONE_TIME',todo_id: stateJS.current_todo_id,date:new Date()})}><FontAwesome name="check-square-o" /> Done</button>
+                    <button onClick={store.dispatch.bind(this,{type:'TODO_DELETE',todo_id: stateJS.current_todo_id})}><FontAwesome name='trash-o' /> Delete</button>
 
                 </div>
 

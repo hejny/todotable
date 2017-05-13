@@ -2,13 +2,13 @@ import * as React from "react";
 
 import * as FontAwesome from 'react-fontawesome';
 
-import {TodosBoard} from "./todos-board";
-import {TodosList} from "./todos-list";
-import {TodoEdit} from "./todo-edit";
+import {TodosBoard} from "./todos-board.tsx";
+import {TodosTable} from "./todos-table.tsx";
+import {TodoEdit} from "./todo-edit.tsx";
 
 
 import Style from 'style-it';
-import {EMPTY_TODO} from "../config";
+import {EMPTY_TODO} from "../config.ts";
 
 
 
@@ -61,22 +61,16 @@ export function TodoApp(props:ITodoAppProps) {
                 }
 
             `}
-            <div
-
-                 onWheel={(event)=>{
-                    if(stateJS.current_todo_id===-1){
-                        store.dispatch({type:'OBSERVER_ZOOM_LOGARITHM_BY',delta:event.deltaY>0?-.1:.1});
-                    }}}
-                >
+            <div>
 
 
 
-                <TodosBoard store={store}/>
+                <TodosTable store={store}/>
 
 
                 <div
                     className="add-todo"
-                    onClick={()=>store.dispatch({type:'CREATE_NEW_TODO',todo: EMPTY_TODO})}
+                    onClick={()=>store.dispatch({type:'TODO_CREATE',todo: EMPTY_TODO})}
                 >
                     <FontAwesome name="plus" />
                 </div>
@@ -96,7 +90,7 @@ export function TodoApp(props:ITodoAppProps) {
             backgroundColor: 'rgba(255,255,255,0.1)',
 
         }}
-        onClick={store.dispatch.bind(this,{type:'CLOSE_CURRENT_TODO'})}
+        onClick={store.dispatch.bind(this,{type:'CURRENT_TODO_CLOSE'})}
 
 
                 ></div>: ''}

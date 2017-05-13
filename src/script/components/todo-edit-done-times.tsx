@@ -26,7 +26,7 @@ export function TodoEditDoneTimes(props) {
                             <tr key={index}>
                                 <td>{moment(done_time).calendar()}</td>
                                 <td>
-                                    <div onClick={store.dispatch.bind(this,{type:'CURRENT_TODO_DELETE_DONE_TIME',index})}>
+                                    <div onClick={store.dispatch.bind(this,{type:'TODO_DELETE_DONE_TIME',todo_id: stateJS.current_todo_id,index})}>
                                         <FontAwesome name='trash-o' />
                                     </div>
                                 </td>

@@ -54,7 +54,7 @@ export function TodoEditResources(props) {
                                           </span>
                                         <input
                                             type="text"
-                                            value={expression} onChange={(event)=>store.dispatch({type:'CHANGE_CURRENT_TODO_RESOURCE',direction,resource:resource.key,value:event.target.value})}
+                                            value={expression} onChange={(event)=>store.dispatch({type:'TODO_CHANGE_RESOURCE',todo_id: stateJS.current_todo_id,direction,resource:resource.key,value:event.target.value})}
                                         />
                                         ={result}
 

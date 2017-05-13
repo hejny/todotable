@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Draggable from "react-draggable";
 
-import {TodoItem} from "./todo-item";
+import {TodosBoardItem} from "./todos-board-item.tsx";
 
 import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords';
 
@@ -21,20 +21,42 @@ export function TodosBoard(props) {
 
 
     const zoom_multiplier = countZoomMultiplier(stateJS);
-    const backgroundImageBlockSize = 700*zoom_multiplier;
-    const backgroundImageBlockLeft = -stateJS.observer_position.x*zoom_multiplier;
-    const backgroundImageBlockTop  = -stateJS.observer_position.y*zoom_multiplier;
-
-
+    const backgroundImageBlockSize = 700 * zoom_multiplier;
+    const backgroundImageBlockLeft = -stateJS.observer_position.x * zoom_multiplier;
+    const backgroundImageBlockTop = -stateJS.observer_position.y * zoom_multiplier;
 
 
     return (
-        <Draggable
 
-            position={{x:0,y:0}}
+        <div>
+
+            <div
+                className="axis"
+                style={{
+                    position: 'absolute',
+                    zIndex: 1,
+                    width: '100%',
+                    height: '100%',
+                    top:'0',
+                    left:'0',
+                }}
+            >
+                <svg style={{width:'100vw',height:'100vh'}}>
+                    <circle cx={50} cy={50} r={10} fill="red"/>
+                    <line x1="0" y1="0" x2="100%" y2="100%" style={{stroke:'rgb(255,0,0)',strokeWidth:2}} />
+                </svg>
+            </div>
 
 
-            onStart={(event,object)=>{
+
+
+
+            <Draggable
+
+                position={{x:0,y:0}}
+
+
+                onStart={(event,object)=>{
 
 
 
@@ -43,14 +65,14 @@ export function TodosBoard(props) {
                 moved = false;
 
             }}
-            onDrag={(event,object)=>{
+                onDrag={(event,object)=>{
                 event.stopPropagation();
                 event.preventDefault();
                 moved = true;
 
 
             }}
-            onStop={(event,object) => {
+                onStop={(event,object) => {
 
                 event.stopPropagation();
                 event.preventDefault();
@@ -64,77 +86,65 @@ export function TodosBoard(props) {
                 }
 
             }}
-            className=""
-
-        >
-
-
-            <ul className="todo-list" style={{
-
-            //border: '1px solid blue',
-
-
-            position: 'absolute',
-            zIndex: 1,
-            width: '300%',
-            height: '300%',
-            top:'-100%',
-            left:'-100%',
-
-
-
-
-            //backgroundImage: 'url("/media/images/backgrounds/graph-paper.svg")',
-            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_WoodPlanksOld0255_2_seamless_S.jpg")',
-            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_WoodStudded0044_1_seamless_S.jpg")',
-            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_ConcreteBare0350_1_seamless_S.jpg")',
-            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_ConcreteBare0433_11_seamless_S.jpg")',
-            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_MetalBare0234_1_seamless_S.jpg")',
-            backgroundImage: 'url("/media/images/backgrounds/whiteboard.jpg")',
-            //backgroundImage: 'url("/media/images/backgrounds/TexturesCom_WoodFine0059_11_seamless_S.jpg")',
-
-
-            backgroundRepeat: 'repeat, repeat',
-            backgroundSize: `${backgroundImageBlockSize}px, ${backgroundImageBlockSize}px`,
-            backgroundPosition: `calc(${backgroundImageBlockLeft}px + 50%) calc(${backgroundImageBlockTop}px + 50%)`,
-
-
-
-            //filter: stateJS.current_todo_id!==-1?'blur(2px)':'',
-
-
-        }}
-
-
-            onMouseMove={(event)=> {
-                mouseRealCoords = screenCoordsToRealCoords({
-                    x:event.nativeEvent.offsetX - event.target.offsetWidth/2,
-                    y:event.nativeEvent.offsetY - event.target.offsetHeight/2
-                },stateJS);
-            }}
-
-
-            tabIndex="1"
-            onMouseEnter={(event)=> {
-                event.stopPropagation();
-                event.preventDefault();
-                event.target.focus();
-            }}
-            onMouseLeave={(event)=> {
-                event.stopPropagation();
-                event.preventDefault();
-                event.target.blur();
-            }}
-
-
+                className=""
 
             >
-                {Object.keys(stateJS.todos).map((todoKey)=><TodoItem key={todoKey} id={todoKey}
-                                                                   todo={stateJS.todos[todoKey]} state={stateJS}
-                                                                     store={store}/>)}
-            </ul>
 
-        </Draggable>
+
+                <ul className="todo-list" style={{
+
+                //border: '1px solid blue',
+
+
+                position: 'absolute',
+                zIndex: 2,
+                width: '300%',
+                height: '300%',
+                top:'-100%',
+                left:'-100%',
+
+
+
+
+                /*backgroundImage: 'url("/media/images/backgrounds/whiteboard.jpg")',
+                backgroundRepeat: 'repeat, repeat',
+                backgroundSize: `${backgroundImageBlockSize}px, ${backgroundImageBlockSize}px`,
+                backgroundPosition: `calc(${backgroundImageBlockLeft}px + 50%) calc(${backgroundImageBlockTop}px + 50%)`,*/
+
+            }}
+
+
+                    onMouseMove={(event)=> {
+                    mouseRealCoords = screenCoordsToRealCoords({
+                        x:event.nativeEvent.offsetX - event.target.offsetWidth/2,
+                        y:event.nativeEvent.offsetY - event.target.offsetHeight/2
+                    },stateJS);
+                }}
+
+
+                    tabIndex="1"
+                    onMouseEnter={(event)=> {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    event.target.focus();
+                }}
+                    onMouseLeave={(event)=> {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    event.target.blur();
+                }}
+
+
+                >
+                    {Object.keys(stateJS.todos).map((todoKey)=><TodosBoardItem key={todoKey} id={todoKey}
+                                                                         todo={stateJS.todos[todoKey]} state={stateJS}
+                                                                         store={store}/>)}
+                </ul>
+
+
+            </Draggable>
+
+        </div>
 
     );
 

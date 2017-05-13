@@ -29,7 +29,8 @@ export async function createUriFromState(state:Immutable):string {
     const uriPath = '/' + uriPathParts.join('/');
 
 
-    return `${uriPath}?x=${stateJS.observer_position.x.toFixed(1)}&y=${stateJS.observer_position.y.toFixed(1)}&zoom=${stateJS.observer_zoom_logarithm.toFixed(1)}`;
+    return `${uriPath}?view=${stateJS.view}&sort_by=${stateJS.sort_by}&sort_direction=${stateJS.sort_direction}&onpage=${stateJS.onpage}&page=${stateJS.page}`;
+    //x=${stateJS.observer_position.x.toFixed(1)}&y=${stateJS.observer_position.y.toFixed(1)}&zoom=${stateJS.observer_zoom_logarithm.toFixed(1)}
 
 
 }

@@ -10,7 +10,7 @@ import {realCoordsToScreenCoords,screenCoordsToRealCoords} from '../functions/co
 import {countInOutFromTodo} from '../functions/count-in-out-from-todo';
 
 
-export function TodoItem(props) {
+export function TodosBoardItem(props) {
 
     const {todo, id, state, store} = props;
 
@@ -101,25 +101,25 @@ export function TodoItem(props) {
 
                     if (event.key === 'Enter') {
 
-                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'CURRENT_TODO_SELECT', todo_id: id});
 
                     } else if (event.key === 'Delete') {
 
-                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'CURRENT_TODO_SELECT', todo_id: id});
                         store.dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
 
                     } else {
 
-                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'CURRENT_TODO_SELECT', todo_id: id});
                         store.dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key: 'name', value: todo.name + event.key});
-                        store.dispatch({type: 'CLOSE_CURRENT_TODO', todo_id: id});
+                        store.dispatch({type: 'CURRENT_TODO_CLOSE', todo_id: id});
 
                         console.log(event.key);
                     }
 
                 }}
 
-            onClick={()=>store.dispatch({type:'SELECT_CURRENT_TODO',todo_id:id})}
+            onClick={()=>store.dispatch({type:'CURRENT_TODO_SELECT',todo_id:id})}
 
 
 
