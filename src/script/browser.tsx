@@ -34,7 +34,7 @@ window.addEventListener('load', function() {
 
 
 
-    createStateFromUri(window.location.pathname)
+    createStateFromUri(window.location.pathname+window.location.search+window.location.hash)
         .then((state)=>{
 
             app.setState(state);

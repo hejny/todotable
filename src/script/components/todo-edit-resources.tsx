@@ -27,11 +27,11 @@ export function TodoEditResources(props) {
                     <h2>Inputs</h2>
                     <ul>
 
-                        {stateJS.resources.map((resource)=>{
+                        {stateJS.resources.map((resource,resource_id)=>{
 
                             //onChange={(event)=>store.dispatch({type:'CHANGE_RESOURCE_NAME',oldName:key,newName:event.target.value})}
 
-                            const expression = stateJS.todos[stateJS.current_todo_id][direction][resource.key]||0;
+                            const expression = stateJS.todos[stateJS.current_todo_id][direction][resource_id]||0;
                             let result;
                             try{
 
@@ -54,7 +54,7 @@ export function TodoEditResources(props) {
                                           </span>
                                         <input
                                             type="text"
-                                            value={expression} onChange={(event)=>store.dispatch({type:'TODO_CHANGE_RESOURCE',todo_id: stateJS.current_todo_id,direction,resource:resource.key,value:event.target.value})}
+                                            defaultValue={expression} onChange={(event)=>store.dispatch({type:'TODO_CHANGE_RESOURCE',todo_id: stateJS.current_todo_id,direction,resource_id,value:event.target.value})}
                                         />
                                         ={result}
 

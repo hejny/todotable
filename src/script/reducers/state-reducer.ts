@@ -40,6 +40,56 @@ export function stateReducer(state,action){
             return action.actions.reduce(stateReducer,state);
 
 
+        case 'VIEW_CHANGE':
+
+
+            return state.set('view', action.view );//todo check possible views (or has action for each)
+        case 'RESOURCE_CREATE':
+
+
+            return state.update('resources',
+
+                (resources)=>resources.push(Immutable.fromJS(action.resource)))
+
+            );
+
+
+        case 'RESOURCE_CHANGE_KEY':{
+
+
+            if(action.key==='primary' && action.value===true){
+
+
+                let resourcesJS = state.get('resources').toJS();
+
+                resourcesJS.forEach((resource)=>{
+
+                    resource.primary=false;
+
+
+                });
+
+                //console.log(resourcesJS);
+
+                state = state.set('resources',Immutable.fromJS(resourcesJS));
+
+
+                //unset
+                //change ratios
+            }
+
+
+            const statePath = ['resources', action.resource_id, action.key];
+            return state.setIn(statePath, action.value);
+
+
+        }
+
+        case 'RESOURCE_DELETE':
+
+            const statePath = ['resources', action.resource_id];
+            return state.deleteIn(statePath);
+
         case 'TODO_CREATE': {
 
 
@@ -147,7 +197,7 @@ export function stateReducer(state,action){
         case 'TODO_CHANGE_RESOURCE': {
 
 
-            const statePath = ['todos', action.todo_id, action.direction,action.resource];
+            const statePath = ['todos', action.todo_id, action.direction,action.resource_id];
             return state.setIn(statePath, action.value);
 
 
@@ -190,11 +240,11 @@ export function stateReducer(state,action){
 
             return state.update('observer_zoom_logarithm', (zoom)=>zoom+action.delta);
 
-        case 'TABLE_VIEW_CHANGE_PAGE':
+        /*case 'TABLE_VIEW_CHANGE_PAGE':
             return state.set('page',action.page);
         case 'TABLE_VIEW_CHANGE_ONPAGE':
-            return state.set('onpage',action.onpage);
-      case 'TABLE_VIEW_SORT_BY':{
+            return state.set('onpage',action.onpage);*/
+        case 'TABLE_VIEW_SORT_BY':{
 
                 if (state.get('sort_by') === action.sort_by) {
                     if (state.get('sort_direction') === 'ascending') {
@@ -209,7 +259,7 @@ export function stateReducer(state,action){
             }
         default:
             return state
-    }
+        }
 
 
 

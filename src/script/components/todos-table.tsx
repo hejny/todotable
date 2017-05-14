@@ -3,6 +3,8 @@ import * as _ from "lodash";
 import * as FontAwesome from 'react-fontawesome';
 import * as ReactMarkdown from "react-markdown";
 import * as moment from "moment";
+import * as tinycolor from "tinycolor2";
+
 
 
 import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords';
@@ -20,15 +22,33 @@ export function TodosTable(props) {
     const totalPages = Math.ceil(stateJS.todos.length/stateJS.onpage);
 
     const currentSelectedTodos = stateJS.todos
-        .map((todo,index)=>_.defaults({},todo,{index}))
+        .map((todo,index)=>{
+
+            const inOut = countInOutFromTodo(todo,stateJS.resources);
+
+            return _.defaults({},todo,{
+                index,
+                input: inOut.i,
+                output: inOut.o,
+                oi: inOut.o-inOut.i,
+            });
+
+
+
+
+
+
+        })
         .sort((a,b)=>(
 
             (a[stateJS.sort_by]>b[stateJS.sort_by]?1:-1)*
             (stateJS.sort_direction==='ascending'?1:-1)
 
         ))
-        .slice(stateJS.page*stateJS.onpage,stateJS.page*stateJS.onpage + stateJS.onpage);
+        //.slice(stateJS.page*stateJS.onpage,stateJS.page*stateJS.onpage + stateJS.onpage);
 
+
+    //console.log(currentSelectedTodos);
 
 
     return (
@@ -36,7 +56,7 @@ export function TodosTable(props) {
         <div className="todo-table">
 
 
-            <h1>TodoTable.com</h1>
+            {/*<h1>TodoTable.com</h1>*/}
 
 
 
@@ -45,7 +65,7 @@ export function TodosTable(props) {
                     <tr>
                         <th></th>
 
-                        {['name','last_done','inputs','outputs','oi'].map((header)=>(
+                        {['name','last_done','input','output','oi'].map((header)=>(
 
                             <th
                                 key={header}
@@ -64,11 +84,21 @@ export function TodosTable(props) {
 
 
 
-                    <tr onClick={()=>store.dispatch({type:'CURRENT_TODO_SELECT',todo_id:todo.index})}>
+                    <tr
+                        key = {todo.index}
+                        onClick={()=>store.dispatch({type:'CURRENT_TODO_SELECT',todo_id:todo.index})}
+                        style={{
+                            //backgroundColor: todo.color
+                        }}
+
+                    >
 
 
-                        <td>
-                            {current_index+1+(stateJS.page*stateJS.onpage)}
+                        <td style={{
+                            backgroundColor: todo.color
+                             color: (tinycolor(todo.color).getBrightness()>255/2)?'black':'white',
+                        }}>
+                            {current_index+1}
                         </td>
 
                         <td>
@@ -80,20 +110,21 @@ export function TodosTable(props) {
                         </td>
 
                         <td>
-                            {countInOutFromTodo(todo,stateJS.resources).i}
+                            {todo.input}
                         </td>
                         <td>
-                            {countInOutFromTodo(todo,stateJS.resources).o}
+                            {todo.output}
                         </td>
                         <td>
-                            {countInOutFromTodo(todo,stateJS.resources).o-countInOutFromTodo(todo,stateJS.resources).i}
+                            {todo.oi}
                         </td>
 
                         <td>
                             <ul>
-                                <li onClick={()=>store.dispatch({type:'TODO_ADD_DONE_TIME',todo_id:todo.index})}>Done</li>
+                                <li onClick={(e)=>{e.stopPropagation();store.dispatch({type:'TODO_ADD_DONE_TIME',todo_id:todo.index,date:new Date()})}}>Done</li>
+                                <li onClick={(e)=>{e.stopPropagation();store.dispatch({type:'TODO_DELETE',todo_id:todo.index})}}>Delete</li>
                             </ul>
-                            Done | Delete
+
                         </td>
 
 
@@ -105,18 +136,25 @@ export function TodosTable(props) {
                 </tbody>
             </table>
 
-
-
-            <div className="todos-table-pagination">
-                <ul>
-                    {stateJS.page>0?<li onClick={()=>store.dispatch({type:'TABLE_VIEW_CHANGE_PAGE',page: stateJS.page-1})}>Previous</li>:''}
-                    {stateJS.page+1<totalPages?<li onClick={()=>store.dispatch({type:'TABLE_VIEW_CHANGE_PAGE',page: stateJS.page+1})}>Next</li>:''}
-                </ul>
-            </div>
-
-
-
             <button onClick={()=>store.dispatch({type:'TODO_CREATE',todo: EMPTY_TODO})}> <FontAwesome name="plus" />Add</button>
+
+
+
+            {/*<div className="todos-table-pagination">
+                <ul>
+
+
+                    {stateJS.page>0?<li onClick={()=>store.dispatch({type:'TABLE_VIEW_CHANGE_PAGE',page: stateJS.page-1})}>Previous</li>:''}
+                    <li>Page {stateJS.page+1}/{totalPages}</li>
+                    {stateJS.page+1<totalPages?<li onClick={()=>store.dispatch({type:'TABLE_VIEW_CHANGE_PAGE',page: stateJS.page+1})}>Next</li>:''}
+
+
+                </ul>
+            </div>*/}
+
+
+
+
 
         </div>
 

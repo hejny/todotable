@@ -51,6 +51,9 @@ async function _createStateFromUriCore(uri:string) {
 
 
 
+    //console.log(uri);
+    //console.log(uriObject);
+    //console.log(uriObject.getQueryParamValue('view'));
 
 
     return Immutable.fromJS({
@@ -65,8 +68,8 @@ async function _createStateFromUriCore(uri:string) {
         "sort_by": uriObject.getQueryParamValue('sort_by') || 'io',
         "sort_direction": uriObject.getQueryParamValue('sort_direction') || 'ascending',
         "view": uriObject.getQueryParamValue('view') || 'table',
-        "page": uriObject.getQueryParamValue('page') || 0,
-        "onpage": uriObject.getQueryParamValue('onpage') || 10,
+        //"page": uriObject.getQueryParamValue('page') || 0,
+        //"onpage": uriObject.getQueryParamValue('onpage') || 10,
 
         "current_todo_id": current_todo_id,
 
@@ -75,15 +78,19 @@ async function _createStateFromUriCore(uri:string) {
             {
                 key: "Money",
                 unit: 'UDS',
-                gold: 1,
+                ratio: 1,
+                primary: true,
             },
             {
                 key: "Time",
                 unit: 'Days',
-                gold: 20,
+                ratio: 20,
+                primary: false,
             },
 
         ],
+
+
 
         //"todos": [],
         "todos": todos,

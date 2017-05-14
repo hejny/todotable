@@ -6,7 +6,7 @@ body {
   margin: 0px;
   padding: 0px;
   background: #fff;
-  overflow: hidden;
+  //overflow: hidden;
 
 }
 
@@ -44,7 +44,6 @@ button, .button, input[type="submit"] {
 
 
 #app{
-
   position: relative;
   //top: 50px;
   //left: 50px;
@@ -53,7 +52,6 @@ button, .button, input[type="submit"] {
   height: 100vh;
   //border: 1px solid red;
   overflow: hidden;
-
 }
 
 
@@ -61,6 +59,7 @@ button, .button, input[type="submit"] {
 
 .popup-window{
 
+  z-index: 3;
   position: fixed;
 
   top:50px;
@@ -68,11 +67,17 @@ button, .button, input[type="submit"] {
   left:20vw;
   right:20vw;
 
-  opacity: 0.9;
+  //opacity: 0.9;
   //background-color: green;//rgba(255,255,255,0.5);
-  border-radius: 5px;
+  border-radius: 3px;
+
+  padding: 10px;
+  overflow-y: scroll;
 
 
+  input:focus {
+    outline: none;
+  }
 }
 
 
@@ -118,5 +123,6 @@ button, .button, input[type="submit"] {
 
 
 
+@import "todo-app";
 @import "todo-edit";
 @import "todos-table";

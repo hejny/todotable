@@ -23,9 +23,9 @@ export function countInOutFromTodo(todo,resources){
     const d = Math.floor(s / 24);
 
     //todo reducer
-    resources.forEach((resource)=> {
+    resources.forEach((resource,resource_id)=> {
 
-        const expression = todo['inputs'][resource.key] || 0;
+        const expression = todo['inputs'][resource_id] || 0;
         let result;
         try {
             result = eval(expression);
@@ -38,8 +38,8 @@ export function countInOutFromTodo(todo,resources){
     });
 
 
-    resources.forEach((resource)=> {
-        const expression = todo['outputs'][resource.key] || 0;
+    resources.forEach((resource,resource_id)=> {
+        const expression = todo['outputs'][resource_id] || 0;
         let result;
         try {
             result = eval(expression);

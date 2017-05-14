@@ -29,18 +29,19 @@ export const EMPTY_TODO = {
 
 
 
-    inputs:{
-        "USD": 25,
-        "time": 25,
-    },
+    inputs:[0,0],
+    outputs:[0,0],
 
-
-    outputs:{
-        "USD": 25,
-        "time": 25,
-    },
 
     done_times: []
 
 };
 
+
+
+export const EMPTY_RESOURCE = {
+    key: '',
+    unit: '',
+    ratio: 1,
+    primary: false,
+};

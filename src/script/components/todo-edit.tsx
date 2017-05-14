@@ -76,17 +76,11 @@ export function TodoEdit(props) {
 
             {`
               .popup-window {
-                z-index: 3;
+
                 background-color: ${todoColor.toHexString()};
                 color: ${textColor.toHexString()};
-
-                box-shadow: black 0px 0px 5px;
-                padding: 10px;
-
               }
-              .popup-window input:focus {
-                outline: none;
-              }
+
 
               .popup-window input::selection {
                 background-color: ${textColor.toHexString()};
@@ -109,7 +103,7 @@ export function TodoEdit(props) {
                 <input
                     type="text"
                     autoFocus={true}
-                    value={stateJS.todos[stateJS.current_todo_id].name}
+                    defaultValue={stateJS.todos[stateJS.current_todo_id].name}
                     onChange={handleChange}
                     style={{
                   width: '100%',
