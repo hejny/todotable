@@ -51,6 +51,9 @@ export function TodosTable(props) {
     //console.log(currentSelectedTodos);
 
 
+    const primary_resource = stateJS.resources.find((resource)=>resource.primary);
+
+
     return (
 
         <div className="todo-table">
@@ -63,7 +66,7 @@ export function TodosTable(props) {
             <table>
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>#</th>
 
                         {['name','last_done','input','output','oi'].map((header)=>(
 
@@ -106,23 +109,33 @@ export function TodosTable(props) {
                         </td>
 
                         <td>
-                            {moment(countLastDoneFromTodo(todo)).calendar()}
+                            {(()=>{
+
+
+                                const lastDone = countLastDoneFromTodo(todo);
+
+                                if(lastDone)
+                                    return moment(lastDone).calendar();
+                                else
+                                    return 'Never';
+
+                            })()}
                         </td>
 
                         <td>
-                            {todo.input}
+                            {todo.input}&nbsp;{primary_resource.unit}
                         </td>
                         <td>
-                            {todo.output}
+                            {todo.output}&nbsp;{primary_resource.unit}
                         </td>
                         <td>
-                            {todo.oi}
+                            {todo.oi}&nbsp;{primary_resource.unit}
                         </td>
 
                         <td>
                             <ul>
-                                <li onClick={(e)=>{e.stopPropagation();store.dispatch({type:'TODO_ADD_DONE_TIME',todo_id:todo.index,date:new Date()})}}>Done</li>
-                                <li onClick={(e)=>{e.stopPropagation();store.dispatch({type:'TODO_DELETE',todo_id:todo.index})}}>Delete</li>
+                                <li className="clickable" onClick={(e)=>{e.stopPropagation();store.dispatch({type:'TODO_ADD_DONE_TIME',todo_id:todo.index,date:new Date()})}}><FontAwesome name="check"/>Done</li>
+                                <li className="clickable" onClick={(e)=>{e.stopPropagation();store.dispatch({type:'TODO_DELETE',todo_id:todo.index})}}><FontAwesome name="trash"/>Delete</li>
                             </ul>
 
                         </td>

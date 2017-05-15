@@ -61,10 +61,16 @@ export function stateReducer(state,action){
 
 
                 let resourcesJS = state.get('resources').toJS();
+                const oldRatio = resourcesJS.find((resource)=>resource.primary).ratio;
+                const newRatio = resourcesJS[action.resource_id].ratio;
+
+                console.log(newRatio);
 
                 resourcesJS.forEach((resource)=>{
 
                     resource.primary=false;
+                    resource.ratio /= newRatio;
+                    resource.ratio = Math.round(resource.ratio*100)/100;
 
 
                 });

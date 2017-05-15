@@ -13,9 +13,19 @@
 
     margin-left:auto;
     margin-right:auto;
-    margin-top:10vh;
+    //margin-top:10vh;
     width: 80vw;
     //border: 1px solid red;
+
+    border-spacing: 0px;
+    border-collapse: collapse;
+
+
+    & th {
+      border: 1px solid rgba(0, 0, 0, 0.11);
+      background-color: rgba(0, 0, 0, 0.11);
+    }
+
 
 
 
@@ -39,6 +49,17 @@
               padding-left: 10px;
 
             }
+          }
+
+
+          input{
+            width:100%;
+            text-align: center;
+          }
+
+          input[type="number"]{
+            width:50%;
+            text-align: right;
           }
 
 

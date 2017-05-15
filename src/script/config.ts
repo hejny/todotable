@@ -9,7 +9,7 @@ export const TITLE_SEPARATOR = ' | ';
 
 
 //todo create client-default-config
-export const API_URL = 'http://localhost/todotable/api/';
+export const API_URL = 'http://storage.todotable.com/';
 
 
 

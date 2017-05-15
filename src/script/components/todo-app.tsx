@@ -41,7 +41,7 @@ export function TodoApp(props:ITodoAppProps) {
             <div className="select-view">
                 <ul>
                     <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'table'})} className={stateJS.view==='table'?'selected':''}>TodoTable</li>
-                    <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'resources'})} className={stateJS.resources==='table'?'selected':''}>Resources</li>
+                    <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'resources'})} className={stateJS.view==='resources'?'selected':''}>Resources</li>
                 </ul>
             </div>
 
@@ -86,6 +86,17 @@ export function TodoApp(props:ITodoAppProps) {
 
             ></div>: ''}
             {stateJS.current_todo_id!==-1 ?<TodoEdit store={store}/>: ''}
+
+
+
+
+            <footer>
+                Created by <a href="https://www.pavolhejny.com" target="_blank">Pavol Hejný</a>
+                &nbsp;&nbsp;•&nbsp;&nbsp;
+                <a href="https://github.com/hejny/todotable" target="_blank"><FontAwesome name="github"/>Source code</a>
+                &nbsp;&nbsp;•&nbsp;&nbsp;
+                <a href="https://blockchain.info/address/17AwBzbouUn615MPNDUAcSbuc6him8ch4u" target="_blank">Donate in BTC</a>
+            </footer>
 
 
 

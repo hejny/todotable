@@ -5,7 +5,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
 
-sleep(1);
+//sleep(1);
 
 
 $method = strtoupper($_SERVER['REQUEST_METHOD']);

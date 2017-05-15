@@ -3,7 +3,17 @@
 
 
 .todo-edit{
+
+
+  .segment{
+    width:100%;
+  }
+
+
+
   .resources{
+
+    //border: 1px dotted red;
 
 
     .inputs, .outputs{
@@ -60,6 +70,27 @@
     }
 
 
+
+  }
+
+
+  .done-times{
+
+    text-align: center;
+
+    table{
+
+      //border: 1px dotted red;
+      display: inline-block;
+      th{
+        background-color: rgba(0, 0, 0, 0.1);
+        font-weight: bold;
+      }
+      td,th{
+        text-align: center;
+        width: 200px;
+      }
+    }
 
   }
 

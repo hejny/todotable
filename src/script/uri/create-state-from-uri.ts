@@ -27,7 +27,10 @@ async function _createStateFromUriCore(uri:string) {
 
 
 
-    const todos = JSON.parse(response.text).map((todo)=>_.defaults({},todo,EMPTY_TODO));
+    const responseJson = JSON.parse(response.text);
+
+
+    const todos = responseJson.todos.map((todo)=>_.defaults({},todo,EMPTY_TODO));
 
 
 
@@ -74,21 +77,8 @@ async function _createStateFromUriCore(uri:string) {
         "current_todo_id": current_todo_id,
 
 
-        resources: [
-            {
-                key: "Money",
-                unit: 'UDS',
-                ratio: 1,
-                primary: true,
-            },
-            {
-                key: "Time",
-                unit: 'Days',
-                ratio: 20,
-                primary: false,
-            },
+        resources: responseJson.resources,
 
-        ],
 
 
 
@@ -113,8 +103,37 @@ export async function createStateFromUri(uri:string):Immutable{
     }catch(error){
 
 
-        console.warn(`Something got wrong => loading state from default uri "${DEFAULT_URI}".`);
-        return await _createStateFromUriCore(DEFAULT_URI);
+
+        return(Immutable.fromJS({
+
+            "httpStatus": 200,
+            "sort_by": 'io',
+            "sort_direction": 'ascending',
+            "view":  'table',
+            "current_todo_id": -1,
+
+
+            resources: [
+                {
+                    key: "Money",
+                    unit: '$',
+                    ratio: 1,
+                    primary: true,
+                },
+                {
+                    key: "Time",
+                    unit: 'h',
+                    ratio: 10,
+                    primary: false,
+                },
+
+            ],
+            "todos": [],
+
+        }));
+
+        //console.warn(`Something got wrong => loading state from default uri "${DEFAULT_URI}".`);
+        //return await _createStateFromUriCore(DEFAULT_URI);
 
     }
 

@@ -3,6 +3,10 @@ import * as Hashes from 'jshashes';
 const SHA256 =  new Hashes.SHA256;
 
 
+import {API_URL} from '../config';
+import {makeRequest} from '../resources/make-request';
+
+
 
 
 //todo this function should persist the state
@@ -17,7 +21,23 @@ export async function createUriFromState(state:Immutable):string {
 
     let uriPathParts = [];
 
-    var SHA1 = SHA256.hex(JSON.stringify(stateJS.todos));
+
+    const syncState = {
+            todos:stateJS.todos,
+            resources:stateJS.resources
+    }
+
+
+
+
+
+    await makeRequest('POST', API_URL, JSON.stringify(syncState), {'Content-Type': 'application/json'});
+
+
+
+
+
+    var SHA1 = SHA256.hex(JSON.stringify(syncState));
     uriPathParts.push(SHA1.substring(0, 7));
 
 

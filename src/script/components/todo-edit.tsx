@@ -132,10 +132,10 @@ export function TodoEdit(props) {
 
                     />
                 </div>
-                <div className="done-times segment">
+                <div className="resources segment">
                     <TodoEditResources store={store} />
                 </div>
-                <div className="resources segment">
+                <div className="done-times segment">
                     <TodoEditDoneTimes  store={store} />
                 </div>
 
@@ -155,10 +155,10 @@ export function TodoEdit(props) {
 
 
 
-                    <button onClick={store.dispatch.bind(this,{type:'TODO_TOGGLE_WIDTH',todo_id: stateJS.current_todo_id})}>
+                    {/*<button onClick={store.dispatch.bind(this,{type:'TODO_TOGGLE_WIDTH',todo_id: stateJS.current_todo_id})}>
                         <FontAwesome name="text-width" />{' '}
                         {stateJS.todos[stateJS.current_todo_id].width==-1?'auto':stateJS.todos[stateJS.current_todo_id].width+'px'}
-                    </button>
+                    </button>*/}
 
                     <button onClick={store.dispatch.bind(this,{type:'TODO_ADD_DONE_TIME',todo_id: stateJS.current_todo_id,date:new Date()})}><FontAwesome name="check-square-o" /> Done</button>
                     <button onClick={store.dispatch.bind(this,{type:'TODO_DELETE',todo_id: stateJS.current_todo_id})}><FontAwesome name='trash-o' /> Delete</button>

@@ -15,8 +15,8 @@ export function TodoEditDoneTimes(props) {
             <table>
                 <thead>
                 <tr>
-                    <td>Time</td>
-                    <td>Actions</td>
+                    <th>Time</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,8 +26,8 @@ export function TodoEditDoneTimes(props) {
                             <tr key={index}>
                                 <td>{moment(done_time).calendar()}</td>
                                 <td>
-                                    <div onClick={store.dispatch.bind(this,{type:'TODO_DELETE_DONE_TIME',todo_id: stateJS.current_todo_id,index})}>
-                                        <FontAwesome name='trash-o' />
+                                    <div className="clickable" onClick={store.dispatch.bind(this,{type:'TODO_DELETE_DONE_TIME',todo_id: stateJS.current_todo_id,index})}>
+                                        <FontAwesome name='trash-o' />Delete
                                     </div>
                                 </td>
                             </tr>

@@ -31,6 +31,7 @@ export function Resources(props) {
                 <thead>
                 <tr>
 
+                    <th></th>
                     <th>Key</th>
                     <th>Unit</th>
                     <th>Ratio</th>
@@ -46,24 +47,33 @@ export function Resources(props) {
                     return(
                         <tr key={resource_id}>
 
-
                             <td>
                                 {resource.primary ?<FontAwesome name="home"/>: ''}
+                            </td>
+                            <td>
                                 <input defaultValue={resource.key} onChange={(e)=>store.dispatch({type:'RESOURCE_CHANGE_KEY',resource_id,'key':'key',value:e.target.value})}/>
                             </td>
                             <td>
                                 <input defaultValue={resource.unit} onChange={(e)=>store.dispatch({type:'RESOURCE_CHANGE_KEY',resource_id,'key':'unit',value:e.target.value})}/>
                             </td>
                             <td>
-                                <input defaultValue={resource.ratio} type="number" onChange={(e)=>store.dispatch({type:'RESOURCE_CHANGE_KEY',resource_key:resource.key,'key':'ratio',value:e.target.value})}/>
+
+                                {resource.primary?resource.ratio:
+                                    <input value={resource.ratio} type="number" onChange={(e)=>store.dispatch({type:'RESOURCE_CHANGE_KEY',resource_id,'key':'ratio',value:e.target.value})}/>
+                                }
+
+                                &nbsp;
                                 {primary_resource.unit}
+
+
+
                             </td>
                             <td>
                                 {resource.primary?'':
                                     <ul>
-                                        <li onClick={()=>store.dispatch({type:'RESOURCE_DELETE',resource_id})}>Delete
+                                        <li className="clickable" onClick={()=>store.dispatch({type:'RESOURCE_DELETE',resource_id})}>Delete
                                         </li>
-                                        <li onClick={()=>store.dispatch({type:'RESOURCE_CHANGE_KEY',resource_id,'key':'primary',value:true})}>
+                                        <li className="clickable" onClick={()=>store.dispatch({type:'RESOURCE_CHANGE_KEY',resource_id,'key':'primary',value:true})}>
                                             Set as primary
                                         </li>
                                     </ul>

@@ -1,4 +1,6 @@
 .todo-app{
+
+
   ul.todo-list:focus {
     outline: none;
   }
@@ -20,4 +22,67 @@
   a{
     color: inherit;
   }
+
+  margin-top: 5vh;
+
+
+  /*border: 1px dotted red;
+  &>*{
+    border: 1px dotted green;
+  }*/
+
+
+  .select-view {
+
+    ul {
+      display: block;
+      list-style: none;
+      text-align: center;
+      margin:0px;
+
+
+      li {
+        display: inline-block;
+        padding: 10px;
+        font-size: 1.5rem;
+        cursor: Pointer;
+
+
+        //background-color: #f3f3f3;
+
+
+        &.selected {
+          border: 1px solid black;
+          border-bottom: none;
+        }
+        &:hover, &.selected {
+          background-color: rgba(0, 0, 0, 0.11);
+        }
+
+
+
+      }
+    }
+
+  }
+
+
+
+  footer{
+
+    position: fixed;
+    background-color: #d9f8ff;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    padding: 4px;
+
+
+  }
+
+
 }

@@ -8,6 +8,13 @@ body {
   background: #fff;
   //overflow: hidden;
 
+
+  //background-image: url("/media/images/backgrounds/whiteboard.jpg");
+  //background-repeat: repeat, repeat;
+
+  background: linear-gradient(0deg, #d9f8ff, #ffffff);
+  background-attachment: fixed;
+
 }
 
 a {
@@ -75,6 +82,7 @@ button, .button, input[type="submit"] {
   overflow-y: scroll;
 
 
+
   input:focus {
     outline: none;
   }
@@ -88,7 +96,7 @@ button, .button, input[type="submit"] {
   top: 0px;
   left: 50vw;
 
-  color: red;
+  color: rgba(0, 0, 0, 0.61);
 
 }
 
@@ -119,6 +127,10 @@ button, .button, input[type="submit"] {
 
 }
 
+
+.clickable{
+  cursor: Pointer;
+}
 
 
 
