@@ -71,10 +71,11 @@ export function Resources(props) {
                             <td>
                                 {resource.primary?'':
                                     <ul>
-                                        <li className="clickable" onClick={()=>store.dispatch({type:'RESOURCE_DELETE',resource_id})}>Delete
+                                        <li className="clickable" onClick={()=>store.dispatch({type:'RESOURCE_DELETE',resource_id})}>
+                                            <FontAwesome name="trash"/>Delete
                                         </li>
                                         <li className="clickable" onClick={()=>store.dispatch({type:'RESOURCE_CHANGE_KEY',resource_id,'key':'primary',value:true})}>
-                                            Set as primary
+                                            <FontAwesome name="home"/>Set as primary
                                         </li>
                                     </ul>
                                 }
