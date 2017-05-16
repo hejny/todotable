@@ -4,7 +4,11 @@ const SHA256 =  new Hashes.SHA256;
 
 
 import {API_URL} from '../config';
-import {makeRequest} from '../resources/make-request';
+//import {makeRequest} from '../resources/make-request';
+
+import * as SuperagentPromise from 'superagent-promise';
+import * as Superagent from 'superagent';
+const superagentPromise = SuperagentPromise(Superagent, Promise);
 
 
 
@@ -25,15 +29,12 @@ export async function createUriFromState(state:Immutable):string {
     const syncState = {
             todos:stateJS.todos,
             resources:stateJS.resources
-    }
+    };
 
 
 
-
-
-    await makeRequest('POST', API_URL, JSON.stringify(syncState), {'Content-Type': 'application/json'});
-
-
+    //await makeRequest('POST', API_URL, JSON.stringify(syncState), {'Content-Type': 'application/json'});
+    await superagentPromise.post( API_URL, syncState);
 
 
 
