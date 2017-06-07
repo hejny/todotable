@@ -31,6 +31,8 @@
 
     tbody{
       tr{
+        cursor: pointer;
+
         &:hover{
           background-color: #d9eeff;
         }

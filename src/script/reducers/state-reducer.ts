@@ -30,11 +30,6 @@ export function stateReducer(state,action){
     switch (action.type) {
 
 
-        //todo deprecated
-        case 'CHANGE_STATE':
-
-            return action.state;
-
         case 'MULTIACTION':
 
             return action.actions.reduce(stateReducer,state);
@@ -44,57 +39,7 @@ export function stateReducer(state,action){
 
 
             return state.set('view', action.view );//todo check possible views (or has action for each)
-        case 'RESOURCE_CREATE':
 
-
-            return state.update('resources',
-
-                (resources)=>resources.push(Immutable.fromJS(action.resource)))
-
-            );
-
-
-        case 'RESOURCE_CHANGE_KEY':{
-
-
-            if(action.key==='primary' && action.value===true){
-
-
-                let resourcesJS = state.get('resources').toJS();
-                const oldRatio = resourcesJS.find((resource)=>resource.primary).ratio;
-                const newRatio = resourcesJS[action.resource_id].ratio;
-
-                console.log(newRatio);
-
-                resourcesJS.forEach((resource)=>{
-
-                    resource.primary=false;
-                    resource.ratio /= newRatio;
-                    resource.ratio = Math.round(resource.ratio*100)/100;
-
-
-                });
-
-                //console.log(resourcesJS);
-
-                state = state.set('resources',Immutable.fromJS(resourcesJS));
-
-
-                //unset
-                //change ratios
-            }
-
-
-            const statePath = ['resources', action.resource_id, action.key];
-            return state.setIn(statePath, action.value);
-
-
-        }
-
-        case 'RESOURCE_DELETE':
-
-            const statePath = ['resources', action.resource_id];
-            return state.deleteIn(statePath);
 
         case 'TODO_CREATE': {
 
@@ -163,14 +108,35 @@ export function stateReducer(state,action){
 
         }
 
+        case 'TODO_CHANGE_PERIOD_VALUE': {
+
+            const statePath = ['todos', action.todo_id, 'period','value'];
+            return state.setIn(statePath,action.value);
+
+        }
+        case 'TODO_CHANGE_PERIOD_UNIT': {
+
+            const statePath = ['todos', action.todo_id, 'period','unit'];
+            return state.setIn(statePath,action.value);
+
+        }
+
         case 'TODO_ADD_DONE_TIME': {
 
             const statePath = ['todos', action.todo_id, 'done_times'];
             state = state.updateIn(statePath,
 
-                (todos)=>todos.push(action.date / 1)//todo is thare a better way to convert Date to integer
+                (todos)=>todos.push(action.date.getTime())
 
             );
+            return state;
+
+        }
+        case 'TODO_UPDATE_DONE_TIME': {
+
+            const statePath = ['todos', action.todo_id, 'done_times',action.index];
+            return state.setIn(statePath , action.date.getTime());
+
 
         }
         case 'TODO_DELETE_DONE_TIME': {

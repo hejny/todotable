@@ -8,7 +8,7 @@ import * as tinycolor from "tinycolor2";
 
 
 import {screenCoordsToRealCoords,countZoomMultiplier} from '../functions/coords';
-import {countLastDoneFromTodo,countInOutFromTodo} from '../functions/count-from-todo';
+import {countLastDoneFromTodo,countPeriodFromTodo,countNextDoneFromTodo,countPercentsFromTodo} from '../functions/count-from-todo';
 
 import {EMPTY_TODO} from '../config';
 
@@ -24,13 +24,9 @@ export function TodosTable(props) {
     const currentSelectedTodos = stateJS.todos
         .map((todo,index)=>{
 
-            const inOut = countInOutFromTodo(todo,stateJS.resources);
 
             return _.defaults({},todo,{
                 index,
-                input: inOut.i,
-                output: inOut.o,
-                oi: inOut.o-inOut.i,
             });
 
 
@@ -48,10 +44,6 @@ export function TodosTable(props) {
         //.slice(stateJS.page*stateJS.onpage,stateJS.page*stateJS.onpage + stateJS.onpage);
 
 
-    //console.log(currentSelectedTodos);
-
-
-    const primary_resource = stateJS.resources.find((resource)=>resource.primary);
 
 
     return (
@@ -68,7 +60,7 @@ export function TodosTable(props) {
                     <tr>
                         <th>#</th>
 
-                        {['name','last_done','input','output','oi'].map((header)=>(
+                        {['name','last_done','next_done','percent'].map((header)=>(
 
                             <th
                                 key={header}
@@ -122,15 +114,33 @@ export function TodosTable(props) {
                             })()}
                         </td>
 
+
                         <td>
-                            {todo.input}&nbsp;{primary_resource.unit}
+                            {(()=>{
+
+
+                                const nextDone = countNextDoneFromTodo(todo);
+
+                                if(nextDone)
+                                    return moment(nextDone).fromNow();
+                                else
+                                    return 'Now';
+
+                            })()}
                         </td>
+
                         <td>
-                            {todo.output}&nbsp;{primary_resource.unit}
+                            {(()=>{
+
+
+                                const percents = countPercentsFromTodo(todo,new Date());
+
+                                return Math.round(percents*100*100)/100+'%';
+
+
+                            })()}
                         </td>
-                        <td>
-                            {todo.oi}&nbsp;{primary_resource.unit}
-                        </td>
+
 
                         <td>
                             <ul>

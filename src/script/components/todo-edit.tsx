@@ -5,7 +5,7 @@ import * as FontAwesome from 'react-fontawesome';
 
 import {ColorPicker} from "./color-picker";
 import {MarkDownEditor} from "./markdown-editor";
-import {TodoEditResources} from "./todo-edit-resources";
+import {TodoEditPeriod} from "./todo-edit-period";
 import {TodoEditDoneTimes} from "./todo-edit-done-times";
 
 
@@ -87,6 +87,10 @@ export function TodoEdit(props) {
                 color: ${todoColor.toHexString()};
                }
 
+               .rdt{
+                color: black;
+               }
+
 
             `}
 
@@ -132,13 +136,16 @@ export function TodoEdit(props) {
 
                     />
                 </div>
-                <div className="resources segment">
-                    <TodoEditResources store={store} />
-                </div>
-                <div className="done-times segment">
-                    <TodoEditDoneTimes  store={store} />
+
+
+                <div className="period segment">
+                    <TodoEditPeriod store={store} />
                 </div>
 
+
+                <div className="done-times segment">
+                    <TodoEditDoneTimes store={store} />
+                </div>
 
 
 

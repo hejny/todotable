@@ -7,7 +7,6 @@ import * as ReactMarkdown from "react-markdown";
 import * as tinycolor from "tinycolor2";
 
 import {realCoordsToScreenCoords,screenCoordsToRealCoords} from '../functions/coords';
-import {countInOutFromTodo} from '../functions/count-in-out-from-todo';
 
 
 export function TodosBoardItem(props) {
@@ -32,12 +31,7 @@ export function TodosBoardItem(props) {
 
 
 
-
-    const inOut = countInOutFromTodo(todo,state.resources);
-
-
-    //const position = realCoordsToScreenCoords(todo.position, state);
-    const position = realCoordsToScreenCoords({x:inOut.i,y:inOut.o}, state);
+    const position = realCoordsToScreenCoords({x:0,y:0}, state);
 
 
     const width = ((todo.width || -1) > 0) ? todo.width : Math.max(todo.name.length * 10 + 30, 100);

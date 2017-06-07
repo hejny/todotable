@@ -77,7 +77,7 @@ async function _createStateFromUriCore(uri:string) {
         "current_todo_id": current_todo_id,
 
 
-        resources: responseJson.resources,
+        //resources: responseJson.resources,
 
 
 
@@ -107,27 +107,10 @@ export async function createStateFromUri(uri:string):Immutable{
         return(Immutable.fromJS({
 
             "httpStatus": 200,
-            "sort_by": 'io',
+            "sort_by": 'percent',
             "sort_direction": 'ascending',
             "view":  'table',
             "current_todo_id": -1,
-
-
-            resources: [
-                {
-                    key: "Money",
-                    unit: '$',
-                    ratio: 1,
-                    primary: true,
-                },
-                {
-                    key: "Time",
-                    unit: 'h',
-                    ratio: 10,
-                    primary: false,
-                },
-
-            ],
             "todos": [],
 
         }));

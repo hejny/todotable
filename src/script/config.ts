@@ -25,12 +25,14 @@ export const EMPTY_TODO = {
     uri: '',
     color: '#453F3C',
     done:false,
-    width: -1
+    width: -1,
 
 
 
-    inputs:[0,0],
-    outputs:[0,0],
+    period: {
+        value: 1,
+        unit: 3600*24
+    },
 
 
     done_times: []

@@ -2,69 +2,58 @@
 
 
 
-export function countLastDoneFromTodo(todo){
+export function countLastDoneFromTodo(todo):number{
 
     const lastDoneTime = todo.done_times.reduce((done_time, latest)=>done_time > latest ? done_time : latest, 0);
+
+
+    if(!lastDoneTime){
+        return 0;
+    }
+
+
+
     return(lastDoneTime);
 
 }
 
 
 
-export function countInOutFromTodo(todo,resources){
+export function countPeriodFromTodo(todo):number{
+    return todo.period.value*todo.period.unit*1000;
+}
 
 
-    let inOut = {i: 0, o: 0};
+export function countNextDoneFromTodo(todo):number{
 
-    let lastDoneTime = countLastDoneFromTodo(todo);
-    if(lastDoneTime/1==0){
-        lastDoneTime=new Date()/1;
+    const lastDone = countLastDoneFromTodo(todo);
+
+    if(!lastDone){
+        return 0;
+    }
+
+    return lastDone+countPeriodFromTodo(todo);
+
+
+}
+
+
+
+export function countPercentsFromTodo(todo,now:Date):number{
+
+    const now_ = now.getTime();
+
+    const lastDone = countLastDoneFromTodo(todo);
+    const period = countPeriodFromTodo(todo);
+
+
+    if(!lastDone){
+        return 0;
     }
 
 
 
-    const s = Math.floor(((new Date() / 1) - lastDoneTime) / 1000);
-    const m = Math.floor(s / 60);
-    const h = Math.floor(m / 60);
-    const d = Math.floor(h / 24);
-    const w = Math.floor(d / 7);
-    const M = Math.floor(d / 30.436875);
-    const y = Math.floor(d / 365.2425);
-    const _ = w+M+y;//fake usage for compiler
-
-
-    //todo reducer
-    resources.forEach((resource,resource_id)=> {
-
-        const expression = todo['inputs'][resource_id] || 0;
-        let result;
-        try {
-            result = eval(expression);
-        } catch (error) {
-            result = 0;
-        }
-
-        inOut.i += result * resource.ratio;
-
-    });
-
-
-    resources.forEach((resource,resource_id)=> {
-        const expression = todo['outputs'][resource_id] || 0;
-        let result;
-        try {
-            result = eval(expression);
-        } catch (error) {
-            result = 0;
-        }
-
-        inOut.o += result * resource.ratio;
-
-
-    });
-
-    return(inOut);
-
+    return (now_-lastDone)/period;
 
 
 }

@@ -38,22 +38,16 @@ export function TodoApp(props:ITodoAppProps) {
 
 
 
-            <div className="select-view">
+            {/*<div className="select-view">
                 <ul>
                     <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'table'})} className={stateJS.view==='table'?'selected':''}>TodoTable</li>
-                    <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'resources'})} className={stateJS.view==='resources'?'selected':''}>Resources</li>
                 </ul>
-            </div>
+            </div>*/}
 
 
-
-
-
-
+            <h1>TodoTable.com</h1>
 
             {stateJS.view==='table'?<TodosTable store={store}/>:''}
-            {stateJS.view==='resources'?<Resources store={store}/>:''}
-
 
 
 

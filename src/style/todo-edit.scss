@@ -73,10 +73,27 @@
 
   }
 
+  .period{
 
-  .done-times{
+    input[type="number"]{
+      text-align: right;
+      width: 100px;
+      font-size: 1rem;
+      height: 30px;
+    }
+
+    select{
+      font-size: 1rem;
+      height: 30px;
+    }
+
+  }
+
+
+  .done-times, .period{
 
     text-align: center;
+
 
     table{
 
