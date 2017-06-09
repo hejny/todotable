@@ -13,6 +13,14 @@ import {countLastDoneFromTodo,countPeriodFromTodo,countNextDoneFromTodo,countPer
 import {EMPTY_TODO} from '../config';
 
 
+
+class Cell{
+    constructor(public value:number|string,public display){
+    }
+}
+
+
+
 export function TodosTable(props) {
 
     const {store} = props;
@@ -22,14 +30,43 @@ export function TodosTable(props) {
     const totalPages = Math.ceil(stateJS.todos.length/stateJS.onpage);
 
     const currentSelectedTodos = stateJS.todos
-        .map((todo,index)=>{
+        .map((todo,index)=> {
 
 
-            return _.defaults({},todo,{
+            let lastDoneCell;
+            let nextDoneCell;
+            let percentsCell;
+
+
+            const lastDone = countLastDoneFromTodo(todo);
+            if (lastDone) {
+
+
+                const nextDone = countNextDoneFromTodo(todo);
+                const percents = countPercentsFromTodo(todo,new Date());
+
+
+                lastDoneCell = new Cell(lastDone,moment(lastDone).calendar());
+                nextDoneCell = new Cell(nextDone,moment(nextDone).fromNow());
+                percentsCell = new Cell(percents,Math.round(percents*100*100)/100+'%');
+
+            } else {
+
+                lastDoneCell = new Cell(0,'Never');
+                nextDoneCell = new Cell(0,'');
+                percentsCell = new Cell(0,'');
+
+            }
+
+
+
+            return ({
                 index,
+                name: new Cell(todo.name,todo.name),
+                last_done: lastDoneCell,
+                next_done: nextDoneCell,
+                percents: percentsCell,
             });
-
-
 
 
 
@@ -37,7 +74,7 @@ export function TodosTable(props) {
         })
         .sort((a,b)=>(
 
-            (a[stateJS.sort_by]>b[stateJS.sort_by]?1:-1)*
+            (a[stateJS.sort_by].value>b[stateJS.sort_by].value?1:-1)*
             (stateJS.sort_direction==='ascending'?1:-1)
 
         ))
@@ -60,7 +97,7 @@ export function TodosTable(props) {
                     <tr>
                         <th>#</th>
 
-                        {['name','last_done','next_done','percent'].map((header)=>(
+                        {['name','last_done','next_done','percents'].map((header)=>(
 
                             <th
                                 key={header}
@@ -96,50 +133,10 @@ export function TodosTable(props) {
                             {current_index+1}
                         </td>
 
-                        <td>
-                            {todo.name}
-                        </td>
-
-                        <td>
-                            {(()=>{
-
-
-                                const lastDone = countLastDoneFromTodo(todo);
-
-                                if(lastDone)
-                                    return moment(lastDone).calendar();
-                                else
-                                    return 'Never';
-
-                            })()}
-                        </td>
-
-
-                        <td>
-                            {(()=>{
-
-
-                                const nextDone = countNextDoneFromTodo(todo);
-
-                                if(nextDone)
-                                    return moment(nextDone).fromNow();
-                                else
-                                    return 'Now';
-
-                            })()}
-                        </td>
-
-                        <td>
-                            {(()=>{
-
-
-                                const percents = countPercentsFromTodo(todo,new Date());
-
-                                return Math.round(percents*100*100)/100+'%';
-
-
-                            })()}
-                        </td>
+                        <td>{todo.name.display}</td>
+                        <td>{todo.last_done.display}</td>
+                        <td>{todo.next_done.display}</td>
+                        <td>{todo.percents.display}</td>
 
 
                         <td>
