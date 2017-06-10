@@ -62,6 +62,7 @@ export function TodosTable(props) {
 
             return ({
                 index,
+                color: todo.color,
                 name: new Cell(todo.name,todo.name),
                 last_done: lastDoneCell,
                 next_done: nextDoneCell,
@@ -127,8 +128,8 @@ export function TodosTable(props) {
 
 
                         <td style={{
-                            backgroundColor: todo.color
-                             color: (tinycolor(todo.color).getBrightness()>255/2)?'black':'white',
+                            backgroundColor: todo.color,
+                            color: (tinycolor(todo.color).getBrightness()>255/2)?'black':'white',
                         }}>
                             {current_index+1}
                         </td>
