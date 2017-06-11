@@ -62,11 +62,11 @@ async function _createStateFromUriCore(uri:string) {
     return Immutable.fromJS({
 
         "httpStatus": 200,
-        /*"observer_position": {
+        "observer_position": {
             "x": parseFloat(uriObject.getQueryParamValue('x') || 0),
             "y": parseFloat(uriObject.getQueryParamValue('y') || 0)
         },
-        "observer_zoom_logarithm": parseFloat(uriObject.getQueryParamValue('zoom') || 0),*/
+        "observer_zoom_logarithm": parseFloat(uriObject.getQueryParamValue('zoom') || 0),
 
         "sort_by": uriObject.getQueryParamValue('sort_by') || 'io',
         "sort_direction": uriObject.getQueryParamValue('sort_direction') || 'ascending',
@@ -106,12 +106,14 @@ export async function createStateFromUri(uri:string):Immutable{
 
         return(Immutable.fromJS({
 
-            "httpStatus": 200,
-            "sort_by": 'percent',
-            "sort_direction": 'ascending',
-            "view":  'table',
-            "current_todo_id": -1,
-            "todos": [],
+            httpStatus: 200,
+            observer_position: {x:0,y:0},
+            observer_zoom_logarithm: 0,
+            sort_by: 'percents',
+            sort_direction: 'ascending',
+            view:  'table',
+            current_todo_id: -1,
+            todos: [],
 
         }));
 

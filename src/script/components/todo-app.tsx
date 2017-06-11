@@ -5,7 +5,6 @@ import * as FontAwesome from 'react-fontawesome';
 import {TodosBoard} from "./todos-board.tsx";
 import {TodosTable} from "./todos-table.tsx";
 import {TodoEdit} from "./todo-edit.tsx";
-import {Resources} from "./resources.tsx";
 
 
 import Style from 'style-it';
@@ -38,16 +37,33 @@ export function TodoApp(props:ITodoAppProps) {
 
 
 
-            {/*<div className="select-view">
-                <ul>
-                    <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'table'})} className={stateJS.view==='table'?'selected':''}>TodoTable</li>
-                </ul>
-            </div>*/}
+            <nav className="menu-top">
 
 
-            <h1>TodoTable.com</h1>
+                <h1>
+                    <img src="http://localhost:3000/media/images/logo/apple-icon-60x60.png" alt="TodoTable.com" />
+                    TodoTable.com
+                </h1>
+                <div className="select-view">
+                    <ul>
+                        <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'table'})} className={stateJS.view==='table'?'selected':''}>Table</li>
+                        <li onClick={()=>store.dispatch({'type':'VIEW_CHANGE',view:'board'})} className={stateJS.view==='board'?'selected':''}>Board</li>
+                    </ul>
+                </div>
 
-            {stateJS.view==='table'?<TodosTable store={store}/>:''}
+
+            </nav>
+
+
+
+
+
+
+
+
+
+            {stateJS.view==='table'?<TodosTable store={store}/>:undefined}
+            {stateJS.view==='board'?<TodosBoard store={store}/>:undefined}
 
 
 
@@ -67,7 +83,7 @@ export function TodoApp(props:ITodoAppProps) {
         //border: '1px solid blue';
 
         position: 'absolute',
-        zIndex: 2,
+        zIndex: 15000,
         width: '100%',
         height: '100%',
         top:0,

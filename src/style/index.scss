@@ -66,10 +66,10 @@ button, .button, input[type="submit"] {
 
 .popup-window{
 
-  z-index: 3;
+  z-index: 20000;
   position: fixed;
 
-  top:50px;
+  top:60px;
   bottom:50px;
   left:20vw;
   right:20vw;
@@ -102,31 +102,6 @@ button, .button, input[type="submit"] {
 
 
 
-.add-todo{
-  z-index: 2;
-  display: flex;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-
-  width: 40px;
-  height: 40px;
-  //padding: 10px;
-
-  background-color: #37beff;
-  box-shadow: #000 0 0 5px;
-
-  border-radius: 40px;
-  font-size: 20px;
-
-
-
-  justify-content: center;
-  align-items: center;
-
-
-}
-
 
 .clickable{
   cursor: Pointer;
@@ -136,6 +111,8 @@ button, .button, input[type="submit"] {
 
 
 @import "todo-app";
+@import "menu-top";
+@import "footer";
 @import "todo-edit";
 @import "todos-table";
 @import "react-datetime";

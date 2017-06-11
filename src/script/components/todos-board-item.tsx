@@ -3,7 +3,6 @@ import * as Draggable from "react-draggable";
 import * as FontAwesome from 'react-fontawesome';
 import * as ReactMarkdown from "react-markdown";
 
-
 import * as tinycolor from "tinycolor2";
 
 import {realCoordsToScreenCoords,screenCoordsToRealCoords} from '../functions/coords';
@@ -28,29 +27,72 @@ export function TodosBoardItem(props) {
      };*/
 
 
+    todo.position = todo.position || {x:0,y:0};
+    const position = realCoordsToScreenCoords(todo.position, state);
 
 
-
-    const position = realCoordsToScreenCoords({x:0,y:0}, state);
-
-
-    const width = ((todo.width || -1) > 0) ? todo.width : Math.max(todo.name.length * 10 + 30, 100);
-
-
-
-
+    const width = ((todo.width||-1)>0)?todo.width:Math.max(todo.name.length*10+30,100);
 
 
 
     return (
+        <Draggable
+
+            position={position}
 
 
-        <li style={{
+            onStart={(event)=>{
+
+                event.stopPropagation();
+                event.preventDefault();
+                moved = false;
+            }}
+            onDrag={(event)=>{
+                event.preventDefault();
+                moved = true;
+            }}
+            onStop={(event,object) => {
+
+                event.stopPropagation();
+                event.preventDefault();
+
+                store.dispatch({type:'SELECT_CURRENT_TODO',todo_id:id});
+
+
+
+
+                if(moved){
+
+
+                    store.dispatch({
+                        type:'MULTIACTION',
+                        actions: [
+                            {type:'MOVE_CURRENT_TODO_TO_FRONT'},
+                            {type:'MOVE_TODO',id:id,position:screenCoordsToRealCoords(object,state)},
+                            {type:'CLOSE_CURRENT_TODO'},
+                        ]
+                    });
+
+
+                }
+
+
+
+
+
+        }}
+
+
+            className=""
+
+        >
+
+
+            <li style={{
             position: 'absolute',
-            left: `calc( 50% - ${width/2}px + ${position.x}px )`,
-            top: `calc(50%  + ${position.y}px )`,
-            //transition: `top 1s, left 1s`,
-            //transitionTimingFunction: `linear`,
+            top: '50%',
+            left: `calc( 50% - ${width/2}px )`,
+
 
             padding: 5,
 
@@ -76,59 +118,56 @@ export function TodosBoardItem(props) {
 
         }}
 
-            tabIndex="1"
-            onMouseEnter={(event)=> {
+                tabIndex="1"
+                onMouseEnter={(event)=> {
                     event.stopPropagation();
                     event.preventDefault();
                     event.target.focus();
                 }}
-            onMouseLeave={(event)=> {
+                onMouseLeave={(event)=> {
                     event.stopPropagation();
                     event.preventDefault();
                     event.target.blur();
                     event.target.parentElement.focus();
                 }}
-            onKeyPress={(event)=> {
+                onKeyPress={(event)=> {
 
                     event.stopPropagation();
                     event.preventDefault();
 
                     if (event.key === 'Enter') {
 
-                        store.dispatch({type: 'CURRENT_TODO_SELECT', todo_id: id});
+                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
 
                     } else if (event.key === 'Delete') {
 
-                        store.dispatch({type: 'CURRENT_TODO_SELECT', todo_id: id});
+                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
                         store.dispatch({type: 'DELETE_CURRENT_TODO', todo_id: id});
 
                     } else {
 
-                        store.dispatch({type: 'CURRENT_TODO_SELECT', todo_id: id});
+                        store.dispatch({type: 'SELECT_CURRENT_TODO', todo_id: id});
                         store.dispatch({type: 'CHANGE_CURRENT_TODO_KEY', key: 'name', value: todo.name + event.key});
-                        store.dispatch({type: 'CURRENT_TODO_CLOSE', todo_id: id});
+                        store.dispatch({type: 'CLOSE_CURRENT_TODO', todo_id: id});
 
                         console.log(event.key);
                     }
 
                 }}
 
-            onClick={()=>store.dispatch({type:'CURRENT_TODO_SELECT',todo_id:id})}
 
-
-
-        >
-            {todo.done ? <FontAwesome name="check-square-o"/>  : ''}
-            <h1 style={{
+            >
+                {todo.done ? <FontAwesome name="check-square-o" />  : ''}
+                <h1 style={{
                     fontSize: '1.1rem',
                     margin: 4,
                     padding: 0,
                 }}>
-                {todo.name}
-            </h1>
+                    {todo.name}
+                </h1>
 
-            <ReactMarkdown
-                source={(()=>{
+                <ReactMarkdown
+                    source={(()=>{
 
 
                         const descriptionParts = todo.description.split('---');
@@ -144,15 +183,17 @@ export function TodosBoardItem(props) {
                     })()}
 
 
-                renderers={{Link: props => <a href={props.href} target="_blank" onClick={(e)=>{e.stopPropagation();}}>{props.children}</a>}}
+                    renderers={{Link: props => <a href={props.href} target="_blank" onClick={(e)=>{e.stopPropagation();}}>{props.children}</a>}}
 
-            />
-
-
-        </li>
+                />
 
 
 
+
+            </li>
+
+
+        </Draggable>
 
     );
 
